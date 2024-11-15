@@ -17207,9 +17207,9 @@ textarea.form-control-lg {
 .mm-navbar__tab--selected:not(:first-child) {
     border-inline-start-color:var(--mm-color-border)}
 
-.mm-navbar__tab--selected: not(:last-child) {
+/* .mm-navbar__tab--selected: not(:last-child) {
     border-inline-end-color:var(--mm-color-border)
-}
+} */
 
 .mm-navbars--top.mm-navbars--has-tabs {
     border-bottom: none
