@@ -1,6 +1,19 @@
-import React from 'react'
+import React, { useState } from 'react';
 
 const Faqs = () => {
+    // State to manage which accordion item is currently open
+    const [openItem, setOpenItem] = useState(null);
+
+    // Function to toggle accordion items
+    const toggleItem = (item) => {
+        // If the item clicked is already open, close it, otherwise open the clicked item
+        if (openItem === item) {
+            setOpenItem(null);
+        } else {
+            setOpenItem(item);
+        }
+    }
+
     return (
         <section className="section-faq-h6 tf-spacing-11 bg-4">
             <div className="tf-container">
@@ -16,48 +29,31 @@ const Faqs = () => {
                                 </div>
                             </div>
                             <div className="tf-accordion-style-2 tf-accordion wow fadeInUp" data-wow-delay="0.3s">
-                                <div className="tf-accordion-item">
-                                    <h3 className="tf-accordion-header">
-                                        <span className="tf-accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
-                                            Question One
-                                        </span>
-                                    </h3>
-                                    <div id="collapseOne" className="tf-accordion-collapse collapse" data-bs-parent="#accordionExample">
-                                        <div className="tf-accordion-content">
-                                            <p>
-                                                Lorem ipsum dolor sit amet consectur adipiscing elit sed eius mod ex tempor incididunt labore dolore magna aliquaenim ad minim eniam.
-                                            </p>
+                                {['One', 'Two', 'Three'].map((item, index) => (
+                                    <div className="tf-accordion-item" key={index}>
+                                        <h3 className="tf-accordion-header">
+                                            <span
+                                                className={`tf-accordion-button ${openItem === item ? '' : 'collapsed'}`}
+                                                type="button"
+                                                data-bs-toggle="collapse"
+                                                data-bs-target={`#collapse${item}`}
+                                                aria-expanded={openItem === item}
+                                                aria-controls={`collapse${item}`}
+                                                onClick={() => toggleItem(item)}
+                                            >
+                                                Question {item}
+                                            </span>
+                                        </h3>
+                                        <div id={`collapse${item}`} className={`tf-accordion-collapse collapse ${openItem === item ? 'show' : ''}`}
+                                             data-bs-parent="#accordionExample">
+                                            <div className="tf-accordion-content">
+                                                <p>
+                                                    Lorem ipsum dolor sit amet consectur adipiscing elit sed eius mod ex tempor incididunt labore dolore magna aliquaenim ad minim eniam.
+                                                </p>
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
-                                <div className="tf-accordion-item">
-                                    <h3 className="tf-accordion-header">
-                                        <span className="tf-accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
-                                            Question Two
-                                        </span>
-                                    </h3>
-                                    <div id="collapseTwo" className="tf-accordion-collapse collapse" data-bs-parent="#accordionExample">
-                                        <div className="tf-accordion-content">
-                                            <p>
-                                                Lorem ipsum dolor sit amet consectur adipiscing elit sed eius mod ex tempor incididunt labore dolore magna aliquaenim ad minim eniam.
-                                            </p>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div className="tf-accordion-item">
-                                    <h3 className="tf-accordion-header">
-                                        <span className="tf-accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="true" aria-controls="collapseThree">
-                                            Question Three
-                                        </span>
-                                    </h3>
-                                    <div id="collapseThree" className="tf-accordion-collapse collapse" data-bs-parent="#accordionExample">
-                                        <div className="tf-accordion-content">
-                                            <p>
-                                                Lorem ipsum dolor sit amet consectur adipiscing elit sed eius mod ex tempor incididunt labore dolore magna aliquaenim ad minim eniam.
-                                            </p>
-                                        </div>
-                                    </div>
-                                </div>
+                                ))}
                             </div>
                         </div>
                     </div>
@@ -69,7 +65,7 @@ const Faqs = () => {
                 </div>
             </div>
         </section>
-    )
+    );
 }
 
-export default Faqs
+export default Faqs;
