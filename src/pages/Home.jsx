@@ -177,13 +177,11 @@ const Home = () => {
                                         </div>
                                     </div>
                                     <h2 className="fw-7 lesp-1 wow fadeInUp" data-wow-delay="0.2s">
-                                        The Best Place To <span className="tf-secondary-color">Learn?</span>
+                                        The Best Place To <span className="tf-secondary-color">Help You?</span>
                                         <br />Wherever You Are.
                                     </h2>
-                                    <p className="fs-15 wow fadeInUp" data-wow-delay="0.3s">
-                                        With the UpSkill App, you can
-                                        learn no matter where you are.<br />Download now to learn anything, anytime for
-                                        free.
+                                    <p className="fs-15 wow fadeInUp" data-wow-delay="0.3s" style={{ paddingRight: '20px' }}>
+                                        Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed <br /> do eiusmod tempor incididunt ut labore et dolore magna aliqua. <br /> Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris <br /> nisi ut aliquip ex ea commodo
                                     </p>
                                     <ul className="tf-app-download tf-app-download-style-2 app-download-mobie wow fadeInUp" data-wow-delay="0.4s">
                                         <li>
