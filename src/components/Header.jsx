@@ -1,7 +1,43 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
+import { useNavigate } from 'react-router-dom'
+import { toast } from 'react-toastify'
 import { Logo } from '../assets/img'
+import { logout } from '../api'
 
 const Header = () => {
+    const navigate = useNavigate();
+    const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+    useEffect(() => {
+        // Check if the user is authenticated
+        const token = localStorage.getItem('token');
+        if (token) {
+            setIsLoggedIn(true);
+        } else {
+            setIsLoggedIn(false);
+        }
+    }, []);
+
+    const handleLogout = async () => {
+        const token = localStorage.getItem('token');
+
+        if (!token) {
+            toast.error('No active session found.');
+            return;
+        }
+
+        const { success, message } = await logout(token);
+
+        if (success) {
+            toast.success(message || 'Logout successful.');
+            localStorage.removeItem('token');
+            localStorage.removeItem('user');
+            navigate('/login');
+        } else {
+            toast.error(message);
+        }
+    };
+
     return (
         <header id="header_main" className="header style-2">
             <div className="header-inner">
@@ -40,16 +76,33 @@ const Header = () => {
                             </ul>
                         </nav>
                         <div className="header-btn">
-                            <div className="header-login">
-                                <a href="/login" className="tf-button-default header-text">
-                                    Log In
-                                </a>
-                            </div>
-                            <div className="header-register">
-                                <a href="/register" className="tf-button-default active header-text">
-                                    Sign Up
-                                </a>
-                            </div>
+                            {isLoggedIn ? (
+                                <>
+                                    <div className="header-register">
+                                        <a href="/dashboard" className="tf-button-default active header-text">
+                                            Dashboard
+                                        </a>
+                                    </div>
+                                    <div className="header-login">
+                                        <span className="tf-button-default header-text" onClick={handleLogout}>
+                                            Log Out
+                                        </span>
+                                    </div>
+                                </>
+                            ) : (
+                                <>
+                                    <div className="header-login">
+                                        <a href="/login" className="tf-button-default header-text">
+                                            Log In
+                                        </a>
+                                    </div>
+                                    <div className="header-register">
+                                        <a href="/dashboard" className="tf-button-default active header-text">
+                                            Register
+                                        </a>
+                                    </div>
+                                </>
+                            )}
                             <div className="header-join d-lg-none flex">
                                 <a href="/login" className="fs-15">Login</a>
                             </div>
