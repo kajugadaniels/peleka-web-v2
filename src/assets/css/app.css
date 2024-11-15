@@ -21835,9 +21835,9 @@ select {
     z-index: 3000
 }
 
-.offcanvas-backdrop {
+/* .offcanvas-backdrop {
     cursor: url(/icons/cursor-close.svg),auto
-}
+} */
 
 .offcanvas-backdrop.show {
     opacity: 1
