@@ -1,8 +1,12 @@
 import React from 'react'
+import { Outlet } from 'react-router-dom'
 
 const UserLayout = () => {
     return (
-        <div>UserLayout</div>
+        <div>
+            UserLayout
+            <Outlet />
+        </div>
     )
 }
 
