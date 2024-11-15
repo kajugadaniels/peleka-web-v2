@@ -18675,11 +18675,6 @@ img.mfp-img {
     unicode-range: U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+2074,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD
 }
 
-@font-face {
-    font-family: flaticon_upskill;
-    src: url(/icons/flat/flaticon_upskill.woff2?1d176a009382925afbfd522a182a8e9b) format("woff2"),url(/icons/flat/flaticon_upskill.woff?1d176a009382925afbfd522a182a8e9b) format("woff"),url(/assets/flaticon_upskill-BYZcQmkM.eot?1d176a009382925afbfd522a182a8e9b#iefix) format("embedded-opentype"),url(/assets/flaticon_upskill-gKMwLC0d.ttf?1d176a009382925afbfd522a182a8e9b) format("truetype"),url(/assets/flaticon_upskill-DF_7zCII.svg?1d176a009382925afbfd522a182a8e9b#flaticon_upskill) format("svg")
-}
-
 i[class^=flaticon-]:before,i[class*=" flaticon-"]:before {
     font-family: flaticon_upskill!important;
     font-style: normal;
@@ -18909,8 +18904,6 @@ i[class^=flaticon-]:before,i[class*=" flaticon-"]:before {
 
 @font-face {
     font-family: icomoon;
-    src: url(/icons/icomoon/fonts/icomoon.eot?druq6r);
-    src: url(/icons/icomoon/fonts/icomoon.eot?druq6r#iefix) format("embedded-opentype"),url(/icons/icomoon/fonts/icomoon.ttf?druq6r) format("truetype"),url(/icons/icomoon/fonts/icomoon.woff?druq6r) format("woff"),url(/icons/icomoon/fonts/icomoon.svg?druq6r#icomoon) format("svg");
     font-weight: 400;
     font-style: normal;
     font-display: block
@@ -27281,7 +27274,7 @@ select {
     background-repeat: no-repeat;
     background-position: center center;
     background-size: contain;
-    content: url(../images/logo/favicon.png);
+    content: url();
     animation: preload 1.2s linear infinite alternate
 }
 
@@ -29086,7 +29079,7 @@ select {
     right: 0;
     bottom: 0;
     left: 0;
-    background-image: url(/images/page-title/inner-page.png);
+    background-image: url();
     background-position: center;
     background-repeat: no-repeat;
     background-size: contain
@@ -29681,7 +29674,7 @@ select {
 .page-title-home3 {
     position: relative;
     padding: 247px 0 184px;
-    background-image: url(/images/page-title/page-title-home3-1.jpg);
+    background-image: url();
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover
@@ -29922,7 +29915,7 @@ select {
 }
 
 .page-title-home5 {
-    background-image: url(/images/page-title/page-title-home5.png);
+    background-image: url();
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover
@@ -30041,7 +30034,7 @@ select {
 }
 
 .page-title-home7 {
-    background-image: url(/images/section/start-banner-1.jpg);
+    background-image: url();
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
@@ -31587,7 +31580,7 @@ select {
     align-items: flex-end;
     justify-content: space-between;
     padding: 92px 120px;
-    background-image: url(/images/section/start-banner.png);
+    background-image: url();
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
@@ -31609,7 +31602,7 @@ select {
     padding-top: 212px;
     padding-bottom: 210px;
     position: relative;
-    background-image: url(/images/section/start-banner-1.jpg);
+    background-image: url();
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover
@@ -31715,7 +31708,7 @@ select {
 
 .section-form-home-8 {
     position: relative;
-    background-image: url(/images/section/img-create-account.jpg);
+    background-image: url();
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover
@@ -34071,7 +34064,7 @@ select {
     }
 
     .page-title-home8 {
-        background-image: url(/images/page-title/page-title-home8.jpg);
+        background-image: url();
         background-repeat: no-repeat;
         background-position: 100% 100%;
         background-size: 827px
