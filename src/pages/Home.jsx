@@ -1,9 +1,12 @@
 import React from 'react'
 import { Onboarding, WhoWeAre1, WhoWeAre2 } from '../assets/img'
+import { Faqs, Hero } from '../components'
 
 const Home = () => {
     return (
         <>
+            <Hero />
+
             <section className="section-about-box-style2 tf-spacing-1">
                 <div className="tf-container">
                     <div className="row">
@@ -157,7 +160,7 @@ const Home = () => {
                 </div>
             </section>
 
-            
+            <Faqs />
         </>
     )
 }

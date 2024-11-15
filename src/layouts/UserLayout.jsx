@@ -11,13 +11,9 @@ const UserLayout = () => {
 
             <Header />
 
-            <Hero />
+            <Outlet />
 
-            <div class="main-content">
-                <Outlet />
-
-                <Footer />
-            </div>
+            <Footer />
 
             <div className="progress-wrap active-progress">
                 <svg className="progress-circle svg-content" style={{ width: '100%', height: '100%' }} viewBox="-1 -1 102 102">
