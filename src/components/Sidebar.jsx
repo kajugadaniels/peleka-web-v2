@@ -46,7 +46,18 @@ const Sidebar = () => {
     };
 
     const isActive = (paths) => {
-        return paths.includes(location.pathname) ? 'active' : '';
+        const currentPath = location.pathname;
+
+        return paths.some((path) => {
+            if (path.includes(':')) {
+                // Handle dynamic paths (e.g., /delivery-request/:id)
+                const regex = new RegExp(`^${path.replace(':id', '[^/]+')}$`);
+                return regex.test(currentPath);
+            }
+            return currentPath === path;
+        })
+            ? 'active'
+            : '';
     };
 
     return (
@@ -67,7 +78,11 @@ const Sidebar = () => {
                     Dashboard
                 </a>
                 <a
-                    className={`dashboard-item ${isActive(['/delivery-requests', '/delivery-request/add', '/delivery-request/:id'])}`}
+                    className={`dashboard-item ${isActive([
+                        '/delivery-requests',
+                        '/delivery-request/add',
+                        '/delivery-request/:id',
+                    ])}`}
                     href="/delivery-requests"
                 >
                     <i className="flaticon-bag"></i>
