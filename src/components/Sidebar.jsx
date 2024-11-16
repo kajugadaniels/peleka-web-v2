@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { logout } from '../api';
 
 const Sidebar = () => {
     const navigate = useNavigate();
+    const location = useLocation(); // Hook to get current location
     const [isLoggedIn, setIsLoggedIn] = useState(false);
     const [isDropdownVisible, setIsDropdownVisible] = useState(false);
 
@@ -44,6 +45,10 @@ const Sidebar = () => {
         setIsDropdownVisible((prev) => !prev);
     };
 
+    const isActive = (path) => {
+        return location.pathname === path ? 'active' : '';
+    };
+
     return (
         <div className="dashboard_navigationbar">
             <div
@@ -57,15 +62,15 @@ const Sidebar = () => {
                 className={`instructors-dashboard ${isDropdownVisible ? 'show' : ''}`}
             >
                 <div className="dashboard-title">CLIENT DASHBOARD</div>
-                <a className="dashboard-item active" href="/dashboard">
+                <a className={`dashboard-item ${isActive('/dashboard')}`} href="/dashboard">
                     <i className="flaticon-activity"></i>
                     Dashboard
                 </a>
-                <a className="dashboard-item" href="/delivery-requests">
+                <a className={`dashboard-item ${isActive('/delivery-requests')}`} href="/delivery-requests">
                     <i className="flaticon-bag"></i>
                     Delivery Requests
                 </a>
-                <a className="dashboard-item" href="#">
+                <a className={`dashboard-item ${isActive('/settings')}`} href="/settings">
                     <i className="flaticon-setting-1"></i>
                     Settings
                 </a>
