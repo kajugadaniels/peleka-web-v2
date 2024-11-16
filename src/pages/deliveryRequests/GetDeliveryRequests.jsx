@@ -1,13 +1,79 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
+import { fetchDeliveryRequests } from '../../api';
 
 const GetDeliveryRequests = () => {
+    const navigate = useNavigate();
+    const [deliveryRequests, setDeliveryRequests] = useState([]);
+    const [searchTerm, setSearchTerm] = useState('');
+    const [sortOption, setSortOption] = useState('Newest');
+    const [currentPage, setCurrentPage] = useState(1);
+    const [itemsPerPage] = useState(5);
+    const [loading, setLoading] = useState(false);
+
+    useEffect(() => {
+        const loadData = async () => {
+            setLoading(true);
+            try {
+                const data = await fetchDeliveryRequests();
+                setDeliveryRequests(data);
+            } catch (error) {
+                toast.error('Failed to fetch delivery requests.');
+                console.error('Error fetching delivery requests:', error);
+            } finally {
+                setLoading(false);
+            }
+        };
+
+        loadData();
+    }, []);
+
+    const handleSearchChange = (event) => {
+        setSearchTerm(event.target.value.toLowerCase());
+    };
+
+    const handleSortChange = (option) => {
+        setSortOption(option);
+    };
+
+    const handlePageChange = (pageNumber) => {
+        setCurrentPage(pageNumber);
+    };
+
+    const filteredRequests = deliveryRequests
+        .filter((request) => {
+            const matchesSearchTerm = (
+                (request.package_name?.toLowerCase() || '').includes(searchTerm) ||
+                (request.client_name?.toLowerCase() || '').includes(searchTerm) ||
+                (request.recipient_name?.toLowerCase() || '').includes(searchTerm) ||
+                (request.status?.toLowerCase() || '').includes(searchTerm)
+            );
+            return matchesSearchTerm;
+        })
+        .sort((a, b) => {
+            if (sortOption === 'Newest') {
+                return new Date(b.created_at) - new Date(a.created_at);
+            }
+            if (sortOption === 'Oldest') {
+                return new Date(a.created_at) - new Date(b.created_at);
+            }
+            return 0;
+        });
+
+    const totalPages = Math.ceil(filteredRequests.length / itemsPerPage);
+    const paginatedRequests = filteredRequests.slice(
+        (currentPage - 1) * itemsPerPage,
+        currentPage * itemsPerPage
+    );
+
     return (
         <div className="section-quizzes-right">
             <div className="section-inner">
                 <div className="box-2 section-right">
                     <div className="heading-section flex justify-between items-center">
                         <h6 className="fw-5 fs-22 wow fadeInUp">Delivery Requests</h6>
-                        <a href="#" className="tf-btn wow fadeInUp" data-wow-delay="0.1s">
+                        <a href="/delivery-request/add" className="tf-btn wow fadeInUp" data-wow-delay="0.1s">
                             Send New Request
                             <i className="icon-arrow-top-right"></i>
                         </a>
@@ -16,7 +82,16 @@ const GetDeliveryRequests = () => {
                         <div className="header-search flex-grow wow fadeInUp">
                             <form action="#" className="form-search">
                                 <fieldset>
-                                    <input className="" type="text" placeholder="Search for anything" name="text" tabindex="2" value="" aria-required="true" required="" />
+                                    <input
+                                        className=""
+                                        type="text"
+                                        placeholder="Search for anything"
+                                        name="text"
+                                        value={searchTerm}
+                                        onChange={handleSearchChange}
+                                        aria-required="true"
+                                        required
+                                    />
                                 </fieldset>
                                 <div className="button-submit">
                                     <button className="" type="submit">
@@ -28,17 +103,14 @@ const GetDeliveryRequests = () => {
                         <div className="sort-by-wrap wow fadeInUp" data-wow-delay="0.1s">
                             <div className="sort-wrap">
                                 <p className="text text-2">Sort by</p>
-                                <div className="nice-select default" tabindex="0">
-                                    <span className="current text text-1">Date Created</span>
-                                    <ul className="list">
-                                        <li data-value className="option selected text text-1">
-                                            Newest
-                                        </li>
-                                        <li data-value className="option selected text text-1">
-                                            Oldest
-                                        </li>
-                                    </ul>
-                                </div>
+                                <select
+                                    className="nice-select default"
+                                    value={sortOption}
+                                    onChange={(e) => handleSortChange(e.target.value)}
+                                >
+                                    <option value="Newest">Newest</option>
+                                    <option value="Oldest">Oldest</option>
+                                </select>
                             </div>
                         </div>
                     </div>
@@ -46,53 +118,61 @@ const GetDeliveryRequests = () => {
                         <div className="table-box-2">
                             <div className="head wow fadeInUp">
                                 <div className="item">
-                                    <div className=" fs-15 fw-5"> Students</div>
+                                    <div className="fs-15 fw-5">Package</div>
                                 </div>
                                 <div className="item">
-                                    <div className=" fs-15 fw-5">Score</div>
+                                    <div className="fs-15 fw-5">Client</div>
                                 </div>
                                 <div className="item">
-                                    <div className=" fs-15 fw-5">Attempt</div>
+                                    <div className="fs-15 fw-5">Status</div>
                                 </div>
                                 <div className="item">
-                                    <div className=" fs-15 fw-5">Finishing time</div>
+                                    <div className="fs-15 fw-5">Date Created</div>
                                 </div>
                             </div>
                             <ul>
-                                <li>
-                                    <div className="box-2-item item border-bottom wow fadeInUp">
-                                        <div className="image">
-                                            <img src="https://creativelayers.net/themes/upskill-html/images/instructors/instructors-01.jpg" data-src="https://creativelayers.net/themes/upskill-html/images/instructors/instructors-01.jpg" alt="" />
-                                        </div>
-                                        <div className="title">
-                                            <a className="fs-15 fw-5" href="#">
-                                                Kristin Watson
-                                            </a>
-                                        </div>
-                                        <div>
-                                            <p className="fs-15 fw-5">
-                                                75/100
-                                            </p>
-                                        </div>
-                                        <div>
-                                            <p className="fs-15 fw-5">
-                                                3 attempts
-                                            </p>
-                                        </div>
-                                        <div>
-                                            <p className="fs-15 fw-5">
-                                                20 July, 9:39am
-                                            </p>
-                                        </div>
-                                    </div>
-                                </li>
+                                {loading ? (
+                                    <div className="loading-spinner">Loading...</div>
+                                ) : (
+                                    paginatedRequests.map((request) => (
+                                        <li key={request.id}>
+                                            <div className="box-2-item item border-bottom wow fadeInUp">
+                                                <div className="title">
+                                                    <a className="fs-15 fw-5" href={`/delivery-request/${request.id}`}>
+                                                        {request.package_name}
+                                                    </a>
+                                                </div>
+                                                <div>
+                                                    <p className="fs-15 fw-5">{request.client_name}</p>
+                                                </div>
+                                                <div>
+                                                    <p className="fs-15 fw-5">{request.status}</p>
+                                                </div>
+                                                <div>
+                                                    <p className="fs-15 fw-5">{new Date(request.created_at).toLocaleString()}</p>
+                                                </div>
+                                            </div>
+                                        </li>
+                                    ))
+                                )}
                             </ul>
                         </div>
+                    </div>
+                    <div className="pagination">
+                        {Array.from({ length: totalPages }, (_, index) => (
+                            <button
+                                key={index}
+                                className={`pagination-btn ${currentPage === index + 1 ? 'active' : ''}`}
+                                onClick={() => handlePageChange(index + 1)}
+                            >
+                                {index + 1}
+                            </button>
+                        ))}
                     </div>
                 </div>
             </div>
         </div>
-    )
-}
+    );
+};
 
-export default GetDeliveryRequests
+export default GetDeliveryRequests;
