@@ -164,7 +164,7 @@ const GetDeliveryRequests = () => {
                                                 </div>
                                                 <div>
                                                     <p className="fs-15 fw-5">
-                                                        {(request.delivery_price) || 'N/A'}
+                                                        {(request.delivery_price) || 'N/A'} RWF
                                                     </p>
                                                 </div>
                                             </div>
