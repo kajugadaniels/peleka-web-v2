@@ -88,7 +88,7 @@ const Sidebar = () => {
                     <i className="flaticon-bag"></i>
                     Delivery Requests
                 </a>
-                <a className={`dashboard-item ${isActive(['/settings'])}`} href="/settings">
+                <a className={`dashboard-item ${isActive(['/settings'])}`} href="/profile">
                     <i className="flaticon-setting-1"></i>
                     Settings
                 </a>

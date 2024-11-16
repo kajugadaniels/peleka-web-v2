@@ -1,5 +1,5 @@
 import React from 'react'
-import { AddDeliveryRequest, GetDeliveryRequestDetails, GetDeliveryRequests, Home, Login, Contact, OurProduct, Register, WhoWeAre, Dashboard } from './pages'
+import { AddDeliveryRequest, GetDeliveryRequestDetails, GetDeliveryRequests, Home, Login, Contact, OurProduct, Register, WhoWeAre, Dashboard, Profile } from './pages'
 import UserLayout from './layouts/UserLayout'
 import { Route, Routes } from 'react-router-dom'
 import ProfileLayout from './layouts/ProfileLayout'
@@ -22,6 +22,8 @@ const AppRoutes = () => {
                 <Route path="/delivery-requests" element={<GetDeliveryRequests />} />
                 <Route path="/delivery-request/:id" element={<GetDeliveryRequestDetails />} />
                 <Route path="/delivery-request/add" element={<AddDeliveryRequest />} />
+
+                <Route path="/profile" element={<Profile />} />
             </Route>
         </Routes>
     )
