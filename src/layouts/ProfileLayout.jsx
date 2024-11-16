@@ -1,8 +1,29 @@
-import React from 'react'
-import { Outlet } from 'react-router-dom'
+import React, { useEffect, useState } from 'react'
+import { Outlet, useNavigate } from 'react-router-dom'
 import { Footer, Header, Jumbotron } from '../components'
 
 const ProfileLayout = () => {
+    const [userName, setUserName] = useState('');
+    const [userPhoneNumber, setUserPhoneNumber] = useState('');
+    const [userEmail, setUserEmail] = useState('');
+    const navigate = useNavigate();
+
+    useEffect(() => {
+        const user = JSON.parse(localStorage.getItem('user'));
+        const token = localStorage.getItem('token');
+
+        if (!token) {
+            navigate('/login');
+            return;
+        }
+
+        if (user) {
+            setUserName(user.name || 'N/A');
+            setUserPhoneNumber(user.phone_number || 'N/A');
+            setUserEmail(user.email || 'N/A');
+        }
+    }, [navigate])
+
     return (
         <div className='wrapper'>
             <div className="tf-top-bar style-1 flex items-center justify-center">
@@ -11,7 +32,7 @@ const ProfileLayout = () => {
 
             <Header />
 
-            <Jumbotron />
+            <Jumbotron userName={userName} userPhoneNumber={userPhoneNumber} userEmail={userEmail} />
 
             <div className="main-content pt-0">
                 <div className="page-inner tf-spacing-1">
