@@ -10,4 +10,4 @@ export { default as GetDeliveryRequests } from './deliveryRequests/GetDeliveryRe
 export { default as GetDeliveryRequestDetails } from './deliveryRequests/GetDeliveryRequestDetails'
 export { default as AddDeliveryRequest } from './deliveryRequests/AddDeliveryRequest'
 
-export { default as Dashboard } from './profile/Dashboard'
+export { default as Dashboard } from './Dashboard'

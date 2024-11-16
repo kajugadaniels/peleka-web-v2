@@ -15,13 +15,13 @@ const AppRoutes = () => {
 
                 <Route path="/login" element={<Login />} />
                 <Route path="/register" element={<Register />} />
+            </Route>
+            <Route element={<ProfileLayout />}>
+                <Route path="/dashboard" element={<Dashboard />} />
 
                 <Route path="/delivery-requests" element={<GetDeliveryRequests />} />
                 <Route path="/delivery-request/:id" element={<GetDeliveryRequestDetails />} />
                 <Route path="/delivery-request/add" element={<AddDeliveryRequest />} />
-            </Route>
-            <Route element={<ProfileLayout />}>
-                <Route path="/dashboard" element={<Dashboard />} />
             </Route>
         </Routes>
     )

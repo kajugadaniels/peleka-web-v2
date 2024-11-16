@@ -61,6 +61,10 @@ const Sidebar = () => {
                     <i className="flaticon-activity"></i>
                     Dashboard
                 </a>
+                <a className="dashboard-item" href="/delivery-requests">
+                    <i className="flaticon-bag"></i>
+                    Delivery Requests
+                </a>
                 <a className="dashboard-item" href="#">
                     <i className="flaticon-setting-1"></i>
                     Settings
