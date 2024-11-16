@@ -8,8 +8,7 @@ const GetDeliveryRequests = () => {
     const [deliveryRequests, setDeliveryRequests] = useState([]);
     const [searchTerm, setSearchTerm] = useState('');
     const [sortOption, setSortOption] = useState('Newest');
-    const [currentPage, setCurrentPage] = useState(1);
-    const [itemsPerPage] = useState(5);
+    const [visibleItems, setVisibleItems] = useState(5);
     const [loading, setLoading] = useState(false);
 
     useEffect(() => {
@@ -37,8 +36,8 @@ const GetDeliveryRequests = () => {
         setSortOption(option);
     };
 
-    const handlePageChange = (pageNumber) => {
-        setCurrentPage(pageNumber);
+    const handleLoadMore = () => {
+        setVisibleItems((prev) => prev + 5);
     };
 
     const filteredRequests = deliveryRequests
@@ -59,13 +58,8 @@ const GetDeliveryRequests = () => {
                 return new Date(a.created_at) - new Date(b.created_at);
             }
             return 0;
-        });
-
-    const totalPages = Math.ceil(filteredRequests.length / itemsPerPage);
-    const paginatedRequests = filteredRequests.slice(
-        (currentPage - 1) * itemsPerPage,
-        currentPage * itemsPerPage
-    );
+        })
+        .slice(0, visibleItems);
 
     return (
         <div className="section-quizzes-right">
@@ -121,35 +115,57 @@ const GetDeliveryRequests = () => {
                                     <div className="fs-15 fw-5">Package</div>
                                 </div>
                                 <div className="item">
-                                    <div className="fs-15 fw-5">Client</div>
+                                    <div className="fs-15 fw-5">Rider Name</div>
                                 </div>
                                 <div className="item">
-                                    <div className="fs-15 fw-5">Status</div>
+                                    <div className="fs-15 fw-5">Recipient</div>
                                 </div>
                                 <div className="item">
-                                    <div className="fs-15 fw-5">Date Created</div>
+                                    <div className="fs-15 fw-5">Delivery Price</div>
                                 </div>
                             </div>
                             <ul>
                                 {loading ? (
                                     <div className="loading-spinner">Loading...</div>
                                 ) : (
-                                    paginatedRequests.map((request) => (
+                                    filteredRequests.map((request) => (
                                         <li key={request.id}>
                                             <div className="box-2-item item border-bottom wow fadeInUp">
+                                                <div className="image">
+                                                    <img src={(request.image) || 'https://ih1.redbubble.net/image.1861329500.2941/ur,pin_large_front,square,1000x1000.webp'} data-src={(request.image) || 'https://ih1.redbubble.net/image.1861329500.2941/ur,pin_large_front,square,1000x1000.webp'} alt="" />
+                                                </div>
                                                 <div className="title">
-                                                    <a className="fs-15 fw-5" href={`/delivery-request/${request.id}`}>
-                                                        {request.package_name}
-                                                    </a>
+                                                    <p className="fs-15 fw-5">
+                                                        {(request.package_name) || 'N/A'}
+                                                    </p>
+                                                    <div>
+                                                        <span>
+                                                            <strong>Distance:</strong> {(request.estimated_distance_km) || 'N/A'} KM
+                                                        </span>
+                                                        <br />
+                                                        <span>
+                                                            <strong>Time:</strong> {(request.estimated_delivery_time) || 'N/A'} Minutes
+                                                        </span>
+                                                        <br />
+                                                        <span>
+                                                            <strong>Status:</strong> {(request.status) || 'N/A'}
+                                                        </span>
+                                                    </div>
                                                 </div>
                                                 <div>
-                                                    <p className="fs-15 fw-5">{request.client_name}</p>
+                                                    <p className="fs-15 fw-5">
+                                                        {(request.rider_name) || 'Not Yet Assigned'}
+                                                    </p>
                                                 </div>
                                                 <div>
-                                                    <p className="fs-15 fw-5">{request.status}</p>
+                                                    <p className="fs-15 fw-5">
+                                                        {(request.recipient_name) || 'N/A'} ({(request.recipient_phone) || 'N/A'})
+                                                    </p>
                                                 </div>
                                                 <div>
-                                                    <p className="fs-15 fw-5">{new Date(request.created_at).toLocaleString()}</p>
+                                                    <p className="fs-15 fw-5">
+                                                        {(request.delivery_price) || 'N/A'}
+                                                    </p>
                                                 </div>
                                             </div>
                                         </li>
@@ -158,17 +174,13 @@ const GetDeliveryRequests = () => {
                             </ul>
                         </div>
                     </div>
-                    <div className="pagination">
-                        {Array.from({ length: totalPages }, (_, index) => (
-                            <button
-                                key={index}
-                                className={`pagination-btn ${currentPage === index + 1 ? 'active' : ''}`}
-                                onClick={() => handlePageChange(index + 1)}
-                            >
-                                {index + 1}
+                    {!loading && visibleItems < deliveryRequests.length && (
+                        <div className="load-more-container">
+                            <button className="tf-btn wow fadeInUp" onClick={handleLoadMore}>
+                                Load More
                             </button>
-                        ))}
-                    </div>
+                        </div>
+                    )}
                 </div>
             </div>
         </div>
