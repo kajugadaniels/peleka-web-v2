@@ -9,3 +9,5 @@ export { default as Register } from './auth/Register'
 export { default as GetDeliveryRequests } from './deliveryRequests/GetDeliveryRequests'
 export { default as GetDeliveryRequestDetails } from './deliveryRequests/GetDeliveryRequestDetails'
 export { default as AddDeliveryRequest } from './deliveryRequests/AddDeliveryRequest'
+
+export { default as Dashboard } from './profile/Dashboard'
