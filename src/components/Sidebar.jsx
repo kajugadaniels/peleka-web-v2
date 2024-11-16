@@ -45,8 +45,8 @@ const Sidebar = () => {
         setIsDropdownVisible((prev) => !prev);
     };
 
-    const isActive = (path) => {
-        return location.pathname === path ? 'active' : '';
+    const isActive = (paths) => {
+        return paths.includes(location.pathname) ? 'active' : '';
     };
 
     return (
@@ -62,15 +62,18 @@ const Sidebar = () => {
                 className={`instructors-dashboard ${isDropdownVisible ? 'show' : ''}`}
             >
                 <div className="dashboard-title">CLIENT DASHBOARD</div>
-                <a className={`dashboard-item ${isActive('/dashboard')}`} href="/dashboard">
+                <a className={`dashboard-item ${isActive(['/dashboard'])}`} href="/dashboard">
                     <i className="flaticon-activity"></i>
                     Dashboard
                 </a>
-                <a className={`dashboard-item ${isActive('/delivery-requests')}`} href="/delivery-requests">
+                <a
+                    className={`dashboard-item ${isActive(['/delivery-requests', '/delivery-request/add', '/delivery-request/:id'])}`}
+                    href="/delivery-requests"
+                >
                     <i className="flaticon-bag"></i>
                     Delivery Requests
                 </a>
-                <a className={`dashboard-item ${isActive('/settings')}`} href="/settings">
+                <a className={`dashboard-item ${isActive(['/settings'])}`} href="/settings">
                     <i className="flaticon-setting-1"></i>
                     Settings
                 </a>
