@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { Outlet, useNavigate } from 'react-router-dom'
-import { Footer, Header, Jumbotron } from '../components'
+import { Footer, Header, Jumbotron, Sidebar } from '../components'
 
 const ProfileLayout = () => {
     const [userName, setUserName] = useState('');
@@ -38,7 +38,12 @@ const ProfileLayout = () => {
                 <div className="page-inner tf-spacing-1">
                     <div className="tf-container">
                         <div className="row">
-                            <Outlet />
+                            <div class="col-xl-3">
+                                <Sidebar />
+                            </div>
+                            <div class="col-xl-9">
+                                <Outlet />
+                            </div>
                         </div>
                     </div>
                 </div>
