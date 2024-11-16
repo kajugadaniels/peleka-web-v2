@@ -17,9 +17,9 @@ const OurProduct = () => {
                                     <li>
                                         <i className="icon-arrow-right"></i>
                                     </li>
-                                    <li>Who We Are</li>
+                                    <li>Our Product</li>
                                 </ul>
-                                <h2 className="font-cardo fw-7">Who We Are</h2>
+                                <h2 className="font-cardo fw-7">Our Product</h2>
                                 <h6>
                                     Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod.
                                 </h6>
