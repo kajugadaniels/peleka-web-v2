@@ -1,73 +1,167 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
+import { useParams, useNavigate } from 'react-router-dom'
+import { fetchDeliveryRequestById } from '../../api'
+import { toast } from 'react-toastify'
 
 const GetDeliveryRequestDetails = () => {
+    const { id } = useParams();
+    const [deliveryRequest, setDeliveryRequest] = useState(null);
+    const [loading, setLoading] = useState(true);
+    const [pickupCoords, setPickupCoords] = useState(null);
+    const [deliveryCoords, setDeliveryCoords] = useState(null);
+    const navigate = useNavigate();
+
+    useEffect(() => {
+        const loadDeliveryRequestDetails = async () => {
+            try {
+                const data = await fetchDeliveryRequestById(id);
+                setDeliveryRequest(data);
+                setPickupCoords({ lat: parseFloat(data.pickup_lat), lng: parseFloat(data.pickup_lng) });
+                setDeliveryCoords({ lat: parseFloat(data.delivery_lat), lng: parseFloat(data.delivery_lng) });
+            } catch (error) {
+                toast.error('Failed to load delivery request details.');
+                navigate('/delivery-requests');
+            } finally {
+                setLoading(false);
+            }
+        };
+        loadDeliveryRequestDetails();
+    }, [id, navigate]);
+
+    useEffect(() => {
+        if (pickupCoords && deliveryCoords && window.google) {
+            const map = new window.google.maps.Map(document.getElementById("googleMap"), {
+                center: pickupCoords,
+                zoom: 12,
+            });
+
+            new window.google.maps.Marker({
+                position: pickupCoords,
+                map,
+                title: "Pickup Location",
+                icon: "http://maps.google.com/mapfiles/ms/icons/green-dot.png",
+            });
+
+            new window.google.maps.Marker({
+                position: deliveryCoords,
+                map,
+                title: "Delivery Location",
+                icon: "http://maps.google.com/mapfiles/ms/icons/red-dot.png",
+            });
+
+            const directionsService = new window.google.maps.DirectionsService();
+            const directionsRenderer = new window.google.maps.DirectionsRenderer({ map });
+
+            directionsService.route(
+                {
+                    origin: pickupCoords,
+                    destination: deliveryCoords,
+                    travelMode: window.google.maps.TravelMode.DRIVING,
+                },
+                (result, status) => {
+                    if (status === window.google.maps.DirectionsStatus.OK) {
+                        directionsRenderer.setDirections(result);
+                    }
+                }
+            );
+        }
+    }, [pickupCoords, deliveryCoords]);
+
+    if (loading) {
+        return (
+            <div className="mt-16 px-5">
+                <div className="container">
+                    <div className="text-center py-10">
+                        Loading delivery request details...
+                    </div>
+                </div>
+            </div>
+        );
+    }
+
+    if (!deliveryRequest) {
+        return (
+            <div className="mt-16 px-5">
+                <div className="container">
+                    <div className="text-center py-10">
+                        Delivery request not found.
+                    </div>
+                </div>
+            </div>
+        );
+    }
+
     return (
-        <>
-            <section className="section-product-top shop-single">
-                <div className="section-image-zoom">
-                    <div className="tf-container">
-                        <div className="row">
-                            <div className="col-lg-4">
-                                <div className="">
-                                    <img className=" tf-image-zoom ls-is-cached lazyloaded" data-zoom="https://creativelayers.net/themes/upskill-html/images/shop/shop-7.png" data-src="https://creativelayers.net/themes/upskill-html/images/shop/shop-7.png" src="https://creativelayers.net/themes/upskill-html/images/shop/shop-7.png" alt="" />
-                                </div>
-                            </div>
-                            <div className="col-lg-8">
-                                <div className="tf-product-infor-wrap position-relative">
-                                    <div className="tf-zoom-main"></div>
-                                    <div className="shop-detail-content">
-                                        <h2 className="product-title font-cardo">
-                                            HTML And CSS: Design And Build Websites
-                                        </h2>
-                                        <p className="author">
-                                            By:
-                                            <a href="#">Carolyn Welborn</a>
-                                        </p>
-                                        <div className="tf-price">
-                                            <div className="price-on-sale">
-                                                $&nbsp;249.00
-                                            </div>
-                                            <div className="compare-at-price">
-                                                $&nbsp;449.00
-                                            </div>
+        <div className="section-quizzes-right">
+            <div className="section-inner">
+                <div className="box-2 section-right">
+                    <div className="heading-section flex justify-between items-center">
+                        <h6 className="fw-5 fs-22 wow fadeInUp">Delivery Request Details</h6>
+                        <a href="/delivery-requests" className="tf-btn wow fadeInUp" data-wow-delay="0.1s">
+                            Go Back
+                            <i className="icon-arrow-top-right"></i>
+                        </a>
+                    </div>
+                    <section className="section-product-top shop-single">
+                        <div className="section-image-zoom">
+                            <div className="tf-container">
+                                <div className="row">
+                                    <div className="col-lg-4">
+                                        <div className="">
+                                            <img className=" tf-image-zoom ls-is-cached lazyloaded" src={deliveryRequest.image || 'https://ih1.redbubble.net/image.1861329500.2941/ur,pin_large_front,square,1000x1000.webp'} alt="" />
                                         </div>
-                                        <div className="description">
-                                            <p className="fs-15">
-                                                Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                                            </p>
-                                        </div>
-                                        <div className="product_meta">
-                                            <div className="item">
-                                                <p>Sku:</p>
-                                                <p>RTA-0058</p>
-                                            </div>
-                                            <div className="item">
-                                                <p>Category:</p>
-                                                <p><a href="#">designer</a>, <a href="#">books</a></p>
-                                            </div>
-                                            <div className="item">
-                                                <p>Tags:</p>
-                                                <p><a href="#">ui</a>, <a href="#">ux</a>, <a href="#">web</a></p>
+                                    </div>
+                                    <div className="col-lg-8">
+                                        <div className="tf-product-infor-wrap position-relative">
+                                            <div className="">
+                                                <h2 className="product-title font-cardo">
+                                                    {deliveryRequest.package_name}
+                                                </h2>
+                                                <p className="author">
+                                                    <strong>Rider Name: </strong>{deliveryRequest.rider_name || 'N/A'} <br />
+                                                    <strong>Rider Phone Number: </strong>{deliveryRequest.rider_phone_number || 'N/A'}
+                                                </p>
+                                                <p className="author">
+                                                    <strong>Recipient Name: </strong>{deliveryRequest.recipient_name} <br />
+                                                    <strong>Recipient Phone Number: </strong>{deliveryRequest.recipient_phone}
+                                                </p>
+                                                <p className="author">
+                                                    <strong>Delivery Price: </strong>{deliveryRequest.delivery_price || 'N/A'} <br />
+                                                </p>
+                                                <div className="product_meta">
+                                                    <p className="author">
+                                                        <strong>Pickup Address: </strong>{deliveryRequest.pickup_address || 'N/A'} <br />
+                                                        <strong>Delivery Address: </strong>{deliveryRequest.delivery_address || 'N/A'} <br />
+                                                        <strong>Estimated Distance (km): </strong>{deliveryRequest.estimated_distance_km || 'N/A'} <br />
+                                                        <strong>Estimated Delivery Time: </strong>{deliveryRequest.estimated_delivery_time || 'N/A'} <br />
+                                                        <strong>Status: </strong>{deliveryRequest.status || 'N/A'} <br />
+                                                    </p>
+                                                </div>
+                                                <div className="description">
+                                                    <p className="fs-15">
+                                                        {deliveryRequest.package_description}
+                                                    </p>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                </div>
-            </section>
+                    </section>
 
-            <section className="section-product-bottom">
-                <div className="tf-container">
-                    <div className="row">
-                        <div className="col-lg-12">
-                            Map Here
+                    <section className="section-product-bottom">
+                        <div className="tf-container">
+                            <div className="row">
+                                <div className="col-lg-12">
+                                    <div id="googleMap" style={{ height: "500px", width: "100%" }}></div>
+                                </div>
+                            </div>
                         </div>
-                    </div>
+                    </section>
                 </div>
-            </section>
-        </>
+            </div>
+        </div>
     )
 }
 
