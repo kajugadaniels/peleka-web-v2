@@ -32,6 +32,10 @@ const GetDeliveryRequests = () => {
         setSearchTerm(event.target.value.toLowerCase());
     };
 
+    const handleView = (requestId) => {
+        navigate(`/delivery-request/${requestId}`);
+    };
+
     const handleSortChange = (option) => {
         setSortOption(option);
     };
@@ -132,10 +136,10 @@ const GetDeliveryRequests = () => {
                                         <li key={request.id}>
                                             <div className="box-2-item item border-bottom wow fadeInUp">
                                                 <div className="image">
-                                                    <img src={(request.image) || 'https://ih1.redbubble.net/image.1861329500.2941/ur,pin_large_front,square,1000x1000.webp'} data-src={(request.image) || 'https://ih1.redbubble.net/image.1861329500.2941/ur,pin_large_front,square,1000x1000.webp'} alt="" />
+                                                    <img src={(request.image) || 'https://ih1.redbubble.net/image.1861329500.2941/ur,pin_large_front,square,1000x1000.webp'} data-src={(request.image) || 'https://ih1.redbubble.net/image.1861329500.2941/ur,pin_large_front,square,1000x1000.webp'} alt="" onClick={() => handleView(request.id)} />
                                                 </div>
                                                 <div className="title">
-                                                    <p className="fs-15 fw-5">
+                                                    <p className="fs-15 fw-5" onClick={() => handleView(request.id)}>
                                                         {(request.package_name) || 'N/A'}
                                                     </p>
                                                     <div>
