@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
+import { logout } from '../api';
 
 const Sidebar = () => {
     const navigate = useNavigate();
@@ -9,12 +10,15 @@ const Sidebar = () => {
 
     useEffect(() => {
         const token = localStorage.getItem('token');
-        if (token) {
-            setIsLoggedIn(true);
-        } else {
-            setIsLoggedIn(false);
+
+        if (!token) {
+            toast.error('Login first to access this page.');
+            navigate('/login');
+            return;
         }
-    }, []);
+
+        setIsLoggedIn(true);
+    }, [navigate]);
 
     const handleLogout = async () => {
         const token = localStorage.getItem('token');
