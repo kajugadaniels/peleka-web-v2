@@ -4,6 +4,7 @@ export { default as OurProduct } from './OurProduct'
 export { default as Contact } from './Contact'
 export { default as Faqs } from './Faqs'
 export { default as HelpCenter } from './HelpCenter'
+export { default as TermsAndCondition } from './TermsAndCondition'
 
 export { default as Login } from './auth/Login'
 export { default as Register } from './auth/Register'
