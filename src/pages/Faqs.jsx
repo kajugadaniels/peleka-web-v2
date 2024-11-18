@@ -35,63 +35,62 @@ const Faqs = () => {
                 </div>
             </div>
             <div className="main-content tf-spacing-1">
-                <section className="section-faq-page">
-                    <div className="tf-container">
-                        <div className="row">
-                            <div className="col-lg-12">
-                                <div className="page-faq-content faq-1">
-                                    <div className="heading-section">
-                                        <h2 className="font-cardo wow fadeInUp" data-wow-delay="0s">Purchases & Refunds</h2>
-                                        <p className="fs-15 wow fadeInUp" data-wow-delay="0s">Here are the questions about this
-                                            template.</p>
-                                    </div>
-                                    <div className="tf-accordion-default tf-accordion" id="accordionExample">
-                                        <div className="tf-accordion-item wow fadeInUp" data-wow-delay="0s">
-                                            <h3 className="tf-accordion-header">
-                                                <button
-                                                    className={`tf-accordion-button ${activeAccordion === 'collapseOne' ? '' : 'collapsed'}`}
-                                                    onClick={() => toggleAccordion('collapseOne')}
-                                                    aria-expanded={activeAccordion === 'collapseOne'}
-                                                    aria-controls="collapseOne"
-                                                >
-                                                    <span className="rectangle-314"></span>
-                                                    High-Quality Video Lessons
-                                                </button>
-                                            </h3>
+                <div className="tf-container">
+                    <div className="row">
+                        <div className="col-lg-12">
+                            <div className="page-faq-content faq-1">
+                                <div className="tf-accordion-default tf-accordion" id="accordionExample">
+                                    <div className="tf-accordion-item wow fadeInUp" data-wow-delay="0s">
+                                        <h3
+                                            className="tf-accordion-header"
+                                            style={{ cursor: 'pointer' }}
+                                            onClick={() => toggleAccordion('collapseOne')}
+                                        >
                                             <div
-                                                id="collapseOne"
-                                                className={`tf-accordion-collapse collapse ${activeAccordion === 'collapseOne' ? 'show' : ''}`}
-                                                data-bs-parent="#accordionExample"
+                                                className={`tf-accordion-button ${activeAccordion === 'collapseOne' ? '' : 'collapsed'}`}
+                                                aria-expanded={activeAccordion === 'collapseOne'}
+                                                aria-controls="collapseOne"
                                             >
-                                                <div className="tf-accordion-content">
-                                                    <p className="fs-15">
-                                                        Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.
-                                                    </p>
-                                                </div>
+                                                <span className="rectangle-314"></span>
+                                                Question One
+                                            </div>
+                                        </h3>
+                                        <div
+                                            id="collapseOne"
+                                            className={`tf-accordion-collapse collapse ${activeAccordion === 'collapseOne' ? 'show' : ''}`}
+                                            data-bs-parent="#accordionExample"
+                                        >
+                                            <div className="tf-accordion-content">
+                                                <p className="fs-15">
+                                                    Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.
+                                                </p>
                                             </div>
                                         </div>
-                                        <div className="tf-accordion-item wow fadeInUp" data-wow-delay="0s">
-                                            <h3 className="tf-accordion-header">
-                                                <button
-                                                    className={`tf-accordion-button ${activeAccordion === 'collapseTwo' ? '' : 'collapsed'}`}
-                                                    onClick={() => toggleAccordion('collapseTwo')}
-                                                    aria-expanded={activeAccordion === 'collapseTwo'}
-                                                    aria-controls="collapseTwo"
-                                                >
-                                                    <span className="rectangle-314"></span>
-                                                    Personalized Feedback and Support
-                                                </button>
-                                            </h3>
+                                    </div>
+                                    <div className="tf-accordion-item wow fadeInUp" data-wow-delay="0s">
+                                        <h3
+                                            className="tf-accordion-header"
+                                            style={{ cursor: 'pointer' }}
+                                            onClick={() => toggleAccordion('collapseTwo')}
+                                        >
                                             <div
-                                                id="collapseTwo"
-                                                className={`tf-accordion-collapse collapse ${activeAccordion === 'collapseTwo' ? 'show' : ''}`}
-                                                data-bs-parent="#accordionExample"
+                                                className={`tf-accordion-button ${activeAccordion === 'collapseTwo' ? '' : 'collapsed'}`}
+                                                aria-expanded={activeAccordion === 'collapseTwo'}
+                                                aria-controls="collapseTwo"
                                             >
-                                                <div className="tf-accordion-content">
-                                                    <p>
-                                                        Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.
-                                                    </p>
-                                                </div>
+                                                <span className="rectangle-314"></span>
+                                                Question Two
+                                            </div>
+                                        </h3>
+                                        <div
+                                            id="collapseTwo"
+                                            className={`tf-accordion-collapse collapse ${activeAccordion === 'collapseTwo' ? 'show' : ''}`}
+                                            data-bs-parent="#accordionExample"
+                                        >
+                                            <div className="tf-accordion-content">
+                                                <p>
+                                                    Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.
+                                                </p>
                                             </div>
                                         </div>
                                     </div>
@@ -99,7 +98,7 @@ const Faqs = () => {
                             </div>
                         </div>
                     </div>
-                </section>
+                </div>
             </div>
         </>
     );
