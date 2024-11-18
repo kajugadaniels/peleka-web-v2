@@ -79,16 +79,16 @@ const Footer = () => {
                                         <h5 className="fw-5">Useful Links</h5>
                                         <ul>
                                             <li>
-                                                <a href="/">FAQs</a>
+                                                <a href="/faqs">FAQs</a>
                                             </li>
                                             <li>
-                                                <a href="/">Help Center</a>
+                                                <a href="/help-center">Help Center</a>
                                             </li>
                                             <li>
-                                                <a href="/">Terms & Conditions</a>
+                                                <a href="/terms-and-conditions">Terms & Conditions</a>
                                             </li>
                                             <li>
-                                                <a href="/">Privacy</a>
+                                                <a href="/privacy">Privacy</a>
                                             </li>
                                         </ul>
                                     </div>

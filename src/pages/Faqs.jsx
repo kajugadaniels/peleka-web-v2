@@ -19,7 +19,7 @@ const Faqs = () => {
                                     </li>
                                     <li>FAQs</li>
                                 </ul>
-                                <h2 className="font-cardo fw-7">Our Product</h2>
+                                <h2 className="font-cardo fw-7">Frequently Asked Questions</h2>
                                 <h6>
                                     Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod.
                                 </h6>
