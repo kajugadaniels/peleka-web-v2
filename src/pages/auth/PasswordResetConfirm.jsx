@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { passwordReset } from '../../api'
 import { toast } from 'react-toastify'
-import { WhoWeAre1 } from '../../assets/img';
+import { WhoWeAre2 } from '../../assets/img';
 
 const PasswordResetConfirm = () => {
     const [emailOrPhone, setEmailOrPhone] = useState('');
@@ -73,7 +73,107 @@ const PasswordResetConfirm = () => {
     };
 
     return (
-        <div>PasswordResetConfirm</div>
+        <div className="main-content page-login ">
+            <section className="section-page-login login-wrap tf-spacing-4">
+                <div className="tf-container">
+                    <div className="row">
+                        <div className="col-lg-6">
+                            <div className="img-left wow fadeInLeft" data-wow-delay="0s">
+                                <img className=" ls-is-cached lazyloaded" data-src={WhoWeAre2} src={WhoWeAre2} alt="" />
+                                <div className="blockquite wow fadeInLeft" data-wow-delay="0.1s">
+                                    <p>
+                                        Don't deliver a product <br /> Deliver an experience!
+                                    </p>
+                                    <p className="author">B. Jeff</p>
+                                    <p className="sub-author">Founder &amp; CEO</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div className="col-lg-6">
+                            <div className="content-right ">
+                                <h2 className="login-title fw-7 wow fadeInUp" data-wow-delay="0s">
+                                    Reset Password
+                                </h2>
+                                <div className="register">
+                                    <p className="fw-5 fs-15 wow fadeInUp" data-wow-delay="0s">
+                                        Enter the OTP sent to your email or phone number and set a new password.
+                                    </p>
+                                </div>
+                                <form className="form-login" onSubmit={handleSubmit}>
+                                    <div className="cols px-2">
+                                        <fieldset className="tf-field field-username wow fadeInUp" data-wow-delay="0s">
+                                            <input
+                                                className="tf-input style-1"
+                                                type="text"
+                                                value={emailOrPhone}
+                                                readOnly
+                                            />
+                                            <label className="tf-field-label fs-15" htmlFor="field1">Email or Phone Number</label>
+                                        </fieldset>
+                                    </div>
+                                    <div className="cols px-2">
+                                        <fieldset className="tf-field field-username wow fadeInUp" data-wow-delay="0s">
+                                            <input
+                                                className="tf-input style-1"
+                                                type="text"
+                                                value={otp}
+                                                onChange={(e) => setOtp(e.target.value)}
+                                                required
+                                            />
+                                            <label className="tf-field-label fs-15" htmlFor="field1">OTP</label>
+                                        </fieldset>
+                                    </div>
+                                    <div className="cols px-2">
+                                        <fieldset className="tf-field field-pass wow fadeInUp" data-wow-delay="0s">
+                                            <input
+                                                className="tf-input style-1"
+                                                type="password"
+                                                name="password"
+                                                value={newPassword}
+                                                onChange={(e) => setNewPassword(e.target.value)}
+                                                required
+                                            />
+                                            <label className="tf-field-label fs-15" htmlFor="field2">New Password</label>
+                                        </fieldset>
+                                    </div>
+                                    <div className="cols px-2">
+                                        <fieldset className="tf-field field-pass wow fadeInUp" data-wow-delay="0s">
+                                            <input
+                                                className="tf-input style-1"
+                                                type="password"
+                                                name="confirmPassword"
+                                                value={confirmPassword}
+                                                onChange={(e) => setConfirmPassword(e.target.value)}
+                                                required
+                                            />
+                                            <label className="tf-field-label fs-15" htmlFor="field2">Confirm New Password</label>
+                                        </fieldset>
+                                    </div>
+
+                                    <button
+                                        className="button-submit tf-btn w-100 wow fadeInUp mt-5"
+                                        data-wow-delay="0s"
+                                        type="submit"
+                                        disabled={loading}
+                                    >
+                                        {loading ? 'Resetting...' : 'Reset Password'}
+                                        <i className="icon-arrow-top-right"></i>
+                                    </button>
+                                </form>
+                                <div className="register">
+                                    <p className="fw-5 fs-15 wow fadeInUp" data-wow-delay="0s">
+                                        Back to 
+                                    </p>
+                                    <a href="/login" className="fw-5 fs-15 wow fadeInUp" data-wow-delay="0s">
+                                        Login
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
     )
 }
 
