@@ -1,6 +1,6 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
-import { passwordReset } from '../../api'
+import { passwordResetConfirm } from '../../api'
 import { toast } from 'react-toastify'
 import { WhoWeAre2 } from '../../assets/img';
 
