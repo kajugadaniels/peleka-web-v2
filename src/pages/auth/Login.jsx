@@ -133,7 +133,7 @@ const Login = () => {
                                             <input type="checkbox" />
                                             <span className="btn-checkbox"></span>
                                         </label>
-                                        <a href="/" className="fs-15 wow fadeInUp" data-wow-delay="0.1s">
+                                        <a href="/forget-password" className="fs-15 wow fadeInUp" data-wow-delay="0.1s">
                                             Forgot your password?
                                         </a>
                                     </div>
@@ -148,21 +148,23 @@ const Login = () => {
                                         <i className="icon-arrow-top-right"></i>
                                     </button>
                                 </form>
-                                <p className="fs-15 wow fadeInUp" data-wow-delay="0s">OR</p>
-                                <ul className="login-social">
-                                    <li className="login-social-icon">
-                                        <a href="#" className="tf-btn wow fadeInUp" data-wow-delay="0s">
-                                            <i className="flaticon-facebook-1"></i>
-                                            Facebook
-                                        </a>
-                                    </li>
-                                    <li className="login-social-icon">
-                                        <a href="#" className="tf-btn wow fadeInUp" data-wow-delay="0.1s">
-                                            <i className="icon-google"></i>
-                                            Google
-                                        </a>
-                                    </li>
-                                </ul>
+                                {/*
+                                    <p className="fs-15 wow fadeInUp" data-wow-delay="0s">OR</p>
+                                    <ul className="login-social">
+                                        <li className="login-social-icon">
+                                            <a href="#" className="tf-btn wow fadeInUp" data-wow-delay="0s">
+                                                <i className="flaticon-facebook-1"></i>
+                                                Facebook
+                                            </a>
+                                        </li>
+                                        <li className="login-social-icon">
+                                            <a href="#" className="tf-btn wow fadeInUp" data-wow-delay="0.1s">
+                                                <i className="icon-google"></i>
+                                                Google
+                                            </a>
+                                        </li>
+                                    </ul>
+                                */}
                             </div>
                         </div>
                     </div>
