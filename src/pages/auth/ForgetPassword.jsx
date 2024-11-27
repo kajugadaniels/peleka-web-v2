@@ -95,6 +95,14 @@ const ForgetPassword = () => {
                                         <i className="icon-arrow-top-right"></i>
                                     </button>
                                 </form>
+                                <div className="register">
+                                    <p className="fw-5 fs-15 wow fadeInUp" data-wow-delay="0s">
+                                        Back to 
+                                    </p>
+                                    <a href="/login" className="fw-5 fs-15 wow fadeInUp" data-wow-delay="0s">
+                                        Login
+                                    </a>
+                                </div>
                             </div>
                         </div>
                     </div>
