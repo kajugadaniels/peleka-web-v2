@@ -50,6 +50,35 @@ export const passwordReset = async (emailOrPhone) => {
     }
 };
 
+export const passwordResetConfirm = async (emailOrPhone, otp, newPassword) => {
+    try {
+        const response = await api.post('/password-reset-confirm/', {
+            email_or_phone: emailOrPhone,
+            otp,
+            password: newPassword,
+        });
+        return {
+            success: true,
+            message: response.data.message,
+        };
+    } catch (error) {
+        let message = 'An error occurred during password reset confirmation. Please try again.';
+        if (error.response) {
+            if (error.response.data.non_field_errors) {
+                message = error.response.data.non_field_errors.join(' ');
+            } else if (error.response.data.detail) {
+                message = error.response.data.detail;
+            } else {
+                message = error.response.data.error || message;
+            }
+        }
+        return {
+            success: false,
+            message,
+        };
+    }
+};
+
 export const logout = async (token) => {
     try {
         const response = await api.post('/logout/',
