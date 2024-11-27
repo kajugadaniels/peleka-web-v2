@@ -1,5 +1,5 @@
 import React from 'react'
-import { AddDeliveryRequest, GetDeliveryRequestDetails, GetDeliveryRequests, Home, Login, Contact, OurProduct, Register, WhoWeAre, Dashboard, Profile, Faqs, HelpCenter, TermsAndCondition, PrivacyPolicy } from './pages'
+import { AddDeliveryRequest, GetDeliveryRequestDetails, GetDeliveryRequests, Home, Login, Contact, OurProduct, Register, WhoWeAre, Dashboard, Profile, Faqs, HelpCenter, TermsAndCondition, PrivacyPolicy, ForgetPassword } from './pages'
 import UserLayout from './layouts/UserLayout'
 import { Route, Routes } from 'react-router-dom'
 import ProfileLayout from './layouts/ProfileLayout'
@@ -18,6 +18,7 @@ const AppRoutes = () => {
                 <Route path="/privacy-policy" element={<PrivacyPolicy />} />
 
                 <Route path="/login" element={<Login />} />
+                <Route path="/forget-password" element={<ForgetPassword />} />
                 <Route path="/register" element={<Register />} />
             </Route>
             <Route element={<ProfileLayout />}>

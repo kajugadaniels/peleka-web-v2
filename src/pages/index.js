@@ -8,6 +8,7 @@ export { default as TermsAndCondition } from './TermsAndCondition'
 export { default as PrivacyPolicy } from './PrivacyPolicy'
 
 export { default as Login } from './auth/Login'
+export { default as ForgetPassword } from './auth/ForgetPassword'
 export { default as Register } from './auth/Register'
 export { default as Profile } from './auth/Profile'
 
