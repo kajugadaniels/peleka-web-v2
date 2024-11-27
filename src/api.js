@@ -31,6 +31,25 @@ export const login = async (email, password) => {
     }
 };
 
+export const passwordReset = async (emailOrPhone) => {
+    try {
+        const response = await api.post('/password-reset/', { email_or_phone: emailOrPhone });
+        return {
+            success: true,
+            message: response.data.message,
+        };
+    } catch (error) {
+        let message = 'An error occurred during password reset request. Please try again.';
+        if (error.response) {
+            message = error.response.data.error || error.response.data.detail || message;
+        }
+        return {
+            success: false,
+            message,
+        };
+    }
+};
+
 export const logout = async (token) => {
     try {
         const response = await api.post('/logout/',
