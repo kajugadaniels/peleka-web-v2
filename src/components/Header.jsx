@@ -97,7 +97,7 @@ const Header = () => {
                                         </a>
                                     </div>
                                     <div className="header-register">
-                                        <a href="/dashboard" className="tf-button-default active header-text">
+                                        <a href="/register" className="tf-button-default active header-text">
                                             Register
                                         </a>
                                     </div>
