@@ -186,3 +186,14 @@ export const fetchDeliveryRequestById = async (id) => {
             : new Error('An error occurred while fetching delivery request details.');
     }
 };
+
+export const contactUs = async (data) => {
+    try {
+        const response = await api.post('/contact-us/', data, {});
+        return response.data;
+    } catch (error) {
+        throw error.response
+            ? error.response.data
+            : new Error('An error occurred while adding the user.');
+    }
+};
