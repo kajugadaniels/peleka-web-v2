@@ -7,6 +7,7 @@ import { logout } from '../api'
 const Header = () => {
     const navigate = useNavigate();
     const [isLoggedIn, setIsLoggedIn] = useState(false);
+    const [isMenuOpen, setIsMenuOpen] = useState(false);
 
     useEffect(() => {
         // Check if the user is authenticated
@@ -38,13 +39,24 @@ const Header = () => {
         }
     };
 
+    const toggleMenu = () => {
+        setIsMenuOpen(!isMenuOpen);
+    };
+
     return (
         <div className="relative">
             <header id="header_main" className="header type-absolute style-2 style-8 style-9">
                 <div className="header-inner">
                     <div className="header-inner-wrap">
                         <div className="header-left flex-grow">
-                            <a className="mobile-nav-toggler mobile-button d-lg-none flex" href="#menu"></a>
+                            <a
+                                className="mobile-nav-toggler mobile-button d-lg-none flex"
+                                href="#menu"
+                                onClick={(e) => {
+                                    e.preventDefault();
+                                    toggleMenu();
+                                }}
+                            ></a>
                             <div id="site-logo">
                                 <a href="/" rel="home">
                                     <img id="logo-header" src={Logo} alt="" style={{ width: '80px' }} />
@@ -115,33 +127,68 @@ const Header = () => {
                         </div>
                     </div>
                 </div>
-                <nav className="d-lg-none" id="menu">
-                    <a className="close" aria-label="Close menu" href="#wrapper">
-                        <i className="flaticon-close-1"></i>
-                    </a>
-                    <ul>
-                        <li>
-                            <a href="/">
-                                <span>Home</span>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="/who-we-are">
-                                <span>How We Are</span>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="/our-product">
-                                <span>Our Product</span>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="/contact-us">
-                                <span>Contact Us</span>
-                            </a>
-                        </li>
-                    </ul>
-                </nav>
+                {isMenuOpen && (
+                    <nav
+                        className="d-lg-none"
+                        id="menu"
+                        style={{
+                            position: 'absolute',
+                            top: '0',
+                            left: '0',
+                            width: '100%',
+                            height: '100vh',
+                            backgroundColor: '#333',
+                            color: '#fff',
+                            display: 'flex',
+                            flexDirection: 'column',
+                            justifyContent: 'center',
+                            alignItems: 'center',
+                            zIndex: 1000,
+                        }}
+                    >
+                        <a
+                            className="close"
+                            aria-label="Close menu"
+                            href="#wrapper"
+                            onClick={(e) => {
+                                e.preventDefault();
+                                toggleMenu();
+                            }}
+                            style={{
+                                position: 'absolute',
+                                top: '20px',
+                                right: '20px',
+                                fontSize: '30px',
+                                cursor: 'pointer',
+                                color: '#fff',
+                            }}
+                        >
+                            <i className="flaticon-close-1"></i>
+                        </a>
+                        <ul style={{ listStyleType: 'none', padding: 0, textAlign: 'center' }}>
+                            <li style={{ margin: '20px 0' }}>
+                                <a href="/" style={{ color: '#fff', fontSize: '18px', textDecoration: 'none' }}>
+                                    Home
+                                </a>
+                            </li>
+                            <li style={{ margin: '20px 0' }}>
+                                <a href="/who-we-are" style={{ color: '#fff', fontSize: '18px', textDecoration: 'none' }}>
+                                    Who We Are
+                                </a>
+                            </li>
+                            <li style={{ margin: '20px 0' }}>
+                                <a href="/our-product" style={{ color: '#fff', fontSize: '18px', textDecoration: 'none' }}>
+                                    Our Product
+                                </a>
+                            </li>
+                            <li style={{ margin: '20px 0' }}>
+                                <a href="/contact-us" style={{ color: '#fff', fontSize: '18px', textDecoration: 'none' }}>
+                                    Contact Us
+                                </a>
+                            </li>
+                        </ul>
+                    </nav>
+                )}
             </header>
         </div>
     )
