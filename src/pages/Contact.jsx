@@ -1,5 +1,5 @@
 import React from 'react'
-import { WhoWeAre2 } from '../assets/img'
+import { Image13 } from '../assets/img'
 
 const Contact = () => {
     return (
@@ -190,13 +190,13 @@ const Contact = () => {
                             <div className="row">
                                 <div className="col-lg-6">
                                     <div className="img-left wow fadeInLeft" data-wow-delay="0">
-                                        <img className="lazyload" data-src="" src={WhoWeAre2} alt="" />
+                                        <img className="lazyload" data-src="" src={Image13} alt="" />
                                         <div className="blockquite">
                                             <p>
                                                 Happiness prosperous impression had
                                                 conviction For every delay in they
                                             </p>
-                                            <p className="author">Ali Tufan</p>
+                                            <p className="author">b. Jeff</p>
                                             <p className="sub-author">Founder & CEO</p>
                                         </div>
                                     </div>
