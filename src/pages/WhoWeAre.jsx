@@ -1,5 +1,5 @@
 import React from 'react'
-import { DownloadApp, Onboarding } from '../assets/img'
+import { DownloadApp, Image1, Image11, Image15, Image18, Image20, Image9, Onboarding } from '../assets/img'
 
 const WhoWeAre = () => {
     return (
@@ -62,22 +62,22 @@ const WhoWeAre = () => {
                         <div className="col-lg-12">
                             <div className="inner">
                                 <div className="about-item item-1 wow fadeInUp">
-                                    <img className="lazyload" data-src="https://creativelayers.net/themes/upskill-html/images/section/about-9.jpg" src="https://creativelayers.net/themes/upskill-html/images/section/about-9.jpg" alt="" />
-                                </div>
-                                <div className="about-item item-2 wow fadeInUp">
-                                    <img className="lazyload" data-src="https://creativelayers.net/themes/upskill-html/images/section/about-1.jpg" src="https://creativelayers.net/themes/upskill-html/images/section/about-1.jpg" alt="" />
-                                </div>
-                                <div className="about-item item-3 wow fadeInUp">
-                                    <img className="lazyload" data-src="https://creativelayers.net/themes/upskill-html/images/courses/courses-01.jpg" src="https://creativelayers.net/themes/upskill-html/images/courses/courses-01.jpg" alt="" />
-                                </div>
-                                <div className="about-item item-4 wow fadeInUp">
-                                    <img className="lazyload" data-src="https://creativelayers.net/themes/upskill-html/images/section/about-10.jpg" src="https://creativelayers.net/themes/upskill-html/images/section/about-10.jpg" alt="" />
+                                    <img className="lazyload" data-src={Image1} src={Image1} alt="" />
                                 </div>
                                 <div className="about-item item-5 wow fadeInUp">
-                                    <img className="lazyload" data-src="https://creativelayers.net/themes/upskill-html/images/page-title/page-title-home2-1.jpg" src="https://creativelayers.net/themes/upskill-html/images/page-title/page-title-home2-1.jpg" alt="" />
+                                    <img className="lazyload" data-src={Image11} src={Image11} alt="" />
+                                </div>
+                                <div className="about-item item-2 wow fadeInUp">
+                                    <img className="lazyload" data-src={Image15} src={Image15} alt="" />
+                                </div>
+                                <div className="about-item item-3 wow fadeInUp">
+                                    <img className="lazyload" data-src={Image20} src={Image20} alt="" />
+                                </div>
+                                <div className="about-item item-4 wow fadeInUp">
+                                    <img className="lazyload" data-src={Image9} src={Image9} alt="" />
                                 </div>
                                 <div className="about-item item-6 wow fadeInUp">
-                                    <img className="lazyload" data-src="https://creativelayers.net/themes/upskill-html/images/courses/courses-04.jpg" src="https://creativelayers.net/themes/upskill-html/images/courses/courses-04.jpg" alt="" />
+                                    <img className="lazyload" data-src={Image18} src={Image18} alt="" />
                                 </div>
                                 <div className="about-item item-7 wow fadeInUp">
                                     <p>“Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor ”</p>
