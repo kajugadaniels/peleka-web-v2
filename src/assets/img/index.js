@@ -1,4 +1,5 @@
 export { default as Logo } from './logo/logo.svg'
+export { default as LogoWhite } from './logo/logo-white.svg'
 
 export { default as InstantDelivery } from './app/InstantDelivery.jpg'
 export { default as Onboarding } from './app/Onboarding.jpg'

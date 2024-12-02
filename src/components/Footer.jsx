@@ -1,5 +1,5 @@
 import React from 'react'
-import { Logo } from '../assets/img'
+import { LogoWhite } from '../assets/img'
 
 const Footer = () => {
     return (
@@ -13,7 +13,7 @@ const Footer = () => {
                                     <div className="footer-more-infor wow fadeInUp" data-wow-delay="0.1s">
                                         <div className="footer-logo">
                                             <a href="/">
-                                                <img className="lazyload" src={Logo} alt="" style={{ width: '60px' }} />
+                                                <img className="lazyload" src={LogoWhite} alt="" style={{ width: '100px' }} />
                                             </a>
                                         </div>
                                         <ul className="address">

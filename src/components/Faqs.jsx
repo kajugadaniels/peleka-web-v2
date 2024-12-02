@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Image20 } from '../assets/img';
 
 const Faqs = () => {
     // State to manage which accordion item is currently open
@@ -59,7 +60,7 @@ const Faqs = () => {
                     </div>
                     <div className="col-md-6">
                         <div className="faq-image">
-                            <img className="lazyload" data-src="https://img.freepik.com/premium-photo/crm-business-person-customer-service-support-black-man-working-from-office-home-online-computer-telemarketing-with-internet-call-center-agent-help-desk-receptionist-video-call_590464-88770.jpg" src="https://img.freepik.com/premium-photo/crm-business-person-customer-service-support-black-man-working-from-office-home-online-computer-telemarketing-with-internet-call-center-agent-help-desk-receptionist-video-call_590464-88770.jpg" alt="" />
+                            <img className="lazyload" data-src={Image20} src={Image20} alt="" />
                         </div>
                     </div>
                 </div>
