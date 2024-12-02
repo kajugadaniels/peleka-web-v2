@@ -1,7 +1,67 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
+import { contactUs } from '../api';
 import { Image13 } from '../assets/img'
 
 const Contact = () => {
+    // Initialize form data state
+    const [formData, setFormData] = useState({
+        name: '',
+        email: '',
+        subject: '',
+        message: '',
+    });
+
+    // Initialize loading state
+    const [loading, setLoading] = useState(false);
+
+    // Handle input changes
+    const handleInputChange = (e) => {
+        const { name, value } = e.target;
+        setFormData((prevData) => ({
+            ...prevData,
+            [name]: value,
+        }));
+    };
+
+    // Handle form submission
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+
+        // Basic front-end validation (optional)
+        if (!formData.name || !formData.email || !formData.subject || !formData.message) {
+            toast.error('Please fill in all the fields.');
+            return;
+        }
+
+        setLoading(true); // Start loading
+
+        try {
+            // Send POST request to the backend
+            const response = await contactUs(formData);
+
+            // Display success toast notification
+            toast.success('Your message has been sent successfully.');
+
+            // Reset form fields
+            setFormData({
+                name: '',
+                email: '',
+                subject: '',
+                message: '',
+            });
+        } catch (error) {
+            // Extract error message from the response
+            const errorMsg = error.detail || 'An error occurred while sending your message.';
+
+            // Display error toast notification
+            toast.error(errorMsg);
+        } finally {
+            setLoading(false); // Stop loading
+        }
+    };
+
     return (
         <>
             <div className="page-title basic">
@@ -211,33 +271,74 @@ const Contact = () => {
                                                 Have a question or feedback? Fill out the form below, and we'll get back to you as soon as possible.
                                             </p>
                                         </div>
-                                        <form action="#" className="contact-form">
+                                        <form className="contact-form" onSubmit={handleSubmit}>
                                             <div className="cols">
                                                 <fieldset className="tf-field wow fadeInUp" data-wow-delay="0">
-                                                    <input className="tf-input style-1" type="text" name="text" required />
+                                                    <input
+                                                        className="tf-input style-1"
+                                                        type="text"
+                                                        name="name" // Updated name attribute
+                                                        required
+                                                        value={formData.name}
+                                                        onChange={handleInputChange}
+                                                    />
                                                     <label className="tf-field-label fs-15">First Name</label>
                                                 </fieldset>
                                             </div>
                                             <div className="cols">
                                                 <fieldset className="tf-field wow fadeInUp" data-wow-delay="0">
-                                                    <input className="tf-input style-1" type="email" name="email" required />
+                                                    <input
+                                                        className="tf-input style-1"
+                                                        type="email"
+                                                        name="email" // Updated name attribute
+                                                        required
+                                                        value={formData.email}
+                                                        onChange={handleInputChange}
+                                                    />
                                                     <label className="tf-field-label fs-15">Email</label>
                                                 </fieldset>
                                             </div>
                                             <div className="cols">
                                                 <fieldset className="tf-field wow fadeInUp" data-wow-delay="0">
-                                                    <input className="tf-input style-1" type="text" name="text" required />
+                                                    <input
+                                                        className="tf-input style-1"
+                                                        type="text"
+                                                        name="subject" // Updated name attribute
+                                                        required
+                                                        value={formData.subject}
+                                                        onChange={handleInputChange}
+                                                    />
                                                     <label className="tf-field-label fs-15">Title</label>
                                                 </fieldset>
                                             </div>
                                             <fieldset className="tf-field wow fadeInUp" data-wow-delay="0">
-                                                <textarea className="tf-input style-1" name="message" rows="4" required></textarea>
+                                                <textarea
+                                                    className="tf-input style-1"
+                                                    name="message"
+                                                    rows="4"
+                                                    required
+                                                    value={formData.message}
+                                                    onChange={handleInputChange}
+                                                ></textarea>
                                                 <label className="tf-field-label type-textarea fs-15">Message</label>
                                             </fieldset>
 
-                                            <button className=" button-submit tf-btn w-100 wow fadeInUp" data-wow-delay="0"
-                                                type="submit">
-                                                Submit<i className="icon-arrow-top-right"></i>
+                                            <button
+                                                className="button-submit tf-btn w-100 wow fadeInUp"
+                                                data-wow-delay="0"
+                                                type="submit"
+                                                disabled={loading}
+                                            >
+                                                {loading ? (
+                                                    <>
+                                                        <span className="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                                                        &nbsp;Submitting...
+                                                    </>
+                                                ) : (
+                                                    <>
+                                                        Submit <i className="icon-arrow-top-right"></i>
+                                                    </>
+                                                )}
                                             </button>
                                         </form>
                                     </div>
