@@ -22,7 +22,7 @@ const WhoWeAre = () => {
                                 </ul>
                                 <h2 className="font-cardo fw-7">Who We Are</h2>
                                 <h6>
-                                    Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod.
+                                    Get to know more about us. 
                                 </h6>
                             </div>
                         </div>
@@ -46,14 +46,14 @@ const WhoWeAre = () => {
                                     </div>
                                 </div>
                                 <h2 className="font-cardo wow fadeInUp">
-                                    Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod.
+                                We are your emmisary and we are unmatched in our line of duty.
                                 </h2>
                             </div>
                         </div>
                         <div className="col-lg-5">
                             <div className="content-right wow fadeInUp" data-wow-delay="0.1s">
                                 <p>
-                                    Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+                                We’re the heartbeat of Kigali’s movement—delivering packages, unforgettable rides, and tours that wow. At PELEKA, we don’t just get you there; we make it unforgettable.
                                 </p>
                             </div>
                         </div>
@@ -80,7 +80,7 @@ const WhoWeAre = () => {
                                     <img className="lazyload" data-src={Image18} src={Image18} alt="" />
                                 </div>
                                 <div className="about-item item-7 wow fadeInUp">
-                                    <p>“Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor ”</p>
+                                    <p>“It’s not just a delivery service it’s a lifeline for busy days and urgent needs. ”</p>
                                 </div>
                             </div>
 
@@ -178,20 +178,20 @@ const WhoWeAre = () => {
                                     </div>
                                 </div>
                                 <h2 className="fw-7 font-cardo wow fadeInUp">
-                                    35,000+ Happy clients Joined With Us To Make Their Life Easier.
+                                35,000+ happy clients have chosen us to make their lives easier
                                 </h2>
                                 <p className="text-content wow fadeInUp">
-                                    Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.
+                                Every ride, delivery, and tour is a step toward a smoother, more efficient world. We're here to keep moving forward, one satisfied customer at a time.
                                 </p>
                                 <ul className="list">
                                     <li className="item wow fadeInUp">
-                                        Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+                                        To redefine convenience by providing fast, reliable, and seamless services that make life easier for everyone in Kigali.
                                     </li>
                                     <li className="item wow fadeInUp">
-                                        Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+                                        To become the trusted partner for every delivery, ride, and tour, ensuring every journey is an experience to remember.
                                     </li>
                                     <li className="item wow fadeInUp">
-                                        Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+                                        To continuously innovate and grow, expanding our services while maintaining the personal touch that makes PELEKA stand out.
                                     </li>
                                 </ul>
                             </div>

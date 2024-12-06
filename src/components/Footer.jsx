@@ -21,7 +21,7 @@ const Footer = () => {
                                                 <div className="icon">
                                                     <i className="flaticon-call"></i>
                                                 </div>
-                                                <p>+250 788 888 888</p>
+                                                <p>+250 783 706 464</p>
                                             </li>
                                             <li className="flex gap-10 items-center">
                                                 <div className="icon">
@@ -70,9 +70,7 @@ const Footer = () => {
                                             <li>
                                                 <a href="/services">Our Services</a>
                                             </li>
-                                            <li>
-                                                <a href="/our-product">Our Product</a>
-                                            </li>
+                                            
                                         </ul>
                                     </div>
                                     <div className="footer-menu-list wow fadeInUp" data-wow-delay="0.3s">
@@ -103,7 +101,7 @@ const Footer = () => {
                                     <div className="footer-subscribe wow fadeInUp" data-wow-delay="0.5s">
                                         <h5 className="fw-5">Subscribe</h5>
                                         <p>
-                                            2000+ Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+                                        Join 2,000+ others for updates, offers, and the latest from our newsletter. Subscribe now!
                                         </p>
                                         <form className="form-subscribe style-line-bottom">
                                             <fieldset className="email">

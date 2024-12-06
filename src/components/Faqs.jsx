@@ -26,7 +26,7 @@ const Faqs = () => {
                                     Frequently Asked Questions
                                 </h2>
                                 <div className="sub fs-15 wow fadeInUp" data-wow-delay="0.2s">
-                                    Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.
+                                Got Questions? We’ve Got All the Answers You Need to Make Your Experience with PELEKA Even Better!
                                 </div>
                             </div>
                             <div className="tf-accordion-style-2 tf-accordion wow fadeInUp" data-wow-delay="0.3s">
@@ -49,7 +49,7 @@ const Faqs = () => {
                                              data-bs-parent="#accordionExample">
                                             <div className="tf-accordion-content">
                                                 <p>
-                                                    Lorem ipsum dolor sit amet consectur adipiscing elit sed eius mod ex tempor incididunt labore dolore magna aliquaenim ad minim eniam.
+                                                How do I book a ride or delivery with PELEKA?
                                                 </p>
                                             </div>
                                         </div>
