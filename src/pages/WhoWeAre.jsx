@@ -99,7 +99,7 @@ const WhoWeAre = () => {
                                 </div>
                                 <div className="content">
                                     <p>
-                                        Learn in- skills with over 24,000 video <br />courses
+                                        Swift deliveries, right at your doorstep <br />across Kigali.
                                     </p>
                                 </div>
                             </div>
@@ -109,7 +109,7 @@ const WhoWeAre = () => {
                                 </div>
                                 <div className="content">
                                     <p>
-                                        Choose courses taught by real-world <br />experts
+                                        Expert riders, ready for your next ride <br />whenever you need it.
                                     </p>
                                 </div>
                             </div>
@@ -119,7 +119,7 @@ const WhoWeAre = () => {
                                 </div>
                                 <div className="content">
                                     <p>
-                                        Learn at your own pace, with lifetime <br />access on mobile and desktop
+                                        Explore Kigali's beauty with a trusted guide <br />on two wheels.
                                     </p>
                                 </div>
                             </div>
@@ -128,161 +128,7 @@ const WhoWeAre = () => {
                 </div>
             </section>
 
-            <section className="section-review bg-4 tf-spacing-11">
-                <div className="tf-container">
-                    <div className="row">
-                        <div className="col-lg-12">
-                            <div className="heading-section">
-                                <div className="flex items-center justify-between flex-wrap gap-10">
-                                    <h2 className="fw-7 lesp-1 wow fadeInUp" data-wow-delay="0.1s">What Our Customers Say</h2>
-                                    <div className="sub fs-15 wow fadeInUp" data-wow-delay="0.2s">
-                                        Rated 4.7 / 5 based on 28,370 reviews Showing our 4 & 5 star reviews
-                                    </div>
-                                </div>
-                            </div>
-                            <div className="swiper-container slider-courses-9 wow fadeInUp" data-wow-delay="0.3s">
-                                <div className="swiper-wrapper">
-                                    {/* Review 1 */}
-                                    <div className="swiper-slide">
-                                        <div className="box-review">
-                                            <div className="review-head">
-                                                <div className="head-icon">
-                                                    <i className="icon-star-3"></i>
-                                                    <i className="icon-star-3"></i>
-                                                    <i className="icon-star-3"></i>
-                                                    <i className="icon-star-3"></i>
-                                                    <i className="icon-star-3"></i>
-                                                </div>
-                                                <p className="head-verified">
-                                                    <i className="icon-check"></i>
-                                                    Verified
-                                                </p>
-                                            </div>
-                                            <div className="review-inner">
-                                                <h6>Sales process was simple and easy</h6>
-                                                <p>
-                                                    Sales process was simple and easy,Sales process was simple and easy,Sales process was simple and easy
-                                                </p>
-                                            </div>
-                                            <p className="review-bottom">
-                                                <a href="#">Jean-Claude Niyonzima</a>, 2 hours ago
-                                            </p>
-                                        </div>
-                                    </div>
-                                    {/* Review 2 */}
-                                    <div className="swiper-slide">
-                                        <div className="box-review">
-                                            <div className="review-head">
-                                                <div className="head-icon">
-                                                    <i className="icon-star-3"></i>
-                                                    <i className="icon-star-3"></i>
-                                                    <i className="icon-star-3"></i>
-                                                    <i className="icon-star-3"></i>
-                                                    <i className="icon-star-3"></i>
-                                                </div>
-                                                <p className="head-verified">
-                                                    <i className="icon-check"></i>
-                                                    Verified
-                                                </p>
-                                            </div>
-                                            <div className="review-inner">
-                                                <h6>Efficient and fast service</h6>
-                                                <p>
-                                                    The service was quick and reliable. The process was smooth from start to finish.
-                                                </p>
-                                            </div>
-                                            <p className="review-bottom">
-                                                <a href="#">Nadia Uwase</a>, 4 hours ago
-                                            </p>
-                                        </div>
-                                    </div>
-                                    {/* Review 3 */}
-                                    <div className="swiper-slide">
-                                        <div className="box-review">
-                                            <div className="review-head">
-                                                <div className="head-icon">
-                                                    <i className="icon-star-3"></i>
-                                                    <i className="icon-star-3"></i>
-                                                    <i className="icon-star-3"></i>
-                                                    <i className="icon-star-3"></i>
-                                                    <i className="icon-star-3"></i>
-                                                </div>
-                                                <p className="head-verified">
-                                                    <i className="icon-check"></i>
-                                                    Verified
-                                                </p>
-                                            </div>
-                                            <div className="review-inner">
-                                                <h6>Excellent customer support</h6>
-                                                <p>
-                                                    The customer support team was amazing, very helpful and attentive to my needs.
-                                                </p>
-                                            </div>
-                                            <p className="review-bottom">
-                                                <a href="#">Kamanzi Yves</a>, 1 day ago
-                                            </p>
-                                        </div>
-                                    </div>
-                                    {/* Review 4 */}
-                                    <div className="swiper-slide">
-                                        <div className="box-review">
-                                            <div className="review-head">
-                                                <div className="head-icon">
-                                                    <i className="icon-star-3"></i>
-                                                    <i className="icon-star-3"></i>
-                                                    <i className="icon-star-3"></i>
-                                                    <i className="icon-star-3"></i>
-                                                    <i className="icon-star-3"></i>
-                                                </div>
-                                                <p className="head-verified">
-                                                    <i className="icon-check"></i>
-                                                    Verified
-                                                </p>
-                                            </div>
-                                            <div className="review-inner">
-                                                <h6>Fast, reliable, and friendly!</h6>
-                                                <p>
-                                                    The delivery was quick, and the driver was very friendly. Highly recommend!
-                                                </p>
-                                            </div>
-                                            <p className="review-bottom">
-                                                <a href="#">Isabella Umuhoza</a>, 2 days ago
-                                            </p>
-                                        </div>
-                                    </div>
-                                    {/* Review 5 */}
-                                    <div className="swiper-slide">
-                                        <div className="box-review">
-                                            <div className="review-head">
-                                                <div className="head-icon">
-                                                    <i className="icon-star-3"></i>
-                                                    <i className="icon-star-3"></i>
-                                                    <i className="icon-star-3"></i>
-                                                    <i className="icon-star-3"></i>
-                                                    <i className="icon-star-3"></i>
-                                                </div>
-                                                <p className="head-verified">
-                                                    <i className="icon-check"></i>
-                                                    Verified
-                                                </p>
-                                            </div>
-                                            <div className="review-inner">
-                                                <h6>Convenient and smooth experience</h6>
-                                                <p>
-                                                    Booking my ride was so easy and the service was top-notch. Definitely using it again!
-                                                </p>
-                                            </div>
-                                            <p className="review-bottom">
-                                                <a href="#">Aline Nyirabuhoro</a>, 3 days ago
-                                            </p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section>
+
 
             <section className="section-vison tf-spacing-8 page-about ">
                 <div className="tf-container">
