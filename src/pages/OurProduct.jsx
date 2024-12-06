@@ -26,7 +26,7 @@ const OurProduct = () => {
                                 </h6>
                             </div>
 
-                            <section className="section-why tf-spacing-6 bg-4">
+                            <section className="section-why tf-spacing-6">
                                 <div className="tf-container">
                                     <div className="row">
                                         <div className="col-sm-4">
@@ -84,7 +84,7 @@ const OurProduct = () => {
                                 </div>
                             </section>
 
-                            <section className="section-get-started tf-spacing-3 pt-0">
+                            <section className="section-get-started tf-spacing-3 pt-10" style={{ background: 'white' }}>
                                 <div className="tf-container">
                                     <div className="row">
                                         <div className="col-12">
@@ -122,7 +122,6 @@ const OurProduct = () => {
                                     </div>
                                 </div>
                             </section>
-
                         </div>
                     </div>
                 </div>
