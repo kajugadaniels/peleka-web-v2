@@ -82,7 +82,7 @@ const Contact = () => {
                                 </ul>
                                 <h2 className="font-cardo fw-7">Contact Us</h2>
                                 <h6>
-                                    Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod.
+                                Get in Touch with Us, We're Here to Help.
                                 </h6>
                             </div>
                         </div>
@@ -162,7 +162,7 @@ const Contact = () => {
                                                 </a>
                                             </h4>
                                             <p>
-                                                +250 788 888 888
+                                                +250 783 706 464
                                                 <br />
                                                 info@peleka.rw
                                             </p>

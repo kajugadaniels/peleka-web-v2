@@ -34,10 +34,10 @@ const Home = () => {
                                     Who We Are
                                 </h2>
                                 <p className="fs-15 wow fadeInUp" data-wow-delay="0.3s">
-                                    Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.
+                                At PELEKA LTD, we’re all about connecting people, places, and possibilities. Whether it’s swift deliveries, reliable taxi moto rides, or scenic tours around Kigali, we bring efficiency, local expertise, and a passion for service to every journey.
                                 </p>
                                 <p className="fs-15 wow fadeInUp" data-wow-delay="0.4s">
-                                    Our mission ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.
+                                With us, it’s not just about getting there—it’s about enjoying the ride and doing it with a smile.
                                 </p>
                                 <a href="#" className="tf-btn wow fadeInUp" data-wow-delay="0.5s">
                                     Learn More
@@ -58,7 +58,7 @@ const Home = () => {
                                     <span className="tf-secondary-color">Why</span> Ride With Us?
                                 </h2>
                                 <div className="sub fs-15 wow fadeInUp" data-wow-delay="0.2s">
-                                    Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod.
+                                    We are convinced you will take pride in working with us.
                                 </div>
                             </div>
                         </div>
@@ -76,7 +76,7 @@ const Home = () => {
                                         </a>
                                     </h4>
                                     <p>
-                                        Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod.
+                                    Got a package to send? We’ll handle it like it’s gold. From doorstep pickups to speedy deliveries across Kigali, our riders are as fast as they are reliable. When PELEKA’s on the job, your package is in safe hands—and always on time.
                                     </p>
                                 </div>
                             </div>
@@ -93,7 +93,7 @@ const Home = () => {
                                         </a>
                                     </h4>
                                     <p>
-                                        Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod.
+                                    Need a ride? We’ve got your back (and your helmet). Whether it’s a quick dash across town or a few hours of hassle-free transportation, our moto riders will get you there safely, comfortably, and with the wind in your hair.
                                     </p>
                                 </div>
                             </div>
@@ -110,7 +110,7 @@ const Home = () => {
                                         </a>
                                     </h4>
                                     <p>
-                                        Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod.
+                                    Discover Kigali like never before—with a guide who knows every hidden gem! Hop on for a scenic tour of the city’s vibrant streets, serene landscapes, and breathtaking views. With PELEKA, every ride is an adventure waiting to happen.
                                     </p>
                                 </div>
                             </div>
@@ -133,7 +133,7 @@ const Home = () => {
                                     App Features
                                 </h2>
                                 <p className="wow fadeInUp" data-wow-delay="0.2s">
-                                    Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.
+                                PELEKA's app puts convenience in your hands. With just a few taps, enjoy faster, smoother deliveries, rides, and tours—anytime, anywhere.
                                 </p>
                                 <div className="tags wow fadeInUp" data-wow-delay="0.3s">
                                     <div className="tag">
@@ -177,11 +177,11 @@ const Home = () => {
                                         </div>
                                     </div>
                                     <h2 className="fw-7 lesp-1 wow fadeInUp" data-wow-delay="0.2s">
-                                        The Best Place To <span className="tf-secondary-color">Help You?</span>
-                                        <br />Wherever You Are.
+                                    Your Reliable Partner, <span className="tf-secondary-color">Anytime</span>
+                                        <br />Anywhere.
                                     </h2>
                                     <p className="fs-15 wow fadeInUp" data-wow-delay="0.3s" style={{ paddingRight: '20px' }}>
-                                        Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed <br /> do eiusmod tempor incididunt ut labore et dolore magna aliqua. <br /> Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris <br /> nisi ut aliquip ex ea commodo
+                                        No matter where you are in Kigali, PELEKA is here to make your life easier. <br />Download the app today and enjoy seamless deliveries, rides, and tours<br /> with just a few taps.
                                     </p>
                                     <ul className="tf-app-download tf-app-download-style-2 app-download-mobie wow fadeInUp" data-wow-delay="0.4s">
                                         <li>

@@ -27,7 +27,7 @@ const Faqs = () => {
                                 </ul>
                                 <h2 className="font-cardo fw-7">Frequently Asked Questions</h2>
                                 <h6>
-                                    Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod.
+                                Got Questions? We’ve Got All the Answers You Need to Make Your Experience with PELEKA Even Better!
                                 </h6>
                             </div>
                         </div>
@@ -62,7 +62,7 @@ const Faqs = () => {
                                         >
                                             <div className="tf-accordion-content">
                                                 <p className="fs-15">
-                                                    Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.
+                                                How do I book a ride or delivery with PELEKA?
                                                 </p>
                                             </div>
                                         </div>
@@ -89,7 +89,7 @@ const Faqs = () => {
                                         >
                                             <div className="tf-accordion-content">
                                                 <p>
-                                                    Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.
+                                                What areas do you cover for courier deliveries and rides in Kigali?
                                                 </p>
                                             </div>
                                         </div>
