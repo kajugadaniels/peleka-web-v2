@@ -17,11 +17,11 @@ const OurProduct = () => {
                                     <li>
                                         <i className="icon-arrow-right"></i>
                                     </li>
-                                    <li>Our Product</li>
+                                    <li>Our Services</li>
                                 </ul>
-                                <h2 className="font-cardo fw-7">Our Product</h2>
+                                <h2 className="font-cardo fw-7">Our Services</h2>
                                 <h6>
-                                    Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod.
+                                    Let it be known to you what is it that we can offer.
                                 </h6>
                             </div>
                         </div>
