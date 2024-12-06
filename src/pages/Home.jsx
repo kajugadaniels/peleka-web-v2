@@ -58,7 +58,7 @@ const Home = () => {
                                     <span className="tf-secondary-color">Why</span> Ride With Us?
                                 </h2>
                                 <div className="sub fs-15 wow fadeInUp" data-wow-delay="0.2s">
-                                    Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod.
+                                    We are convinced you will take pride in working with us.
                                 </div>
                             </div>
                         </div>
