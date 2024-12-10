@@ -1,23 +1,22 @@
 import axios from 'axios';
 
-const API_BASE_URL =
+const BACKEND_BASE_URL =
     window.location.hostname === '127.0.0.1' || window.location.hostname === 'localhost'
         ? 'http://127.0.0.1:8000'
         : 'https://www.api.pelekaap.com';
+
+const API_BASE_URL = `${BACKEND_BASE_URL}/api/web`;
 
 const api = axios.create({
     baseURL: API_BASE_URL,
     headers: {
         'Content-Type': 'application/json',
-        'Access-Control-Allow-Origin': '*',
-        'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, OPTIONS',
-        'Access-Control-Allow-Headers': 'Authorization, Content-Type',
     },
 });
 
-export const login = async (email, password) => {
+export const login = async ({ email_or_phone, password }) => {
     try {
-        const response = await api.post('/login/', { email, password });
+        const response = await api.post('/login/', { email_or_phone, password });
         return {
             success: true,
             data: response.data,
@@ -33,6 +32,7 @@ export const login = async (email, password) => {
         };
     }
 };
+
 
 export const passwordReset = async (emailOrPhone) => {
     try {
