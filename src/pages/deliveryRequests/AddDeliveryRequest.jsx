@@ -1,7 +1,10 @@
+// web/AddDeliveryRequest.jsx
+
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { addDeliveryRequest } from '../../api';
 import { toast } from 'react-toastify';
+import loadGoogleMap from '../../utils/loadGoogleMaps';
 
 const AddDeliveryRequest = () => {
     const [formData, setFormData] = useState({
@@ -20,7 +23,7 @@ const AddDeliveryRequest = () => {
         estimated_delivery_time: '',
         value_of_product: '',
         delivery_price: '',
-        payment_type: 'Cash',
+        payment_type: 'Mobile Money',
         image: null,
         status: 'Pending',
     });
@@ -29,6 +32,19 @@ const AddDeliveryRequest = () => {
     const navigate = useNavigate();
     const [pickupSuggestions, setPickupSuggestions] = useState([]);
     const [deliverySuggestions, setDeliverySuggestions] = useState([]);
+    const [mapLoaded, setMapLoaded] = useState(false);
+
+    useEffect(() => {
+        // Load Google Maps API
+        loadGoogleMap()
+            .then(() => {
+                setMapLoaded(true);
+            })
+            .catch((error) => {
+                console.error('Error loading Google Maps:', error);
+                toast.error('Failed to load Google Maps.');
+            });
+    }, []);
 
     const handleInputChange = (e) => {
         const { name, value } = e.target;
@@ -68,7 +84,7 @@ const AddDeliveryRequest = () => {
 
     const fetchAddressSuggestions = async (query) => {
         try {
-            const url = `https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(query)}`;
+            const url = `https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(query)}&countrycodes=rw`;
             const response = await fetch(url);
             return await response.json();
         } catch (error) {
@@ -100,7 +116,7 @@ const AddDeliveryRequest = () => {
         }));
         type === 'pickup' ? setPickupSuggestions([]) : setDeliverySuggestions([]);
 
-        if (formData.pickup_lat && formData.delivery_lat) {
+        if (formData.pickup_lat && formData.delivery_lat && mapLoaded) {
             calculateDistanceAndTime();
         }
     };
@@ -118,7 +134,7 @@ const AddDeliveryRequest = () => {
     };
 
     const calculateDistanceAndTime = () => {
-        if (formData.pickup_lat && formData.pickup_lng && formData.delivery_lat && formData.delivery_lng) {
+        if (formData.pickup_lat && formData.pickup_lng && formData.delivery_lat && formData.delivery_lng && window.google && window.google.maps) {
             const origin = new window.google.maps.LatLng(formData.pickup_lat, formData.pickup_lng);
             const destination = new window.google.maps.LatLng(formData.delivery_lat, formData.delivery_lng);
 
@@ -156,10 +172,16 @@ const AddDeliveryRequest = () => {
     };
 
     useEffect(() => {
-        if (formData.pickup_lat && formData.delivery_lat) {
+        if (mapLoaded) {
             calculateDistanceAndTime();
         }
-    }, [formData.pickup_lat, formData.pickup_lng, formData.delivery_lat, formData.delivery_lng]);
+    }, [
+        mapLoaded,
+        formData.pickup_lat,
+        formData.pickup_lng,
+        formData.delivery_lat,
+        formData.delivery_lng,
+    ]);
 
     return (
         <div className="section-setting-right section-right">
@@ -192,6 +214,7 @@ const AddDeliveryRequest = () => {
                                             type="text"
                                             value={formData.package_name}
                                             onChange={handleInputChange}
+                                            required
                                         />
                                         <label className="tf-field-label fs-15" htmlFor="field1">
                                             Package Name
@@ -218,6 +241,7 @@ const AddDeliveryRequest = () => {
                                             type="text"
                                             value={formData.recipient_name}
                                             onChange={handleInputChange}
+                                            required
                                         />
                                         <label className="tf-field-label fs-15" htmlFor="field1">
                                             Recipient Name
@@ -230,6 +254,7 @@ const AddDeliveryRequest = () => {
                                             type="text"
                                             value={formData.recipient_phone}
                                             onChange={handleInputChange}
+                                            required
                                         />
                                         <label className="tf-field-label fs-15" htmlFor="field1">
                                             Recipient Phone
@@ -256,6 +281,7 @@ const AddDeliveryRequest = () => {
                                             type="text"
                                             value={formData.pickup_address}
                                             onChange={(e) => handleAddressChange(e, 'pickup')}
+                                            required
                                         />
                                         {pickupSuggestions.length > 0 && (
                                             <ul className="list-group position-absolute mt-1">
@@ -281,6 +307,7 @@ const AddDeliveryRequest = () => {
                                             type="text"
                                             value={formData.delivery_address}
                                             onChange={(e) => handleAddressChange(e, 'delivery')}
+                                            required
                                         />
                                         {deliverySuggestions.length > 0 && (
                                             <ul className="list-group position-absolute mt-1">
