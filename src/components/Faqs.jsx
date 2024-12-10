@@ -45,8 +45,7 @@ const Faqs = () => {
                                                 Question {item}
                                             </span>
                                         </h3>
-                                        <div id={`collapse${item}`} className={`tf-accordion-collapse collapse ${openItem === item ? 'show' : ''}`}
-                                             data-bs-parent="#accordionExample">
+                                        <div id={`collapse${item}`} className={`tf-accordion-collapse collapse ${openItem === item ? 'show' : ''}`} data-bs-parent="#accordionExample">
                                             <div className="tf-accordion-content">
                                                 <p>
                                                 How do I book a ride or delivery with PELEKA?

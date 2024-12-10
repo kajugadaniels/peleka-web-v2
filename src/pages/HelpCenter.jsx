@@ -123,16 +123,16 @@ const HelpCenter = () => {
                     </div>
                 </section>
 
-                <section class="tf-spacing-4  section-faq page-help pt-0">
-                    <div class="tf-container">
-                        <div class="row justify-center">
-                            <div class="col-xl-10 col-sm-12">
-                                <div class="heading-section text-center">
-                                    <h2 class="fw-7 font-cardo wow fadeInUp">
+                <section className="tf-spacing-4  section-faq page-help pt-0">
+                    <div className="tf-container">
+                        <div className="row justify-center">
+                            <div className="col-xl-10 col-sm-12">
+                                <div className="heading-section text-center">
+                                    <h2 className="fw-7 font-cardo wow fadeInUp">
                                         Frequently Asked
-                                        <span class="tf-secondary-color">Questions</span>
+                                        <span className="tf-secondary-color">Questions</span>
                                     </h2>
-                                    <div class="sub fs-15 wow fadeInUp">
+                                    <div className="sub fs-15 wow fadeInUp">
                                         Here are the questions about us.
                                     </div>
                                 </div>

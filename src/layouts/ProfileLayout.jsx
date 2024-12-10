@@ -38,10 +38,10 @@ const ProfileLayout = () => {
                 <div className="page-inner tf-spacing-1">
                     <div className="tf-container">
                         <div className="row">
-                            <div class="col-xl-3">
+                            <div className="col-xl-3">
                                 <Sidebar />
                             </div>
-                            <div class="col-xl-9">
+                            <div className="col-xl-9">
                                 <Outlet />
                             </div>
                         </div>

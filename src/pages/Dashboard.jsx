@@ -100,24 +100,24 @@ const Dashboard = () => {
                         </div>
                     </div>
 
-                    <div class="section-learn">
-                        <div class="heading-section flex justify-between items-center">
-                            <h6 class="fw-5 fs-22 wow fadeInUp">
+                    <div className="section-learn">
+                        <div className="heading-section flex justify-between items-center">
+                            <h6 className="fw-5 fs-22 wow fadeInUp">
                                 Recent Delivery Requests
                             </h6>
-                            <a href="delivery-requests" class="tf-btn-arrow wow fadeInUp" data-wow-delay="0.1s">
+                            <a href="delivery-requests" className="tf-btn-arrow wow fadeInUp" data-wow-delay="0.1s">
                                 View All
-                                <i class="icon-arrow-top-right"></i>
+                                <i className="icon-arrow-top-right"></i>
                             </a>
                         </div>
-                        <div class="wg-box">
-                            <div class="table-selling-course wow fadeInUp">
+                        <div className="wg-box">
+                            <div className="table-selling-course wow fadeInUp">
                                 <ul>
                                     {recentRequests.map((req) => (
                                         <li>
-                                            <div class="selling-course-item item my-20 ptable-20 border-bottom">
-                                                <div class="image">
-                                                    <img class="lazyload"
+                                            <div className="selling-course-item item my-20 ptable-20 border-bottom">
+                                                <div className="image">
+                                                    <img className="lazyload"
                                                         src={(req.image) || 'https://ih1.redbubble.net/image.1861329500.2941/ur,pin_large_front,square,1000x1000.webp'}
                                                         data-src={(req.image) || 'https://ih1.redbubble.net/image.1861329500.2941/ur,pin_large_front,square,1000x1000.webp'}
                                                         alt={req.package_name || 'N/A'}
@@ -125,9 +125,9 @@ const Dashboard = () => {
                                                         style={{ cursor: 'pointer' }}
                                                     />
                                                 </div>
-                                                <div class="title">
+                                                <div className="title">
                                                     <span
-                                                        class="fs-15 fw-5"
+                                                        className="fs-15 fw-5"
                                                         onClick={() => handleView(req.id)}
                                                         style={{ cursor: 'pointer' }}
                                                     >
@@ -135,17 +135,17 @@ const Dashboard = () => {
                                                     </span>
                                                 </div>
                                                 <div>
-                                                    <p class="fs-15 fw-5">
+                                                    <p className="fs-15 fw-5">
                                                         {req.status || 'N/A'}
                                                     </p>
                                                 </div>
                                                 <div>
-                                                    <p class="fs-15 fw-5">
+                                                    <p className="fs-15 fw-5">
                                                         {req.delivery_price || 'N/A'} RWF
                                                     </p>
                                                 </div>
                                                 <div>
-                                                    <p class="fs-15 fw-5">
+                                                    <p className="fs-15 fw-5">
                                                         {(req.rider_name) || 'Not Yet Assigned'}
                                                     </p>
                                                 </div>
