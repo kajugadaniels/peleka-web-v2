@@ -105,7 +105,7 @@ const Footer = () => {
                                         </p>
                                         <form className="form-subscribe style-line-bottom">
                                             <fieldset className="email">
-                                                <input type="email" placeholder="Your e-mail" className="style-default" name="email" tabindex="2" value="" aria-required="true" required="" />
+                                                <input type="email" placeholder="Your e-mail" className="style-default" name="email" required="" />
                                             </fieldset>
                                             <div className="button-submit">
                                                 <button className="tf-btn-arrow" type="submit">
