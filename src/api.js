@@ -2,8 +2,8 @@ import axios from 'axios';
 
 const API_BASE_URL =
     window.location.hostname === '127.0.0.1' || window.location.hostname === 'localhost'
-        ? 'http://159.89.14.178/api/web'
-        : 'http://159.89.14.178/api/web';
+        ? 'http://127.0.0.1:8000'
+        : 'https://www.api.pelekaap.com';
 
 const api = axios.create({
     baseURL: API_BASE_URL,
