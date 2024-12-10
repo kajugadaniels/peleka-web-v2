@@ -29,6 +29,7 @@ const AddDeliveryRequest = () => {
     });
 
     const [loading, setLoading] = useState(false);
+    const [locationLoading, setLocationLoading] = useState(false); // State for location loading
     const navigate = useNavigate();
     const [pickupSuggestions, setPickupSuggestions] = useState([]);
     const [deliverySuggestions, setDeliverySuggestions] = useState([]);
@@ -171,6 +172,59 @@ const AddDeliveryRequest = () => {
         }
     };
 
+    const handleUseCurrentLocation = () => {
+        if (!navigator.geolocation) {
+            toast.error('Geolocation is not supported by your browser.');
+            return;
+        }
+
+        setLocationLoading(true);
+
+        navigator.geolocation.getCurrentPosition(
+            (position) => {
+                const { latitude, longitude } = position.coords;
+                const geocoder = new window.google.maps.Geocoder();
+
+                const latlng = { lat: latitude, lng: longitude };
+                geocoder.geocode({ location: latlng }, (results, status) => {
+                    if (status === 'OK') {
+                        if (results[0]) {
+                            setFormData((prevState) => ({
+                                ...prevState,
+                                pickup_address: results[0].formatted_address,
+                                pickup_lat: latitude,
+                                pickup_lng: longitude,
+                            }));
+                            toast.success('Current location retrieved successfully.');
+                        } else {
+                            toast.error('No results found for your location.');
+                        }
+                    } else {
+                        toast.error(`Geocoder failed due to: ${status}`);
+                    }
+                    setLocationLoading(false);
+                });
+            },
+            (error) => {
+                switch (error.code) {
+                    case error.PERMISSION_DENIED:
+                        toast.error('User denied the request for Geolocation.');
+                        break;
+                    case error.POSITION_UNAVAILABLE:
+                        toast.error('Location information is unavailable.');
+                        break;
+                    case error.TIMEOUT:
+                        toast.error('The request to get user location timed out.');
+                        break;
+                    default:
+                        toast.error('An unknown error occurred.');
+                        break;
+                }
+                setLocationLoading(false);
+            }
+        );
+    };
+
     useEffect(() => {
         if (mapLoaded) {
             calculateDistanceAndTime();
@@ -274,7 +328,7 @@ const AddDeliveryRequest = () => {
                                     </label>
                                 </fieldset>
                                 <div className="cols mb-5">
-                                    <fieldset className="tf-field">
+                                    <fieldset className="tf-field relative">
                                         <input
                                             name="pickup_address"
                                             className="tf-input style-1"
@@ -284,11 +338,11 @@ const AddDeliveryRequest = () => {
                                             required
                                         />
                                         {pickupSuggestions.length > 0 && (
-                                            <ul className="list-group position-absolute mt-1">
+                                            <ul className="list-group position-absolute mt-1 z-10 w-full bg-white border border-gray-200 rounded-md shadow-lg max-h-40 overflow-y-auto">
                                                 {pickupSuggestions.map((suggestion, index) => (
                                                     <li
                                                         key={index}
-                                                        className="list-group-item list-group-item-action"
+                                                        className="list-group-item list-group-item-action px-4 py-2 cursor-pointer hover:bg-gray-100"
                                                         onClick={() => handleAddressSelect(suggestion, 'pickup')}
                                                     >
                                                         {suggestion.display_name}
@@ -300,6 +354,14 @@ const AddDeliveryRequest = () => {
                                             Pick Up Address
                                         </label>
                                     </fieldset>
+                                    <button
+                                        type="button"
+                                        onClick={handleUseCurrentLocation}
+                                        className="btn-update tf-button-default px-8"
+                                        disabled={locationLoading}
+                                    >
+                                        {locationLoading ? 'Locating...' : 'Use Current Location'}
+                                    </button>
                                     <fieldset className="tf-field">
                                         <input
                                             name="delivery_address"
@@ -310,11 +372,11 @@ const AddDeliveryRequest = () => {
                                             required
                                         />
                                         {deliverySuggestions.length > 0 && (
-                                            <ul className="list-group position-absolute mt-1">
+                                            <ul className="list-group position-absolute mt-1 z-10 w-full bg-white border border-gray-200 rounded-md shadow-lg max-h-40 overflow-y-auto">
                                                 {deliverySuggestions.map((suggestion, index) => (
                                                     <li
                                                         key={index}
-                                                        className="list-group-item list-group-item-action"
+                                                        className="list-group-item list-group-item-action px-4 py-2 cursor-pointer hover:bg-gray-100"
                                                         onClick={() => handleAddressSelect(suggestion, 'delivery')}
                                                     >
                                                         {suggestion.display_name}
