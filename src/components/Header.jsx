@@ -73,7 +73,7 @@ const Header = () => {
                                         <a href="/who-we-are">Who We Are</a>
                                     </li>
                                     <li className="current">
-                                        <a href="/our-product">Our Services</a>
+                                        <a href="/our-services">Our Services</a>
                                     </li>
                                     <li className="current">
                                         <a href="/contact-us">Contact Us</a>
@@ -177,8 +177,8 @@ const Header = () => {
                                 </a>
                             </li>
                             <li style={{ margin: '20px 0' }}>
-                                <a href="/our-product" style={{ color: '#fff', fontSize: '18px', textDecoration: 'none' }}>
-                                    Our Product
+                                <a href="/our-services" style={{ color: '#fff', fontSize: '18px', textDecoration: 'none' }}>
+                                    Our Services
                                 </a>
                             </li>
                             <li style={{ margin: '20px 0' }}>

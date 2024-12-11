@@ -1,6 +1,6 @@
 export { default as Home } from './Home'
 export { default as WhoWeAre } from './WhoWeAre'
-export { default as OurProduct } from './OurProduct'
+export { default as OurServices } from './OurServices'
 export { default as Contact } from './Contact'
 export { default as Faqs } from './Faqs'
 export { default as HelpCenter } from './HelpCenter'
