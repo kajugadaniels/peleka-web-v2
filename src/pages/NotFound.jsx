@@ -2,7 +2,7 @@ import React from 'react'
 
 const NotFound = () => {
     return (
-        <section className="page-404-wrap">
+        <section className="page-404-wrap bg-4">
             <div className="tf-container">
                 <div className="row">
                     <div className="col-lg-8">
