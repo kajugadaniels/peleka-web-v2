@@ -40,23 +40,13 @@ const Footer = () => {
                                         </ul>
                                         <ul className="tf-social-icon flex items-center gap-10">
                                             <li>
-                                                <a href="#">
-                                                    <i className="flaticon-facebook-1"></i>
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <a href="#">
+                                                <a href="https://x.com/PelekaLtd" target='_blank'>
                                                     <i className="icon-twitter"></i>
                                                 </a>
                                             </li>
                                             <li>
-                                                <a href="#">
+                                                <a href="https://www.instagram.com/peleka_ltd/" target='_blank'>
                                                     <i className="flaticon-instagram"></i>
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <a href="#">
-                                                    <i className="flaticon-linkedin-1"></i>
                                                 </a>
                                             </li>
                                         </ul>
