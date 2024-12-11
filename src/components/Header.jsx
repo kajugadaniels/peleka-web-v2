@@ -44,7 +44,7 @@ const Header = () => {
     };
 
     return (
-        <div className="relative">
+        <div className="relative" style={{ paddingBottom: '100px' }}>
             <header id="header_main" className="header type-absolute style-2 style-8 style-9">
                 <div className="header-inner">
                     <div className="header-inner-wrap">
