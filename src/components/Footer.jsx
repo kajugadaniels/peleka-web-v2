@@ -102,6 +102,41 @@ const Footer = () => {
                                                 </button>
                                             </div>
                                         </form>
+                                        <h5 className="fw-5 get-app">
+                                            Get the app
+                                        </h5>
+                                        <ul className="tf-app-download">
+                                            {/*
+                                            <li>
+                                                <a href="#">
+                                                    <div className="icon">
+                                                        <i className="icon-apple"></i>
+                                                    </div>
+                                                    <div className="app">
+                                                        <div>
+                                                            Download on the
+                                                        </div>
+                                                        <div>
+                                                            Apple Store
+                                                        </div>
+                                                    </div>
+                                                </a>
+                                            </li>
+                                            */}
+                                            <li>
+                                                <a href="#">
+                                                    <div className="icon">
+                                                        <i className="icon-chplay"></i>
+                                                    </div>
+                                                    <div className="app">
+                                                        <div>Get in on</div>
+                                                        <div>
+                                                            Google Play
+                                                        </div>
+                                                    </div>
+                                                </a>
+                                            </li>
+                                        </ul>
                                     </div>
                                 </div>
                             </div>
