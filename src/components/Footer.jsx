@@ -2,6 +2,8 @@ import React from 'react'
 import { LogoWhite } from '../assets/img'
 
 const Footer = () => {
+    const currentYear = new Date().getFullYear();
+
     return (
         <footer id="footer" className="footer style-2">
             <div className="footer-wrap">
@@ -13,7 +15,7 @@ const Footer = () => {
                                     <div className="footer-more-infor wow fadeInUp" data-wow-delay="0.1s">
                                         <div className="footer-logo">
                                             <a href="/">
-                                                <img className="lazyload" src={LogoWhite} alt="" style={{ width: '100px' }} />
+                                                <img className="lazyload" src={LogoWhite} alt="Peleka Logo" style={{ width: '100px' }} />
                                             </a>
                                         </div>
                                         <ul className="address">
@@ -33,9 +35,7 @@ const Footer = () => {
                                                 <div className="icon">
                                                     <i className="flaticon-location"></i>
                                                 </div>
-                                                <p>
-                                                    Kigali Rwanda
-                                                </p>
+                                                <p>Kigali, Rwanda</p>
                                             </li>
                                         </ul>
                                         <ul className="tf-social-icon flex items-center gap-10">
@@ -70,7 +70,6 @@ const Footer = () => {
                                             <li>
                                                 <a href="/services">Our Services</a>
                                             </li>
-                                            
                                         </ul>
                                     </div>
                                     <div className="footer-menu-list wow fadeInUp" data-wow-delay="0.3s">
@@ -101,11 +100,11 @@ const Footer = () => {
                                     <div className="footer-subscribe wow fadeInUp" data-wow-delay="0.5s">
                                         <h5 className="fw-5">Subscribe</h5>
                                         <p>
-                                        Join 2,000+ others for updates, offers, and the latest from our newsletter. Subscribe now!
+                                            Join 2,000+ others for updates, offers, and the latest from our newsletter. Subscribe now!
                                         </p>
                                         <form className="form-subscribe style-line-bottom">
                                             <fieldset className="email">
-                                                <input type="email" placeholder="Your e-mail" className="style-default" name="email" required="" />
+                                                <input type="email" placeholder="Your e-mail" className="style-default" name="email" required />
                                             </fieldset>
                                             <div className="button-submit">
                                                 <button className="tf-btn-arrow" type="submit">
@@ -124,7 +123,7 @@ const Footer = () => {
                         <div className="row">
                             <div className="col-12">
                                 <div className="footer-bottom-wrap flex justify-center items-center">
-                                    <p>©2024 Peleka LTD</p>
+                                    <p>©{currentYear} Peleka LTD. Developed by <a href='https://www.nexcodes.dev/' target='_blank'>NE<span style={{ color: 'red', fontWeight: 'bold' }}>X</span>CODE</a></p>
                                 </div>
                             </div>
                         </div>
