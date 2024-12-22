@@ -110,11 +110,23 @@ export const logout = async (token) => {
 export const registerUser = async (data) => {
     try {
         const response = await api.post('/register/', data, {});
-        return response.data;
+        return {
+            success: true,
+            message: response.data.message, // Detailed success message from backend
+            data: response.data,
+        };
     } catch (error) {
-        throw error.response
-            ? error.response.data
-            : new Error('An error occurred while adding the user.');
+        let message = 'An unexpected error occurred during registration. Please try again later.';
+        let details = {};
+        if (error.response && error.response.data) {
+            message = error.response.data.error || error.response.data.message || message;
+            details = error.response.data.details || {};
+        }
+        return {
+            success: false,
+            message,
+            details,
+        };
     }
 };
 
