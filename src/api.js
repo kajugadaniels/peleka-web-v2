@@ -198,11 +198,23 @@ export const addDeliveryRequest = async (data) => {
                 Authorization: `Token ${localStorage.getItem('token')}`,
             },
         });
-        return response.data;
+        return {
+            success: true,
+            message: response.data.message, // Detailed success message from backend
+            data: response.data.data,
+        };
     } catch (error) {
-        throw error.response
-            ? error.response.data 
-            : new Error('An error occurred while adding the delivery request.');
+        let message = 'An unexpected error occurred while adding the delivery request. Please try again later.';
+        let details = {};
+        if (error.response && error.response.data) {
+            message = error.response.data.error || error.response.data.message || message;
+            details = error.response.data.details || {};
+        }
+        return {
+            success: false,
+            message,
+            details,
+        };
     }
 };
 
