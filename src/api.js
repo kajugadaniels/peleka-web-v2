@@ -140,17 +140,29 @@ export const updateUser = async (data) => {
         status: data.status,
     };
 
-    console.log('Sanitized data to be sent:', sanitizedData);
     try {
         const response = await api.put('/profile-update/', sanitizedData, {
             headers: {
                 Authorization: `Token ${localStorage.getItem('token')}`,
             },
         });
-        return response.data;
+        return {
+            success: true,
+            message: response.data.message, // Detailed success message from backend
+            data: response.data.user,
+        };
     } catch (error) {
-        console.log('Error response from server:', error.response);
-        throw error.response ? error.response.data : new Error('Failed to update account.');
+        let message = 'An unexpected error occurred while updating your account. Please try again later.';
+        let details = {};
+        if (error.response && error.response.data) {
+            message = error.response.data.error || error.response.data.message || message;
+            details = error.response.data.details || {};
+        }
+        return {
+            success: false,
+            message,
+            details,
+        };
     }
 };
 
