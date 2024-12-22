@@ -19,7 +19,7 @@ export const login = async ({ email_or_phone, password }) => {
         const response = await api.post('/login/', { email_or_phone, password });
         return {
             success: true,
-            message: response.data.message, // Detailed success message from backend
+            message: response.data.message,
             data: response.data,
         };
     } catch (error) {
@@ -43,9 +43,9 @@ export const passwordReset = async (emailOrPhone) => {
             message: response.data.message,
         };
     } catch (error) {
-        let message = 'An error occurred during password reset request. Please try again.';
-        if (error.response) {
-            message = error.response.data.error || error.response.data.detail || message;
+        let message = 'An unexpected error occurred during the password reset request. Please try again later.';
+        if (error.response && error.response.data) {
+            message = error.response.data.error || error.response.data.message || message;
         }
         return {
             success: false,
