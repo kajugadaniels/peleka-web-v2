@@ -63,17 +63,15 @@ export const passwordResetConfirm = async (emailOrPhone, otp, newPassword) => {
         });
         return {
             success: true,
-            message: response.data.message,
+            message: response.data.message, // Detailed success message from backend
         };
     } catch (error) {
-        let message = 'An error occurred during password reset confirmation. Please try again.';
-        if (error.response) {
+        let message = 'An unexpected error occurred during password reset confirmation. Please try again later.';
+        if (error.response && error.response.data) {
             if (error.response.data.non_field_errors) {
-                message = error.response.data.non_field_errors.join(' ');
-            } else if (error.response.data.detail) {
-                message = error.response.data.detail;
+                message = error.response.data.non_field_errors.join(' ') || message;
             } else {
-                message = error.response.data.error || message;
+                message = error.response.data.error || error.response.data.message || message;
             }
         }
         return {
