@@ -19,13 +19,12 @@ export const login = async ({ email_or_phone, password }) => {
         const response = await api.post('/login/', { email_or_phone, password });
         return {
             success: true,
-            message: response.data.message,
             data: response.data,
         };
     } catch (error) {
-        let message = 'An unexpected error occurred during login. Please try again later.';
-        if (error.response && error.response.data) {
-            message = error.response.data.error || error.response.data.message || message;
+        let message = 'An error occurred during login. Please try again.';
+        if (error.response) {
+            message = error.response.data.error || error.response.data.detail || message;
         }
         return {
             success: false,
@@ -43,9 +42,9 @@ export const passwordReset = async (emailOrPhone) => {
             message: response.data.message,
         };
     } catch (error) {
-        let message = 'An unexpected error occurred during the password reset request. Please try again later.';
-        if (error.response && error.response.data) {
-            message = error.response.data.error || error.response.data.message || message;
+        let message = 'An error occurred during password reset request. Please try again.';
+        if (error.response) {
+            message = error.response.data.error || error.response.data.detail || message;
         }
         return {
             success: false,
@@ -66,12 +65,14 @@ export const passwordResetConfirm = async (emailOrPhone, otp, newPassword) => {
             message: response.data.message,
         };
     } catch (error) {
-        let message = 'An unexpected error occurred during password reset confirmation. Please try again later.';
-        if (error.response && error.response.data) {
+        let message = 'An error occurred during password reset confirmation. Please try again.';
+        if (error.response) {
             if (error.response.data.non_field_errors) {
-                message = error.response.data.non_field_errors.join(' ') || message;
+                message = error.response.data.non_field_errors.join(' ');
+            } else if (error.response.data.detail) {
+                message = error.response.data.detail;
             } else {
-                message = error.response.data.error || error.response.data.message || message;
+                message = error.response.data.error || message;
             }
         }
         return {
@@ -96,9 +97,9 @@ export const logout = async (token) => {
             message: response.data.message,
         };
     } catch (error) {
-        let message = 'An unexpected error occurred during logout. Please try again later.';
-        if (error.response && error.response.data) {
-            message = error.response.data.error || error.response.data.message || message;
+        let message = 'An error occurred during logout. Please try again.';
+        if (error.response) {
+            message = error.response.data.error || error.response.data.detail || message;
         }
         return {
             success: false,
@@ -110,23 +111,11 @@ export const logout = async (token) => {
 export const registerUser = async (data) => {
     try {
         const response = await api.post('/register/', data, {});
-        return {
-            success: true,
-            message: response.data.message,
-            data: response.data,
-        };
+        return response.data;
     } catch (error) {
-        let message = 'An unexpected error occurred during registration. Please try again later.';
-        let details = {};
-        if (error.response && error.response.data) {
-            message = error.response.data.error || error.response.data.message || message;
-            details = error.response.data.details || {};
-        }
-        return {
-            success: false,
-            message,
-            details,
-        };
+        throw error.response
+            ? error.response.data
+            : new Error('An error occurred while adding the user.');
     }
 };
 
@@ -140,29 +129,17 @@ export const updateUser = async (data) => {
         status: data.status,
     };
 
+    console.log('Sanitized data to be sent:', sanitizedData);
     try {
         const response = await api.put('/profile-update/', sanitizedData, {
             headers: {
                 Authorization: `Token ${localStorage.getItem('token')}`,
             },
         });
-        return {
-            success: true,
-            message: response.data.message,
-            data: response.data.user,
-        };
+        return response.data;
     } catch (error) {
-        let message = 'An unexpected error occurred while updating your account. Please try again later.';
-        let details = {};
-        if (error.response && error.response.data) {
-            message = error.response.data.error || error.response.data.message || message;
-            details = error.response.data.details || {};
-        }
-        return {
-            success: false,
-            message,
-            details,
-        };
+        console.log('Error response from server:', error.response);
+        throw error.response ? error.response.data : new Error('Failed to update account.');
     }
 };
 
@@ -173,20 +150,11 @@ export const fetchDeliveryRequests = async () => {
                 Authorization: `Token ${localStorage.getItem('token')}`,
             },
         });
-        return {
-            success: true,
-            message: 'Delivery requests fetched successfully.',
-            data: response.data,
-        };
+        return response.data;
     } catch (error) {
-        let message = 'An unexpected error occurred while fetching delivery requests. Please try again later.';
-        if (error.response && error.response.data) {
-            message = error.response.data.error || error.response.data.message || message;
-        }
-        return {
-            success: false,
-            message,
-        };
+        throw error.response 
+            ? error.response.data 
+            : new Error('An error occurred while fetching delivery requests.');
     }
 };
 
@@ -198,23 +166,11 @@ export const addDeliveryRequest = async (data) => {
                 Authorization: `Token ${localStorage.getItem('token')}`,
             },
         });
-        return {
-            success: true,
-            message: response.data.message,
-            data: response.data.data,
-        };
+        return response.data;
     } catch (error) {
-        let message = 'An unexpected error occurred while adding the delivery request. Please try again later.';
-        let details = {};
-        if (error.response && error.response.data) {
-            message = error.response.data.error || error.response.data.message || message;
-            details = error.response.data.details || {};
-        }
-        return {
-            success: false,
-            message,
-            details,
-        };
+        throw error.response
+            ? error.response.data 
+            : new Error('An error occurred while adding the delivery request.');
     }
 };
 
@@ -225,38 +181,22 @@ export const fetchDeliveryRequestById = async (id) => {
                 Authorization: `Token ${localStorage.getItem('token')}`,
             },
         });
-        return {
-            success: true,
-            message: `Delivery request ID ${id} fetched successfully.`,
-            data: response.data.data,
-        };
+        return response.data;
     } catch (error) {
-        let message = `An unexpected error occurred while fetching delivery request ID ${id}. Please try again later.`;
-        if (error.response && error.response.data) {
-            message = error.response.data.error || error.response.data.message || message;
-        }
-        return {
-            success: false,
-            message,
-        };
+        console.error('Error fetching delivery request by ID:', error);
+        throw error.response && error.response.data
+            ? error.response.data 
+            : new Error('An error occurred while fetching delivery request details.');
     }
 };
 
 export const contactUs = async (data) => {
     try {
         const response = await api.post('/contact-us/', data, {});
-        return {
-            success: true,
-            message: response.data.detail || 'Your message has been sent successfully.',
-        };
+        return response.data;
     } catch (error) {
-        let message = 'An unexpected error occurred while submitting your message. Please try again later.';
-        if (error.response && error.response.data) {
-            message = error.response.data.error || error.response.data.detail || message;
-        }
-        return {
-            success: false,
-            message,
-        };
+        throw error.response
+            ? error.response.data
+            : new Error('An error occurred while adding the user.');
     }
 };
