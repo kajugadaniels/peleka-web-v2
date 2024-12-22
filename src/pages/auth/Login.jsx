@@ -46,10 +46,13 @@ const Login = () => {
             }
         }
 
+        // Removed password length validation to allow passwords of any length
+        /*
         if (password.length < 8) {
             toast.error('Password must be at least 8 characters long.');
             return false;
         }
+        */
 
         return true;
     };
