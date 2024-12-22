@@ -93,12 +93,12 @@ export const logout = async (token) => {
         );
         return {
             success: true,
-            message: response.data.message,
+            message: response.data.message, // Detailed success message from backend
         };
     } catch (error) {
-        let message = 'An error occurred during logout. Please try again.';
-        if (error.response) {
-            message = error.response.data.error || error.response.data.detail || message;
+        let message = 'An unexpected error occurred during logout. Please try again later.';
+        if (error.response && error.response.data) {
+            message = error.response.data.error || error.response.data.message || message;
         }
         return {
             success: false,
