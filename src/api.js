@@ -19,12 +19,13 @@ export const login = async ({ email_or_phone, password }) => {
         const response = await api.post('/login/', { email_or_phone, password });
         return {
             success: true,
+            message: response.data.message, // Detailed success message from backend
             data: response.data,
         };
     } catch (error) {
-        let message = 'An error occurred during login. Please try again.';
-        if (error.response) {
-            message = error.response.data.error || error.response.data.detail || message;
+        let message = 'An unexpected error occurred during login. Please try again later.';
+        if (error.response && error.response.data) {
+            message = error.response.data.error || error.response.data.message || message;
         }
         return {
             success: false,
