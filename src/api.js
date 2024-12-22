@@ -173,11 +173,20 @@ export const fetchDeliveryRequests = async () => {
                 Authorization: `Token ${localStorage.getItem('token')}`,
             },
         });
-        return response.data;
+        return {
+            success: true,
+            message: 'Delivery requests fetched successfully.',
+            data: response.data,
+        };
     } catch (error) {
-        throw error.response 
-            ? error.response.data 
-            : new Error('An error occurred while fetching delivery requests.');
+        let message = 'An unexpected error occurred while fetching delivery requests. Please try again later.';
+        if (error.response && error.response.data) {
+            message = error.response.data.error || error.response.data.message || message;
+        }
+        return {
+            success: false,
+            message,
+        };
     }
 };
 
