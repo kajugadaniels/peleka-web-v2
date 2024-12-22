@@ -63,7 +63,7 @@ export const passwordResetConfirm = async (emailOrPhone, otp, newPassword) => {
         });
         return {
             success: true,
-            message: response.data.message, // Detailed success message from backend
+            message: response.data.message,
         };
     } catch (error) {
         let message = 'An unexpected error occurred during password reset confirmation. Please try again later.';
@@ -93,7 +93,7 @@ export const logout = async (token) => {
         );
         return {
             success: true,
-            message: response.data.message, // Detailed success message from backend
+            message: response.data.message,
         };
     } catch (error) {
         let message = 'An unexpected error occurred during logout. Please try again later.';
@@ -112,7 +112,7 @@ export const registerUser = async (data) => {
         const response = await api.post('/register/', data, {});
         return {
             success: true,
-            message: response.data.message, // Detailed success message from backend
+            message: response.data.message,
             data: response.data,
         };
     } catch (error) {
@@ -148,7 +148,7 @@ export const updateUser = async (data) => {
         });
         return {
             success: true,
-            message: response.data.message, // Detailed success message from backend
+            message: response.data.message,
             data: response.data.user,
         };
     } catch (error) {
@@ -200,7 +200,7 @@ export const addDeliveryRequest = async (data) => {
         });
         return {
             success: true,
-            message: response.data.message, // Detailed success message from backend
+            message: response.data.message,
             data: response.data.data,
         };
     } catch (error) {
@@ -245,10 +245,18 @@ export const fetchDeliveryRequestById = async (id) => {
 export const contactUs = async (data) => {
     try {
         const response = await api.post('/contact-us/', data, {});
-        return response.data;
+        return {
+            success: true,
+            message: response.data.detail || 'Your message has been sent successfully.',
+        };
     } catch (error) {
-        throw error.response
-            ? error.response.data
-            : new Error('An error occurred while adding the user.');
+        let message = 'An unexpected error occurred while submitting your message. Please try again later.';
+        if (error.response && error.response.data) {
+            message = error.response.data.error || error.response.data.detail || message;
+        }
+        return {
+            success: false,
+            message,
+        };
     }
 };
