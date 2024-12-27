@@ -148,7 +148,7 @@ const GetDeliveryRequests = () => {
                                                         </span>
                                                         <br />
                                                         <span>
-                                                            <strong>Time:</strong> {(request.estimated_delivery_time) || 'N/A'} Minutes
+                                                            <strong>Time:</strong> {(request.estimated_delivery_time) || 'N/A'}
                                                         </span>
                                                         <br />
                                                         <span>
@@ -168,7 +168,7 @@ const GetDeliveryRequests = () => {
                                                 </div>
                                                 <div>
                                                     <p className="fs-15 fw-5">
-                                                        {(request.delivery_price) || 'N/A'} RWF
+                                                        {(request.delivery_price) || 'N/A'}
                                                     </p>
                                                 </div>
                                             </div>
