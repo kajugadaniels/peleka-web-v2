@@ -73,7 +73,7 @@ const Sidebar = () => {
                 className={`instructors-dashboard ${isDropdownVisible ? 'show' : ''}`}
             >
                 <div className="dashboard-title">CLIENT DASHBOARD</div>
-                <Link className={`dashboard-item ${isActive(['/dashboard'])}`} href="/dashboard">
+                <Link className={`dashboard-item ${isActive(['/dashboard'])}`} to="/dashboard">
                     <i className="flaticon-activity"></i>
                     Dashboard
                 </Link>
@@ -83,12 +83,23 @@ const Sidebar = () => {
                         '/delivery-request/add',
                         '/delivery-request/:id',
                     ])}`}
-                    href="/delivery-requests"
+                    to="/delivery-requests"
                 >
                     <i className="flaticon-bag"></i>
                     Delivery Requests
                 </Link>
-                <Link className={`dashboard-item ${isActive(['/settings'])}`} href="/profile">
+                <Link
+                    className={`dashboard-item ${isActive([
+                        '/rider-bookings',
+                        '/rider-booking/add',
+                        '/rider-booking/:id',
+                    ])}`}
+                    to="/rider-bookings"
+                >
+                    <i className="flaticon-calendar"></i>
+                    Book a Rider
+                </Link>
+                <Link className={`dashboard-item ${isActive(['/settings'])}`} to="/profile">
                     <i className="flaticon-setting-1"></i>
                     Settings
                 </Link>
