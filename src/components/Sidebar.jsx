@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useNavigate, useLocation } from 'react-router-dom';
+import { useNavigate, useLocation, Link } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { logout } from '../api';
 
@@ -73,11 +73,11 @@ const Sidebar = () => {
                 className={`instructors-dashboard ${isDropdownVisible ? 'show' : ''}`}
             >
                 <div className="dashboard-title">CLIENT DASHBOARD</div>
-                <a className={`dashboard-item ${isActive(['/dashboard'])}`} href="/dashboard">
+                <Link className={`dashboard-item ${isActive(['/dashboard'])}`} href="/dashboard">
                     <i className="flaticon-activity"></i>
                     Dashboard
-                </a>
-                <a
+                </Link>
+                <Link
                     className={`dashboard-item ${isActive([
                         '/delivery-requests',
                         '/delivery-request/add',
@@ -87,15 +87,15 @@ const Sidebar = () => {
                 >
                     <i className="flaticon-bag"></i>
                     Delivery Requests
-                </a>
-                <a className={`dashboard-item ${isActive(['/settings'])}`} href="/profile">
+                </Link>
+                <Link className={`dashboard-item ${isActive(['/settings'])}`} href="/profile">
                     <i className="flaticon-setting-1"></i>
                     Settings
-                </a>
-                <a className="dashboard-item" onClick={handleLogout}>
+                </Link>
+                <Link className="dashboard-item" onClick={handleLogout}>
                     <i className="flaticon-export"></i>
                     Logout
-                </a>
+                </Link>
             </div>
         </div>
     );
