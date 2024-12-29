@@ -277,3 +277,19 @@ export const addBookRider = async (data) => {
             : new Error('An error occurred while adding the BookRider request.');
     }
 };
+
+export const fetchBookRiderById = async (id) => {
+    try {
+        const response = await api.get(`/book-rider/${id}/`, {
+            headers: {
+                Authorization: `Token ${localStorage.getItem('token')}`,
+            },
+        });
+        return response.data;
+    } catch (error) {
+        console.error('Error fetching BookRider by ID:', error);
+        throw error.response && error.response.data
+            ? error.response.data 
+            : new Error('An error occurred while fetching BookRider details.');
+    }
+};
