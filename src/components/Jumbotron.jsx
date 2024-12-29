@@ -9,7 +9,7 @@ const Jumbotron = ({ userName, userPhoneNumber, userEmail }) => {
                         <div className="content">
                             <div className="author-item">
                                 <div className="author-item-img">
-                                    <img src="https://creativelayers.net/themes/upskill-html/images/avatar/review-1.png" alt="" />
+                                    <img src="https://static.vecteezy.com/system/resources/thumbnails/002/318/271/small/user-profile-icon-free-vector.jpg" alt="" />
                                 </div>
                             </div>
                             <div className="title">

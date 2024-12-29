@@ -27,7 +27,7 @@ const ProfileLayout = () => {
     return (
         <div className='wrapper'>
             <div className="tf-top-bar style-1 flex items-center justify-center">
-                <p>Intro price. Get UpSkill for Big Sale -95% off.</p>
+                <p>Welcome to Peleka</p>
             </div>
 
             <Header />
