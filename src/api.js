@@ -200,3 +200,27 @@ export const contactUs = async (data) => {
             : new Error('An error occurred while adding the user.');
     }
 };
+
+export const cancelDeliveryRequest = async (id) => {
+    try {
+        const response = await api.patch(`/delivery-request/cancel/${id}/`, {}, {
+            headers: {
+                Authorization: `Token ${localStorage.getItem('token')}`,
+            },
+        });
+        return {
+            success: true,
+            data: response.data,
+        };
+    } catch (error) {
+        let message = 'An error occurred while canceling the delivery request. Please try again.';
+        if (error.response) {
+            message = error.response.data.message || error.response.data.detail || message;
+        }
+        return {
+            success: false,
+            message,
+        };
+    }
+};
+
