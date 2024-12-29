@@ -347,3 +347,26 @@ export const cancelBookRider = async (id) => {
         };
     }
 };
+
+export const completeBookRider = async (id) => {
+    try {
+        const response = await api.patch(`/book-rider/complete/${id}/`, {}, {
+            headers: {
+                Authorization: `Token ${localStorage.getItem('token')}`,
+            },
+        });
+        return {
+            success: true,
+            data: response.data,
+        };
+    } catch (error) {
+        let message = 'An error occurred while completing the BookRider request. Please try again.';
+        if (error.response) {
+            message = error.response.data.message || error.response.data.detail || message;
+        }
+        return {
+            success: false,
+            message,
+        };
+    }
+};
