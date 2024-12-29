@@ -19,7 +19,7 @@ export { default as GetDeliveryRequests } from './deliveryRequests/GetDeliveryRe
 export { default as GetDeliveryRequestDetails } from './deliveryRequests/GetDeliveryRequestDetails'
 export { default as AddDeliveryRequest } from './deliveryRequests/AddDeliveryRequest'
 
-export { default as GetRiderBooking } from './riderBooking/GetRiderBooking'
+export { default as GetRiderBookings } from './riderBooking/GetRiderBookings'
 export { default as GetRiderBookingDetails } from './riderBooking/GetRiderBookingDetails'
 export { default as AddRiderBooking } from './riderBooking/AddRiderBooking'
 

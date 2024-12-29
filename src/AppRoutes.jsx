@@ -1,5 +1,5 @@
 import React from 'react'
-import { AddDeliveryRequest, GetDeliveryRequestDetails, GetDeliveryRequests, Home, Login, Contact, Register, WhoWeAre, Dashboard, Profile, Faqs, HelpCenter, TermsAndCondition, PrivacyPolicy, ForgetPassword, PasswordResetConfirm, OurServices, NotFound, GetRiderBooking, GetRiderBookingDetails, AddRiderBooking } from './pages'
+import { AddDeliveryRequest, GetDeliveryRequestDetails, GetDeliveryRequests, Home, Login, Contact, Register, WhoWeAre, Dashboard, Profile, Faqs, HelpCenter, TermsAndCondition, PrivacyPolicy, ForgetPassword, PasswordResetConfirm, OurServices, NotFound, GetRiderBookingDetails, AddRiderBooking, GetRiderBookings } from './pages'
 import UserLayout from './layouts/UserLayout'
 import { Route, Routes } from 'react-router-dom'
 import ProfileLayout from './layouts/ProfileLayout'
@@ -31,7 +31,7 @@ const AppRoutes = () => {
                 <Route path="/delivery-request/:id" element={<GetDeliveryRequestDetails />} />
                 <Route path="/delivery-request/add" element={<AddDeliveryRequest />} />
 
-                <Route path="/rider-bookings" element={<GetRiderBooking />} />
+                <Route path="/rider-bookings" element={<GetRiderBookings />} />
                 <Route path="/rider-booking/:id" element={<GetRiderBookingDetails />} />
                 <Route path="/rider-booking/add" element={<AddRiderBooking />} />
 
