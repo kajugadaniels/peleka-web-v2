@@ -22,5 +22,6 @@ export { default as AddDeliveryRequest } from './deliveryRequests/AddDeliveryReq
 export { default as GetRiderBookings } from './riderBooking/GetRiderBookings'
 export { default as GetRiderBookingDetails } from './riderBooking/GetRiderBookingDetails'
 export { default as AddRiderBooking } from './riderBooking/AddRiderBooking'
+export { default as EditRiderBooking } from './riderBooking/EditRiderBooking'
 
 export { default as Dashboard } from './Dashboard'
