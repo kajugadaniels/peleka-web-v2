@@ -247,3 +247,17 @@ export const completeDeliveryRequest = async (id) => {
     }
 };
 
+export const listBookRiders = async () => {
+    try {
+        const response = await api.get('/book-riders/', {
+            headers: {
+                Authorization: `Token ${localStorage.getItem('token')}`,
+            },
+        });
+        return response.data;
+    } catch (error) {
+        throw error.response 
+            ? error.response.data 
+            : new Error('An error occurred while fetching book riders.');
+    }
+};
