@@ -7,20 +7,16 @@ import loadGoogleMap from '../../utils/loadGoogleMaps';
 const AddRiderBooking = () => {
     const [formData, setFormData] = useState({
         client: JSON.parse(localStorage.getItem('user'))?.id || '',
-        package_name: '',
         pickup_address: '',
         pickup_lat: '',
         pickup_lng: '',
         delivery_address: '',
         delivery_lat: '',
         delivery_lng: '',
-        package_description: '',
-        recipient_name: '',
-        recipient_phone: '',
         estimated_distance_km: '',
         estimated_delivery_time: '',
         booking_price: '',
-        payment_type: 'Credit Card',
+        payment_type: 'Cash',
     });
 
     const [loading, setLoading] = useState(false);
@@ -241,61 +237,6 @@ const AddRiderBooking = () => {
                                 </div>
                             </div>
                             <form className="shop-checkout" onSubmit={handleAddRiderBooking}>
-                                <div className="cols mb-5">
-                                    <fieldset className="tf-field">
-                                        <input
-                                            name="package_name"
-                                            className="tf-input style-1"
-                                            type="text"
-                                            value={formData.package_name}
-                                            onChange={handleInputChange}
-                                            required
-                                        />
-                                        <label className="tf-field-label fs-15" htmlFor="field1">
-                                            Package Name
-                                        </label>
-                                    </fieldset>
-                                </div>
-                                <div className="cols mb-5">
-                                    <fieldset className="tf-field">
-                                        <input
-                                            name="recipient_name"
-                                            className="tf-input style-1"
-                                            type="text"
-                                            value={formData.recipient_name}
-                                            onChange={handleInputChange}
-                                            required
-                                        />
-                                        <label className="tf-field-label fs-15" htmlFor="field1">
-                                            Recipient Name
-                                        </label>
-                                    </fieldset>
-                                    <fieldset className="tf-field">
-                                        <input
-                                            name="recipient_phone"
-                                            className="tf-input style-1"
-                                            type="text"
-                                            value={formData.recipient_phone}
-                                            onChange={handleInputChange}
-                                            required
-                                        />
-                                        <label className="tf-field-label fs-15" htmlFor="field1">
-                                            Recipient Phone
-                                        </label>
-                                    </fieldset>
-                                </div>
-                                <fieldset className="tf-field">
-                                    <textarea
-                                        name="package_description"
-                                        className="tf-input style-1"
-                                        rows="4"
-                                        value={formData.package_description}
-                                        onChange={handleInputChange}
-                                    ></textarea>
-                                    <label className="tf-field-label type-textarea fs-15" htmlFor="">
-                                        Package Description
-                                    </label>
-                                </fieldset>
                                 <div className="cols mb-5">
                                     <fieldset className="tf-field relative">
                                         <input
