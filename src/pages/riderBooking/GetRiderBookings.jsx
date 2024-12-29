@@ -1,9 +1,7 @@
-// src/pages/riderBookings/GetRiderBookings.jsx
-
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
-import { listBookRiders } from '../../api';
+import { listBookRiders, cancelBookRider, completeBookRider } from '../../api';
 
 const GetRiderBookings = () => {
     const navigate = useNavigate();
@@ -12,6 +10,7 @@ const GetRiderBookings = () => {
     const [sortOption, setSortOption] = useState('Newest');
     const [visibleItems, setVisibleItems] = useState(5);
     const [loading, setLoading] = useState(false);
+    const [actionLoading, setActionLoading] = useState(false);
 
     useEffect(() => {
         const loadData = async () => {
@@ -38,12 +37,68 @@ const GetRiderBookings = () => {
         navigate(`/rider-booking/${bookingId}`);
     };
 
+    const handleEdit = (bookingId) => {
+        navigate(`/rider-booking/edit/${bookingId}`);
+    };
+
     const handleSortChange = (option) => {
         setSortOption(option);
     };
 
     const handleLoadMore = () => {
         setVisibleItems((prev) => prev + 5);
+    };
+
+    const handleCancel = async (bookingId) => {
+        const confirmCancel = window.confirm('Are you sure you want to cancel this booking?');
+        if (!confirmCancel) return;
+
+        setActionLoading(true);
+        try {
+            const response = await cancelBookRider(bookingId);
+            if (response.success) {
+                toast.success('Rider booking canceled successfully.');
+                // Update the local state
+                setRiderBookings((prevBookings) =>
+                    prevBookings.map((booking) =>
+                        booking.id === bookingId ? { ...booking, status: 'Cancelled' } : booking
+                    )
+                );
+            } else {
+                toast.error(response.message);
+            }
+        } catch (error) {
+            toast.error('An error occurred while canceling the rider booking.');
+            console.error('Error canceling rider booking:', error);
+        } finally {
+            setActionLoading(false);
+        }
+    };
+
+    const handleComplete = async (bookingId) => {
+        const confirmComplete = window.confirm('Are you sure you want to complete this booking?');
+        if (!confirmComplete) return;
+
+        setActionLoading(true);
+        try {
+            const response = await completeBookRider(bookingId);
+            if (response.success) {
+                toast.success('Rider booking completed successfully.');
+                // Update the local state
+                setRiderBookings((prevBookings) =>
+                    prevBookings.map((booking) =>
+                        booking.id === bookingId ? { ...booking, status: 'Completed' } : booking
+                    )
+                );
+            } else {
+                toast.error(response.message);
+            }
+        } catch (error) {
+            toast.error('An error occurred while completing the rider booking.');
+            console.error('Error completing rider booking:', error);
+        } finally {
+            setActionLoading(false);
+        }
     };
 
     const filteredBookings = riderBookings
@@ -124,10 +179,10 @@ const GetRiderBookings = () => {
                                     <div className="fs-15 fw-5">Rider Name</div>
                                 </div>
                                 <div className="item">
-                                    <div className="fs-15 fw-5">Recipient</div>
+                                    <div className="fs-15 fw-5">Price</div>
                                 </div>
                                 <div className="item">
-                                    <div className="fs-15 fw-5">Price</div>
+                                    <div className="fs-15 fw-5">Action</div>
                                 </div>
                             </div>
                             <ul>
@@ -143,11 +198,16 @@ const GetRiderBookings = () => {
                                                         data-src={booking.image || 'https://ih1.redbubble.net/image.1861329500.2941/ur,pin_large_front,square,1000x1000.webp'}
                                                         alt=""
                                                         onClick={() => handleView(booking.id)}
+                                                        style={{ cursor: 'pointer' }}
                                                     />
                                                 </div>
                                                 <div className="title">
-                                                    <p className="fs-15 fw-5" onClick={() => handleView(booking.id)}>
-                                                        {booking.client_name || 'N/A'}
+                                                    <p
+                                                        className="fs-15 fw-5"
+                                                        onClick={() => handleView(booking.id)}
+                                                        style={{ cursor: 'pointer' }}
+                                                    >
+                                                        {booking.package_name || 'N/A'}
                                                     </p>
                                                     <div>
                                                         <span>
@@ -170,13 +230,52 @@ const GetRiderBookings = () => {
                                                 </div>
                                                 <div>
                                                     <p className="fs-15 fw-5">
-                                                        {booking.recipient_name || 'N/A'} ({booking.recipient_phone || 'N/A'})
+                                                        {booking.booking_price ? `${booking.booking_price} RWF` : 'N/A'}
                                                     </p>
                                                 </div>
                                                 <div>
-                                                    <p className="fs-15 fw-5">
-                                                        {booking.booking_price ? `${booking.booking_price} RWF` : 'N/A'}
-                                                    </p>
+                                                    <div className="selling-course-btn btn-style-2">
+                                                        <a
+                                                            href=''
+                                                            className="btn-primary btn"
+                                                            onClick={() => handleView(booking.id)}
+                                                            title="View Booking"
+                                                        >
+                                                            <i className="flaticon-eye"></i>
+                                                        </a>
+                                                        {booking.status === 'Pending' && (
+                                                            <a
+                                                                href=''
+                                                                className="btn-edit btn"
+                                                                onClick={() => handleCancel(booking.id)}
+                                                                disabled={actionLoading}
+                                                                title="Cancel Booking"
+                                                            >
+                                                                <i className="flaticon-close"></i>
+                                                            </a>
+                                                        )}
+                                                        {booking.status === 'Pending' && (
+                                                            <a
+                                                                href=''
+                                                                className="btn-secondary btn"
+                                                                onClick={() => handleEdit(booking.id)}
+                                                                title="Edit Booking"
+                                                            >
+                                                                <i className="flaticon-edit"></i>
+                                                            </a>
+                                                        )}
+                                                        {['Accepted', 'In Progress'].includes(booking.status) && (
+                                                            <a
+                                                                href=''
+                                                                className="btn-success btn"
+                                                                onClick={() => handleComplete(booking.id)}
+                                                                disabled={actionLoading}
+                                                                title="Complete Booking"
+                                                            >
+                                                                <i className="flaticon-check"></i>
+                                                            </a>
+                                                        )}
+                                                    </div>
                                                 </div>
                                             </div>
                                         </li>
