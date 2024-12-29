@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { toast } from 'react-toastify'
 import { Logo } from '../assets/img'
 import { logout } from '../api'
@@ -49,34 +49,34 @@ const Header = () => {
                 <div className="header-inner">
                     <div className="header-inner-wrap">
                         <div className="header-left flex-grow">
-                            <a
+                            <Link
                                 className="mobile-nav-toggler mobile-button d-lg-none flex"
-                                href="#menu"
+                                to="#menu"
                                 onClick={(e) => {
                                     e.preventDefault();
                                     toggleMenu();
                                 }}
-                            ></a>
+                            ></Link>
                             <div id="site-logo">
-                                <a href="/" rel="home">
+                                <Link to="/" rel="home">
                                     <img id="logo-header" src={Logo} alt="" style={{ width: '80px' }} />
-                                </a>
+                                </Link>
                             </div>
                         </div>
                         <div className="header-right">
                             <nav className="main-menu">
                                 <ul className="navigation">
                                     <li className="current">
-                                        <a href="/">Home</a>
+                                        <Link to="/">Home</Link>
                                     </li>
                                     <li className="current">
-                                        <a href="/who-we-are">Who We Are</a>
+                                        <Link to="/who-we-are">Who We Are</Link>
                                     </li>
                                     <li className="current">
-                                        <a href="/our-services">Our Services</a>
+                                        <Link to="/our-services">Our Services</Link>
                                     </li>
                                     <li className="current">
-                                        <a href="/contact-us">Contact Us</a>
+                                        <Link to="/contact-us">Contact Us</Link>
                                     </li>
                                 </ul>
                             </nav>
@@ -84,42 +84,42 @@ const Header = () => {
                                 {isLoggedIn ? (
                                     <>
                                         <div className="header-register">
-                                            <a href="/dashboard" className="tf-button-default active header-text">
+                                            <Link to="/dashboard" className="tf-button-default active header-text">
                                                 Dashboard
-                                            </a>
+                                            </Link>
                                         </div>
                                         <div className="header-login">
-                                            <span className="tf-button-default header-text" onClick={handleLogout}>
+                                            <Link className="tf-button-default header-text" to='/login'>
                                                 Logout
-                                            </span>
+                                            </Link>
                                         </div>
                                     </>
                                 ) : (
                                     <>
                                         <div className="header-login">
-                                            <a href="/login" className="tf-button-default header-text">Log In</a>
+                                            <Link to="/login" className="tf-button-default header-text">Log In</Link>
                                         </div>
                                         <div className="header-register">
-                                            <a href="/register" className="tf-button-default active header-text">Sign Up</a>
+                                            <Link to="/register" className="tf-button-default active header-text">Sign Up</Link>
                                         </div>
                                     </>
                                 )}
                                 {isLoggedIn ? (
                                     <>
                                         <div className="header-join d-lg-none flex">
-                                            <a href="/dashboard" className="fs-15">Dashboard</a>
+                                            <Link to="/dashboard" className="fs-15">Dashboard</Link>
                                         </div>
                                         <div className="header-join d-lg-none flex">
-                                            <span className="fs-15" onClick={handleLogout}>Logout</span>
+                                            <Link className="fs-15" to='/login'>Logout</Link>
                                         </div>
                                     </>
                                 ) : (
                                     <>
                                         <div className="header-join d-lg-none flex">
-                                            <a href="/login" className="fs-15">Sign In</a>
+                                            <Link to="/login" className="fs-15">Sign In</Link>
                                         </div>
                                         <div className="header-join d-lg-none flex">
-                                            <a href="/register" className="fs-15">Sign Up</a>
+                                            <Link to="/register" className="fs-15">Sign Up</Link>
                                         </div>
                                     </>
                                 )}
@@ -146,10 +146,10 @@ const Header = () => {
                             zIndex: 1000,
                         }}
                     >
-                        <a
+                        <Link
                             className="close"
                             aria-label="Close menu"
-                            href="#wrapper"
+                            to="#wrapper"
                             onClick={(e) => {
                                 e.preventDefault();
                                 toggleMenu();
@@ -164,27 +164,27 @@ const Header = () => {
                             }}
                         >
                             <i className="flaticon-close-1"></i>
-                        </a>
+                        </Link>
                         <ul style={{ listStyleType: 'none', padding: 0, textAlign: 'center' }}>
                             <li style={{ margin: '20px 0' }}>
-                                <a href="/" style={{ color: '#fff', fontSize: '18px', textDecoration: 'none' }}>
+                                <Link to="/" style={{ color: '#fff', fontSize: '18px', textDecoration: 'none' }}>
                                     Home
-                                </a>
+                                </Link>
                             </li>
                             <li style={{ margin: '20px 0' }}>
-                                <a href="/who-we-are" style={{ color: '#fff', fontSize: '18px', textDecoration: 'none' }}>
+                                <Link to="/who-we-are" style={{ color: '#fff', fontSize: '18px', textDecoration: 'none' }}>
                                     Who We Are
-                                </a>
+                                </Link>
                             </li>
                             <li style={{ margin: '20px 0' }}>
-                                <a href="/our-services" style={{ color: '#fff', fontSize: '18px', textDecoration: 'none' }}>
+                                <Link to="/our-services" style={{ color: '#fff', fontSize: '18px', textDecoration: 'none' }}>
                                     Our Services
-                                </a>
+                                </Link>
                             </li>
                             <li style={{ margin: '20px 0' }}>
-                                <a href="/contact-us" style={{ color: '#fff', fontSize: '18px', textDecoration: 'none' }}>
+                                <Link to="/contact-us" style={{ color: '#fff', fontSize: '18px', textDecoration: 'none' }}>
                                     Contact Us
-                                </a>
+                                </Link>
                             </li>
                         </ul>
                     </nav>
