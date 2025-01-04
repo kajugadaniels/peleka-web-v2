@@ -104,9 +104,9 @@ const GetRiderBookings = () => {
     const filteredBookings = riderBookings
         .filter((booking) => {
             const matchesSearchTerm = (
-                (booking.package_name?.toLowerCase() || '').includes(searchTerm) ||
-                (booking.client_name?.toLowerCase() || '').includes(searchTerm) ||
-                (booking.recipient_name?.toLowerCase() || '').includes(searchTerm) ||
+                (booking.rider_name?.toLowerCase() || '').includes(searchTerm) ||
+                (booking.pickup_address?.toLowerCase() || '').includes(searchTerm) ||
+                (booking.delivery_address?.toLowerCase() || '').includes(searchTerm) ||
                 (booking.status?.toLowerCase() || '').includes(searchTerm)
             );
             return matchesSearchTerm;
@@ -173,7 +173,7 @@ const GetRiderBookings = () => {
                         <div className="table-box-2">
                             <div className="head wow fadeInUp">
                                 <div className="item">
-                                    <div className="fs-15 fw-5">Package</div>
+                                    <div className="fs-15 fw-5">Address</div>
                                 </div>
                                 <div className="item">
                                     <div className="fs-15 fw-5">Rider Name</div>
@@ -202,13 +202,6 @@ const GetRiderBookings = () => {
                                                     />
                                                 </div>
                                                 <div className="title">
-                                                    <p
-                                                        className="fs-15 fw-5"
-                                                        onClick={() => handleView(booking.id)}
-                                                        style={{ cursor: 'pointer' }}
-                                                    >
-                                                        {booking.package_name || 'N/A'}
-                                                    </p>
                                                     <div>
                                                         <span>
                                                             <strong>Distance:</strong> {booking.estimated_distance_km || 'N/A'} KM

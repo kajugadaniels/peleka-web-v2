@@ -52,7 +52,6 @@ const EditRiderBooking = () => {
                     return;
                 }
                 setFormData({
-                    client: data.client || '',
                     pickup_address: data.pickup_address || '',
                     pickup_lat: data.pickup_lat || '',
                     pickup_lng: data.pickup_lng || '',
@@ -63,10 +62,6 @@ const EditRiderBooking = () => {
                     estimated_delivery_time: data.estimated_delivery_time || '',
                     booking_price: data.booking_price || '',
                     payment_type: data.payment_type || 'Cash',
-                    package_description: data.package_description || '',
-                    recipient_name: data.recipient_name || '',
-                    recipient_phone: data.recipient_phone || '',
-                    package_name: data.package_name || '',
                 });
             } catch (error) {
                 toast.error('Failed to load rider booking details.');
