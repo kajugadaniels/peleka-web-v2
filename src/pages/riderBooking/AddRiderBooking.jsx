@@ -3,8 +3,10 @@ import { useNavigate } from 'react-router-dom';
 import { addBookRider } from '../../api';
 import { toast } from 'react-toastify';
 import loadGoogleMap from '../../utils/loadGoogleMaps';
+import { FlutterWaveButton, closePaymentModal } from 'flutterwave-react-v3';
 
 const AddRiderBooking = () => {
+    // Initialize form data state
     const [formData, setFormData] = useState({
         client: JSON.parse(localStorage.getItem('user'))?.id || '',
         pickup_address: '',
@@ -19,15 +21,27 @@ const AddRiderBooking = () => {
         payment_type: 'Cash',
     });
 
+    // State variables for loading indicators
     const [loading, setLoading] = useState(false);
-    const [locationLoading, setLocationLoading] = useState(false); // State for location loading
+    const [locationLoading, setLocationLoading] = useState(false);
     const navigate = useNavigate();
+
+    // State for address suggestions
     const [pickupSuggestions, setPickupSuggestions] = useState([]);
     const [deliverySuggestions, setDeliverySuggestions] = useState([]);
+
+    // State to check if Google Maps is loaded
     const [mapLoaded, setMapLoaded] = useState(false);
 
+    // Fetch customer details from localStorage
+    const customer = JSON.parse(localStorage.getItem('user')) || {
+        name: '',
+        email: '',
+        phone_number: '',
+    };
+
     useEffect(() => {
-        // Load Google Maps API
+        // Load Google Maps API on component mount
         loadGoogleMap()
             .then(() => {
                 setMapLoaded(true);
@@ -38,6 +52,10 @@ const AddRiderBooking = () => {
             });
     }, []);
 
+    /**
+     * Handles changes to input fields and updates formData state.
+     * @param {Object} e - Event object from input change.
+     */
     const handleInputChange = (e) => {
         const { name, value } = e.target;
         setFormData((prevState) => ({
@@ -46,6 +64,11 @@ const AddRiderBooking = () => {
         }));
     };
 
+    /**
+     * Handles changes to address fields and fetches address suggestions.
+     * @param {Object} e - Event object from input change.
+     * @param {string} type - Type of address ('pickup' or 'delivery').
+     */
     const handleAddressChange = async (e, type) => {
         const query = e.target.value;
         setFormData((prevState) => ({
@@ -60,6 +83,11 @@ const AddRiderBooking = () => {
         }
     };
 
+    /**
+     * Handles selection of an address suggestion and updates formData state.
+     * @param {Object} suggestion - Selected address suggestion.
+     * @param {string} type - Type of address ('pickup' or 'delivery').
+     */
     const handleAddressSelect = (suggestion, type) => {
         setFormData((prevState) => ({
             ...prevState,
@@ -69,11 +97,17 @@ const AddRiderBooking = () => {
         }));
         type === 'pickup' ? setPickupSuggestions([]) : setDeliverySuggestions([]);
 
+        // Calculate distance and time if both pickup and delivery locations are set
         if (formData.pickup_lat && formData.delivery_lat && mapLoaded) {
             calculateDistanceAndTime();
         }
     };
 
+    /**
+     * Fetches address suggestions from the Nominatim API.
+     * @param {string} query - Address query string.
+     * @returns {Array} - Array of address suggestions.
+     */
     const fetchAddressSuggestions = async (query) => {
         try {
             const url = `https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(query)}&countrycodes=rw`;
@@ -85,6 +119,11 @@ const AddRiderBooking = () => {
         }
     };
 
+    /**
+     * Calculates booking price based on distance.
+     * @param {number} distanceKm - Estimated distance in kilometers.
+     * @returns {number} - Calculated booking price in RWF.
+     */
     const calculateBookingPrice = (distanceKm) => {
         const first5kmRate = 1000; // RWF
         const additional5kmRate = 500; // RWF per additional 5 km
@@ -97,8 +136,18 @@ const AddRiderBooking = () => {
         return totalPrice;
     };
 
+    /**
+     * Calculates the distance and estimated delivery time using Google Maps Distance Matrix API.
+     */
     const calculateDistanceAndTime = () => {
-        if (formData.pickup_lat && formData.pickup_lng && formData.delivery_lat && formData.delivery_lng && window.google && window.google.maps) {
+        if (
+            formData.pickup_lat &&
+            formData.pickup_lng &&
+            formData.delivery_lat &&
+            formData.delivery_lng &&
+            window.google &&
+            window.google.maps
+        ) {
             const origin = new window.google.maps.LatLng(formData.pickup_lat, formData.pickup_lng);
             const destination = new window.google.maps.LatLng(formData.delivery_lat, formData.delivery_lng);
 
@@ -135,6 +184,9 @@ const AddRiderBooking = () => {
         }
     };
 
+    /**
+     * Handles fetching and setting the user's current location as the pickup address.
+     */
     const handleUseCurrentLocation = () => {
         if (!navigator.geolocation) {
             toast.error('Geolocation is not supported by your browser.');
@@ -189,6 +241,7 @@ const AddRiderBooking = () => {
     };
 
     useEffect(() => {
+        // Recalculate distance and time whenever relevant form data changes
         if (mapLoaded) {
             calculateDistanceAndTime();
         }
@@ -200,6 +253,10 @@ const AddRiderBooking = () => {
         formData.delivery_lng,
     ]);
 
+    /**
+     * Handles the submission of the rider booking after successful payment.
+     * @param {Object} e - Event object from form submission.
+     */
     const handleAddRiderBooking = async (e) => {
         e.preventDefault();
         setLoading(true);
@@ -214,6 +271,57 @@ const AddRiderBooking = () => {
             setLoading(false);
         }
     };
+
+    /**
+     * Configures the Flutterwave payment settings.
+     */
+    const paymentConfig = {
+        public_key: 'FLWPUBK_TEST-2c56ccd77ee3634eaff746b2e451cf2b-X', // Replace with your actual public key
+        tx_ref: `rider_booking_${Date.now()}`, // Unique transaction reference
+        amount: formData.booking_price || 0, // Amount to charge
+        currency: 'RWF', // Currency code
+        payment_options: 'card,mobilemoney,ussd', // Available payment methods
+        customer: {
+            email: customer.email || 'kajugadaniels@gmail.com', // Fetch from localStorage
+            phone_number: customer.phone_number || '0781862349', // Fetch from localStorage
+            name: customer.name || 'KAJUGA Daniels', // Fetch from localStorage
+        },
+        customizations: {
+            title: 'Rider Booking Payment',
+            description: 'Payment for your rider booking',
+            logo: 'http://localhost:5173/src/assets/img/logo/logo.svg', // Replace with your logo URL
+        },
+    };
+
+    /**
+     * Configures the Flutterwave button behavior.
+     */
+    const fwConfig = {
+        ...paymentConfig,
+        text: 'Pay with Flutterwave',
+        callback: (response) => {
+            console.log('Payment successful:', response);
+            // Close the payment modal
+            closePaymentModal();
+            // Submit the booking after successful payment
+            handleAddRiderBooking(new Event('submit'));
+        },
+        onClose: () => {
+            console.log('Payment modal closed');
+        },
+    };
+
+    // Form validation: Check if all required fields are filled with valid data
+    const isFormValid =
+        formData.pickup_address &&
+        formData.pickup_lat &&
+        formData.pickup_lng &&
+        formData.delivery_address &&
+        formData.delivery_lat &&
+        formData.delivery_lng &&
+        formData.estimated_distance_km &&
+        formData.estimated_delivery_time &&
+        formData.booking_price;
 
     return (
         <div className="section-setting-right section-right">
@@ -238,6 +346,7 @@ const AddRiderBooking = () => {
                             </div>
                             <form className="shop-checkout" onSubmit={handleAddRiderBooking}>
                                 <div className="cols mb-5">
+                                    {/* Pickup Address Field */}
                                     <fieldset className="tf-field relative">
                                         <input
                                             name="pickup_address"
@@ -260,10 +369,11 @@ const AddRiderBooking = () => {
                                                 ))}
                                             </ul>
                                         )}
-                                        <label className="tf-field-label fs-15" htmlFor="field1">
+                                        <label className="tf-field-label fs-15" htmlFor="pickup_address">
                                             Pick Up Address
                                         </label>
                                     </fieldset>
+                                    {/* Use Current Location Button */}
                                     <button
                                         type="button"
                                         onClick={handleUseCurrentLocation}
@@ -272,6 +382,7 @@ const AddRiderBooking = () => {
                                     >
                                         {locationLoading ? 'Locating...' : 'Use Current Location'}
                                     </button>
+                                    {/* Delivery Address Field */}
                                     <fieldset className="tf-field">
                                         <input
                                             name="delivery_address"
@@ -294,15 +405,24 @@ const AddRiderBooking = () => {
                                                 ))}
                                             </ul>
                                         )}
-                                        <label className="tf-field-label fs-15" htmlFor="field1">
+                                        <label className="tf-field-label fs-15" htmlFor="delivery_address">
                                             Delivery Address
                                         </label>
                                     </fieldset>
                                 </div>
-                                <button type="submit" className="tf-btn" disabled={loading}>
-                                    {loading ? 'Sending Booking...' : 'Send Rider Booking'}
-                                    <i className="icon-arrow-top-right"></i>
-                                </button>
+                                {/* Payment Button */}
+                                {isFormValid ? (
+                                    <div className="profile-btn">
+                                        <button type="button" className="btn-update tf-button-default" disabled style={{ padding: '20px' }}>
+                                            <FlutterWaveButton {...fwConfig} />
+                                        </button>
+                                    </div>
+                                ) : (
+                                    <button type="button" className="tf-btn" disabled>
+                                        Send Rider Booking
+                                        <i className="icon-arrow-top-right"></i>
+                                    </button>
+                                )}
                             </form>
                         </div>
                     </div>
@@ -312,4 +432,4 @@ const AddRiderBooking = () => {
     );
 };
 
-export default AddRiderBooking
+export default AddRiderBooking;
