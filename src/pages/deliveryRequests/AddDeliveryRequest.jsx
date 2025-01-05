@@ -88,15 +88,15 @@ const AddDeliveryRequest = () => {
         setLoading(true);
         try {
             // Prepare form data for submission
-            const data = new FormData();
-            Object.keys(formData).forEach((key) => {
-                if (formData[key]) {
-                    data.append(key, formData[key]);
-                }
-            });
+            // const data = new FormData();
+            // Object.keys(formData).forEach((key) => {
+            //     if (formData[key]) {
+            //         data.append(key, formData[key]);
+            //     }
+            // });
 
             await addDeliveryRequest(data);
-            toast.success('Delivery request added successfully.');
+            toast.success('Delivery request sended successfully.');
             navigate('/delivery-requests'); // Redirect on success
         } catch (error) {
             toast.error('An error occurred while adding the delivery request.');

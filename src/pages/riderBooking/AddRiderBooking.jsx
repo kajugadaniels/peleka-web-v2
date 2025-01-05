@@ -267,7 +267,7 @@ const AddRiderBooking = () => {
             // }));
 
             await addBookRider(formData);
-            toast.success('Rider booking added successfully.');
+            toast.success('Rider booking sended successfully.');
             navigate('/rider-bookings'); // Redirect on success
         } catch (error) {
             toast.error('An error occurred while adding the rider booking.');
