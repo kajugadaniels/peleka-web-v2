@@ -6,7 +6,6 @@ import loadGoogleMap from '../../utils/loadGoogleMaps';
 import { RiderBookingPayment } from '../../components';
 
 const AddRiderBooking = () => {
-    // Initialize form data state
     const [formData, setFormData] = useState({
         client: JSON.parse(localStorage.getItem('user'))?.id || '',
         pickup_address: '',
@@ -32,6 +31,9 @@ const AddRiderBooking = () => {
 
     // State to check if Google Maps is loaded
     const [mapLoaded, setMapLoaded] = useState(false);
+
+    // Generate a unique transaction reference
+    const [txRef] = useState(`rider_booking_${Date.now()}`);
 
     // Fetch customer details from localStorage
     const customer = JSON.parse(localStorage.getItem('user')) || {
@@ -260,14 +262,24 @@ const AddRiderBooking = () => {
     const handlePaymentSuccess = async (response) => {
         setLoading(true);
         try {
-            // Optionally, attach the payment response to formData if needed
-            // setFormData((prevState) => ({
-            //     ...prevState,
-            //     payment_response: response,
-            // }));
+            // Extract tx_ref from the payment response
+            const txRefFromResponse = response.tx_ref || txRef; // Assume response.tx_ref exists
+            // Set payment_status based on response
+            const paymentStatus = response.status === 'successful' ? 'Successful' : 'Failed';
 
-            await addBookRider(formData);
-            toast.success('Rider booking sended successfully.');
+            // Prepare data to send to backend
+            const dataToSend = {
+                ...formData,
+                payment_status: paymentStatus,
+                tx_ref: txRefFromResponse,
+            };
+
+            await addBookRider(dataToSend);
+
+            // Show window alert with payment status and tx_ref
+            window.alert(`Payment ${paymentStatus}. Transaction Reference: ${txRefFromResponse}`);
+
+            toast.success('Rider booking sent successfully.');
             navigate('/rider-bookings'); // Redirect on success
         } catch (error) {
             toast.error('An error occurred while adding the rider booking.');
@@ -283,9 +295,48 @@ const AddRiderBooking = () => {
      * @param {Object} [response] - Optional payment response object.
      */
     const handlePaymentFailure = (response) => {
-        toast.error('Payment failed or was canceled. Please try again.');
-        navigate('/rider-booking/add'); // Redirect on failure or modal close
+        // Extract tx_ref from the payment response if available
+        const txRefFromResponse = response.tx_ref || txRef; // If response does not have tx_ref, use existing txRef
+        const paymentStatus = response.status === 'failed' ? 'Failed' : 'Cancelled';
+
+        // Show window alert with payment status and tx_ref
+        window.alert(`Payment ${paymentStatus}. Transaction Reference: ${txRefFromResponse}`);
+
+        // Optionally, create a BookRider entry with payment_status 'Failed' or 'Cancelled'
+        const dataToSend = {
+            ...formData,
+            payment_status: paymentStatus,
+            tx_ref: txRefFromResponse,
+        };
+
+        setLoading(true);
+        addBookRider(dataToSend)
+            .then(() => {
+                toast.error(`Payment ${paymentStatus}.`);
+                navigate('/rider-booking/add'); // Redirect on failure
+            })
+            .catch((error) => {
+                toast.error('An error occurred while adding the rider booking.');
+                console.error('Error adding rider booking:', error);
+                navigate('/rider-booking/add'); // Redirect on failure
+            })
+            .finally(() => {
+                setLoading(false);
+            });
     };
+
+    useEffect(() => {
+        // Recalculate distance and time whenever relevant form data changes
+        if (mapLoaded) {
+            calculateDistanceAndTime();
+        }
+    }, [
+        mapLoaded,
+        formData.pickup_lat,
+        formData.pickup_lng,
+        formData.delivery_lat,
+        formData.delivery_lng,
+    ]);
 
     // Form validation: Check if all required fields are filled with valid data
     const isFormValid =
@@ -391,7 +442,7 @@ const AddRiderBooking = () => {
                                     <div className="profile-btn">
                                         <RiderBookingPayment
                                             amount={Number(formData.booking_price)}
-                                            tx_ref={`rider_booking_${Date.now()}`}
+                                            tx_ref={txRef} // Use the txRef from state
                                             customer={{
                                                 email: customer.email,
                                                 phone_number: customer.phone_number,
