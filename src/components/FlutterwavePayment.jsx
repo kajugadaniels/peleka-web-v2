@@ -1,5 +1,3 @@
-// src/components/FlutterwavePayment.jsx
-
 import React from 'react';
 import { FlutterWaveButton, closePaymentModal } from 'flutterwave-react-v3';
 import PropTypes from 'prop-types';
