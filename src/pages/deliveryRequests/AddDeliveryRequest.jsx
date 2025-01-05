@@ -1,11 +1,9 @@
-// src/components/AddDeliveryRequest.jsx
-
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { addDeliveryRequest } from '../../api';
 import { toast } from 'react-toastify';
 import loadGoogleMap from '../../utils/loadGoogleMaps';
-import CourierPayment from '../../components/CourierPayment'; // Corrected import statement
+import { CourierPayment } from '../../components';
 
 const AddDeliveryRequest = () => {
     // Initialize form data state
@@ -88,15 +86,15 @@ const AddDeliveryRequest = () => {
         setLoading(true);
         try {
             // Prepare form data for submission
-            // const data = new FormData();
-            // Object.keys(formData).forEach((key) => {
-            //     if (formData[key]) {
-            //         data.append(key, formData[key]);
-            //     }
-            // });
+            const data = new FormData();
+            Object.keys(formData).forEach((key) => {
+                if (formData[key]) {
+                    data.append(key, formData[key]);
+                }
+            });
 
             await addDeliveryRequest(data);
-            toast.success('Delivery request sended successfully.');
+            toast.success('Delivery request added successfully.');
             navigate('/delivery-requests'); // Redirect on success
         } catch (error) {
             toast.error('An error occurred while adding the delivery request.');
@@ -318,8 +316,8 @@ const AddDeliveryRequest = () => {
         formData.delivery_price &&
         formData.recipient_name &&
         formData.recipient_phone &&
-        formData.package_name &&
-        formData.value_of_product;
+        formData.package_name
+        // formData.value_of_product;
 
     return (
         <div className="section-setting-right section-right">
