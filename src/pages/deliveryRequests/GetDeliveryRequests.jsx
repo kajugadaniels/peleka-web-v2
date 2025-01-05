@@ -125,7 +125,7 @@ const GetDeliveryRequests = () => {
                                     <div className="fs-15 fw-5">Recipient</div>
                                 </div>
                                 <div className="item">
-                                    <div className="fs-15 fw-5">Delivery Price</div>
+                                    <div className="fs-15 fw-5">Price</div>
                                 </div>
                             </div>
                             <ul>
