@@ -36,6 +36,9 @@ const AddDeliveryRequest = () => {
     const [deliverySuggestions, setDeliverySuggestions] = useState([]);
     const [mapLoaded, setMapLoaded] = useState(false);
 
+    // Generate a unique transaction reference
+    const [txRef] = useState(`delivery_request_${Date.now()}`);
+
     // Fetch customer details from localStorage
     const customer = JSON.parse(localStorage.getItem('user')) || {
         name: '',
@@ -85,15 +88,23 @@ const AddDeliveryRequest = () => {
     const handlePaymentSuccess = async (response) => {
         setLoading(true);
         try {
-            // Prepare form data for submission
-            const data = new FormData();
-            Object.keys(formData).forEach((key) => {
-                if (formData[key]) {
-                    data.append(key, formData[key]);
-                }
-            });
+            // Extract tx_ref from the payment response
+            const txRefFromResponse = response.tx_ref || txRef; // Assume response.tx_ref exists
+            // Set payment_status based on response
+            const paymentStatus = response.status === 'successful' ? 'Successful' : 'Failed';
 
-            await addDeliveryRequest(data);
+            // Prepare data to send to backend
+            const dataToSend = {
+                ...formData,
+                payment_status: paymentStatus,
+                tx_ref: txRefFromResponse,
+            };
+
+            await addDeliveryRequest(dataToSend);
+
+            // Show window alert with payment status and tx_ref
+            window.alert(`Payment ${paymentStatus}. Transaction Reference: ${txRefFromResponse}`);
+
             toast.success('Delivery request added successfully.');
             navigate('/delivery-requests'); // Redirect on success
         } catch (error) {
@@ -110,8 +121,34 @@ const AddDeliveryRequest = () => {
      * @param {Object} [response] - Optional payment response object.
      */
     const handlePaymentFailure = (response) => {
-        toast.error('Payment failed or was canceled. Please try again.');
-        navigate('/delivery-request/add'); // Redirect on failure or modal close
+        // Extract tx_ref from the payment response if available
+        const txRefFromResponse = response.tx_ref || txRef; // If response does not have tx_ref, use existing txRef
+        const paymentStatus = response.status === 'failed' ? 'Failed' : 'Cancelled';
+
+        // Show window alert with payment status and tx_ref
+        window.alert(`Payment ${paymentStatus}. Transaction Reference: ${txRefFromResponse}`);
+
+        // Optionally, create a BookRider entry with payment_status 'Failed' or 'Cancelled'
+        const dataToSend = {
+            ...formData,
+            payment_status: paymentStatus,
+            tx_ref: txRefFromResponse,
+        };
+
+        setLoading(true);
+        addDeliveryRequest(dataToSend)
+            .then(() => {
+                toast.error(`Payment ${paymentStatus}.`);
+                navigate('/delivery-request/add'); // Redirect on failure
+            })
+            .catch((error) => {
+                toast.error('An error occurred while adding the delivery request.');
+                console.error('Error adding delivery request:', error);
+                navigate('/delivery-request/add'); // Redirect on failure
+            })
+            .finally(() => {
+                setLoading(false);
+            });
     };
 
     /**
@@ -478,7 +515,7 @@ const AddDeliveryRequest = () => {
                                     <div className="profile-btn">
                                         <CourierPayment
                                             amount={Number(formData.delivery_price)}
-                                            tx_ref={`delivery_request_${Date.now()}`}
+                                            tx_ref={txRef} // Use the txRef from state
                                             customer={{
                                                 email: customer.email,
                                                 phone_number: customer.phone_number,
