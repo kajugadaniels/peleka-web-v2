@@ -1,3 +1,5 @@
+// src/components/FlutterwavePayment.jsx
+
 import React from 'react';
 import { FlutterWaveButton, closePaymentModal } from 'flutterwave-react-v3';
 import PropTypes from 'prop-types';
@@ -12,8 +14,20 @@ import PropTypes from 'prop-types';
  * - customer: Object - Customer details (name, email, phone_number).
  * - onSuccess: Function - Callback for successful payment.
  * - onFailure: Function - Callback for failed payment.
+ * - buttonText: String - Text to display on the payment button.
+ * - title: String - Title for the payment modal.
+ * - description: String - Description for the payment modal.
  */
-const FlutterwavePayment = ({ amount, tx_ref, customer, onSuccess, onFailure }) => {
+const FlutterwavePayment = ({
+    amount,
+    tx_ref,
+    customer,
+    onSuccess,
+    onFailure,
+    buttonText,
+    title,
+    description,
+}) => {
     // Payment configuration using environment variables for security
     const paymentConfig = {
         public_key: import.meta.env.VITE_FLUTTERWAVE_PUBLIC_KEY,
@@ -27,8 +41,8 @@ const FlutterwavePayment = ({ amount, tx_ref, customer, onSuccess, onFailure }) 
             name: customer.name,
         },
         customizations: {
-            title: 'Rider Booking Payment',
-            description: 'Payment for your rider booking',
+            title: title,
+            description: description,
             logo: import.meta.env.VITE_FLUTTERWAVE_LOGO_URL,
         },
     };
@@ -36,7 +50,7 @@ const FlutterwavePayment = ({ amount, tx_ref, customer, onSuccess, onFailure }) 
     // Configuration for the Flutterwave button
     const fwConfig = {
         ...paymentConfig,
-        text: 'Send Rider Booking', // Matching the existing button's text
+        text: buttonText, // Using the buttonText prop
         className: 'tf-btn', // Matching the existing button's class for consistent styling
         callback: (response) => {
             console.log('Payment successful:', response);
@@ -67,6 +81,16 @@ FlutterwavePayment.propTypes = {
     }).isRequired,
     onSuccess: PropTypes.func.isRequired,
     onFailure: PropTypes.func.isRequired,
+    buttonText: PropTypes.string, // New prop
+    title: PropTypes.string, // New prop
+    description: PropTypes.string, // New prop
+};
+
+// Default props
+FlutterwavePayment.defaultProps = {
+    buttonText: 'Send Rider Booking',
+    title: 'Rider Booking Payment',
+    description: 'Payment for your rider booking',
 };
 
 export default FlutterwavePayment;
