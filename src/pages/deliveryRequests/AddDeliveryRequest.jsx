@@ -1,12 +1,12 @@
-// web/AddDeliveryRequest.jsx
-
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { addDeliveryRequest } from '../../api';
 import { toast } from 'react-toastify';
 import loadGoogleMap from '../../utils/loadGoogleMaps';
+import { CourierPayment } from '../../components';
 
 const AddDeliveryRequest = () => {
+    // Initialize form data state
     const [formData, setFormData] = useState({
         client: JSON.parse(localStorage.getItem('user'))?.id || '',
         package_name: '',
@@ -28,12 +28,20 @@ const AddDeliveryRequest = () => {
         status: 'Pending',
     });
 
+    // State variables for loading indicators
     const [loading, setLoading] = useState(false);
     const [locationLoading, setLocationLoading] = useState(false); // State for location loading
     const navigate = useNavigate();
     const [pickupSuggestions, setPickupSuggestions] = useState([]);
     const [deliverySuggestions, setDeliverySuggestions] = useState([]);
     const [mapLoaded, setMapLoaded] = useState(false);
+
+    // Fetch customer details from localStorage
+    const customer = JSON.parse(localStorage.getItem('user')) || {
+        name: '',
+        email: '',
+        phone_number: '',
+    };
 
     useEffect(() => {
         // Load Google Maps API
@@ -47,6 +55,10 @@ const AddDeliveryRequest = () => {
             });
     }, []);
 
+    /**
+     * Handles changes to input fields and updates formData state.
+     * @param {Object} e - Event object from input change.
+     */
     const handleInputChange = (e) => {
         const { name, value } = e.target;
         setFormData((prevState) => ({
@@ -55,6 +67,10 @@ const AddDeliveryRequest = () => {
         }));
     };
 
+    /**
+     * Handles changes to the image input and updates formData state.
+     * @param {Object} e - Event object from input change.
+     */
     const handleImageChange = (e) => {
         setFormData((prevState) => ({
             ...prevState,
@@ -62,27 +78,47 @@ const AddDeliveryRequest = () => {
         }));
     };
 
-    const handleAddDeliveryRequest = async (e) => {
-        e.preventDefault();
+    /**
+     * Handles adding a new delivery request after successful payment.
+     * @param {Object} response - Payment response object.
+     */
+    const handlePaymentSuccess = async (response) => {
         setLoading(true);
-        const data = new FormData();
-        Object.keys(formData).forEach((key) => {
-            if (formData[key]) {
-                data.append(key, formData[key]);
-            }
-        });
-
         try {
+            // Prepare form data for submission
+            const data = new FormData();
+            Object.keys(formData).forEach((key) => {
+                if (formData[key]) {
+                    data.append(key, formData[key]);
+                }
+            });
+
             await addDeliveryRequest(data);
             toast.success('Delivery request added successfully.');
-            navigate('/delivery-requests');
+            navigate('/delivery-requests'); // Redirect on success
         } catch (error) {
             toast.error('An error occurred while adding the delivery request.');
+            console.error('Error adding delivery request:', error);
+            navigate('/delivery-request/add'); // Redirect on failure
         } finally {
             setLoading(false);
         }
     };
 
+    /**
+     * Handles the failure of the payment process.
+     * @param {Object} [response] - Optional payment response object.
+     */
+    const handlePaymentFailure = (response) => {
+        toast.error('Payment failed or was canceled. Please try again.');
+        navigate('/delivery-request/add'); // Redirect on failure or modal close
+    };
+
+    /**
+     * Fetches address suggestions from the Nominatim API.
+     * @param {string} query - Address query string.
+     * @returns {Array} - Array of address suggestions.
+     */
     const fetchAddressSuggestions = async (query) => {
         try {
             const url = `https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(query)}&countrycodes=rw`;
@@ -94,6 +130,11 @@ const AddDeliveryRequest = () => {
         }
     };
 
+    /**
+     * Handles changes to address fields and fetches address suggestions.
+     * @param {Object} e - Event object from input change.
+     * @param {string} type - Type of address ('pickup' or 'delivery').
+     */
     const handleAddressChange = async (e, type) => {
         const query = e.target.value;
         setFormData((prevState) => ({
@@ -108,6 +149,11 @@ const AddDeliveryRequest = () => {
         }
     };
 
+    /**
+     * Handles selection of an address suggestion and updates formData state.
+     * @param {Object} suggestion - Selected address suggestion.
+     * @param {string} type - Type of address ('pickup' or 'delivery').
+     */
     const handleAddressSelect = (suggestion, type) => {
         setFormData((prevState) => ({
             ...prevState,
@@ -117,14 +163,20 @@ const AddDeliveryRequest = () => {
         }));
         type === 'pickup' ? setPickupSuggestions([]) : setDeliverySuggestions([]);
 
+        // Calculate distance and time if both pickup and delivery locations are set
         if (formData.pickup_lat && formData.delivery_lat && mapLoaded) {
             calculateDistanceAndTime();
         }
     };
 
+    /**
+     * Calculates delivery price based on distance.
+     * @param {number} distanceKm - Estimated distance in kilometers.
+     * @returns {number} - Calculated delivery price in RWF.
+     */
     const calculateDeliveryPrice = (distanceKm) => {
-        const first5kmRate = 1000;
-        const additional5kmRate = 500;
+        const first5kmRate = 1000; // RWF
+        const additional5kmRate = 500; // RWF per additional 5 km
         let totalPrice = first5kmRate;
         if (distanceKm > 5) {
             const additionalDistance = distanceKm - 5;
@@ -134,8 +186,18 @@ const AddDeliveryRequest = () => {
         return totalPrice;
     };
 
+    /**
+     * Calculates the distance and estimated delivery time using Google Maps Distance Matrix API.
+     */
     const calculateDistanceAndTime = () => {
-        if (formData.pickup_lat && formData.pickup_lng && formData.delivery_lat && formData.delivery_lng && window.google && window.google.maps) {
+        if (
+            formData.pickup_lat &&
+            formData.pickup_lng &&
+            formData.delivery_lat &&
+            formData.delivery_lng &&
+            window.google &&
+            window.google.maps
+        ) {
             const origin = new window.google.maps.LatLng(formData.pickup_lat, formData.pickup_lng);
             const destination = new window.google.maps.LatLng(formData.delivery_lat, formData.delivery_lng);
 
@@ -158,7 +220,7 @@ const AddDeliveryRequest = () => {
                             setFormData((prevState) => ({
                                 ...prevState,
                                 estimated_distance_km: distanceKm,
-                                estimated_delivery_time: durationMin,
+                                estimated_delivery_time: `${durationMin} minutes`,
                                 delivery_price: deliveryPrice,
                             }));
                         } else {
@@ -172,6 +234,9 @@ const AddDeliveryRequest = () => {
         }
     };
 
+    /**
+     * Handles fetching and setting the user's current location as the pickup address.
+     */
     const handleUseCurrentLocation = () => {
         if (!navigator.geolocation) {
             toast.error('Geolocation is not supported by your browser.');
@@ -226,6 +291,7 @@ const AddDeliveryRequest = () => {
     };
 
     useEffect(() => {
+        // Recalculate distance and time whenever relevant form data changes
         if (mapLoaded) {
             calculateDistanceAndTime();
         }
@@ -237,6 +303,22 @@ const AddDeliveryRequest = () => {
         formData.delivery_lng,
     ]);
 
+    // Form validation: Check if all required fields are filled with valid data
+    const isFormValid =
+        formData.pickup_address &&
+        formData.pickup_lat &&
+        formData.pickup_lng &&
+        formData.delivery_address &&
+        formData.delivery_lat &&
+        formData.delivery_lng &&
+        formData.estimated_distance_km &&
+        formData.estimated_delivery_time &&
+        formData.delivery_price &&
+        formData.recipient_name &&
+        formData.recipient_phone &&
+        formData.package_name &&
+        formData.value_of_product;
+
     return (
         <div className="section-setting-right section-right">
             <div className="box">
@@ -247,19 +329,18 @@ const AddDeliveryRequest = () => {
                                 <div className="profile-wrap">
                                     <div className="profile-info">
                                         <h4>Send New Delivery Request</h4>
-                                        <p>Estimated Distance: {formData.estimated_distance_km} km</p>
-                                        <p>Estimated Delivery Time: {formData.estimated_delivery_time} minutes</p>
-                                        <p>Delivery Price: {formData.delivery_price} RWF</p>
+                                        <p>Estimated Distance: {formData.estimated_distance_km || 'N/A'} km</p>
+                                        <p>Estimated Delivery Time: {formData.estimated_delivery_time || 'N/A'}</p>
+                                        <p>Delivery Price: {formData.delivery_price ? `${formData.delivery_price} RWF` : 'N/A'}</p>
                                     </div>
                                     <div className="profile-btn">
-                                        <input id="file-input" type="file" />
                                         <a href="/delivery-requests" className="btn-update tf-button-default">
                                             Go Back <i className="icon-arrow-top-right"></i>
                                         </a>
                                     </div>
                                 </div>
                             </div>
-                            <form className="shop-checkout" onSubmit={handleAddDeliveryRequest}>
+                            <form className="shop-checkout" onSubmit={(e) => e.preventDefault()}>
                                 <div className="cols mb-5">
                                     <fieldset className="tf-field">
                                         <input
@@ -270,7 +351,7 @@ const AddDeliveryRequest = () => {
                                             onChange={handleInputChange}
                                             required
                                         />
-                                        <label className="tf-field-label fs-15" htmlFor="field1">
+                                        <label className="tf-field-label fs-15" htmlFor="package_name">
                                             Package Name
                                         </label>
                                     </fieldset>
@@ -282,7 +363,7 @@ const AddDeliveryRequest = () => {
                                             onChange={handleImageChange}
                                             className="tf-input style-1"
                                         />
-                                        <label className="tf-field-label fs-15" htmlFor="field1">
+                                        <label className="tf-field-label fs-15" htmlFor="image">
                                             Image
                                         </label>
                                     </fieldset>
@@ -297,7 +378,7 @@ const AddDeliveryRequest = () => {
                                             onChange={handleInputChange}
                                             required
                                         />
-                                        <label className="tf-field-label fs-15" htmlFor="field1">
+                                        <label className="tf-field-label fs-15" htmlFor="recipient_name">
                                             Recipient Name
                                         </label>
                                     </fieldset>
@@ -310,7 +391,7 @@ const AddDeliveryRequest = () => {
                                             onChange={handleInputChange}
                                             required
                                         />
-                                        <label className="tf-field-label fs-15" htmlFor="field1">
+                                        <label className="tf-field-label fs-15" htmlFor="recipient_phone">
                                             Recipient Phone
                                         </label>
                                     </fieldset>
@@ -323,11 +404,12 @@ const AddDeliveryRequest = () => {
                                         value={formData.package_description}
                                         onChange={handleInputChange}
                                     ></textarea>
-                                    <label className="tf-field-label type-textarea fs-15" htmlFor="">
+                                    <label className="tf-field-label type-textarea fs-15" htmlFor="package_description">
                                         Package Description
                                     </label>
                                 </fieldset>
                                 <div className="cols mb-5">
+                                    {/* Pickup Address Field */}
                                     <fieldset className="tf-field relative">
                                         <input
                                             name="pickup_address"
@@ -350,10 +432,11 @@ const AddDeliveryRequest = () => {
                                                 ))}
                                             </ul>
                                         )}
-                                        <label className="tf-field-label fs-15" htmlFor="field1">
+                                        <label className="tf-field-label fs-15" htmlFor="pickup_address">
                                             Pick Up Address
                                         </label>
                                     </fieldset>
+                                    {/* Use Current Location Button */}
                                     <button
                                         type="button"
                                         onClick={handleUseCurrentLocation}
@@ -362,6 +445,7 @@ const AddDeliveryRequest = () => {
                                     >
                                         {locationLoading ? 'Locating...' : 'Use Current Location'}
                                     </button>
+                                    {/* Delivery Address Field */}
                                     <fieldset className="tf-field">
                                         <input
                                             name="delivery_address"
@@ -384,15 +468,34 @@ const AddDeliveryRequest = () => {
                                                 ))}
                                             </ul>
                                         )}
-                                        <label className="tf-field-label fs-15" htmlFor="field1">
+                                        <label className="tf-field-label fs-15" htmlFor="delivery_address">
                                             Delivery Address
                                         </label>
                                     </fieldset>
                                 </div>
-                                <button type="submit" className="tf-btn" disabled={loading}>
-                                    {loading ? 'Sending Request...' : 'Send Delivery Request'}
-                                    <i className="icon-arrow-top-right"></i>
-                                </button>
+                                {/* Payment Button */}
+                                {isFormValid ? (
+                                    <div className="profile-btn">
+                                        <CourierPayment
+                                            amount={Number(formData.delivery_price)}
+                                            tx_ref={`delivery_request_${Date.now()}`}
+                                            customer={{
+                                                email: customer.email,
+                                                phone_number: customer.phone_number,
+                                                name: customer.name,
+                                            }}
+                                            onSuccess={handlePaymentSuccess}
+                                            onFailure={handlePaymentFailure}
+                                        />
+                                    </div>
+                                ) : (
+                                    <button type="button" className="tf-btn" disabled>
+                                        Send Delivery Request
+                                        <i className="icon-arrow-top-right"></i>
+                                    </button>
+                                )}
+                                {/* Loading Indicator */}
+                                {loading && <p>Processing your delivery request...</p>}
                             </form>
                         </div>
                     </div>
