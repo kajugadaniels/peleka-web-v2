@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { addBookRider } from '../../api';
 import { toast } from 'react-toastify';
 import loadGoogleMap from '../../utils/loadGoogleMaps';
-import { FlutterWaveButton, closePaymentModal } from 'flutterwave-react-v3';
+import { FlutterwavePayment } from '../../components';
 
 const AddRiderBooking = () => {
     // Initialize form data state
@@ -255,60 +255,36 @@ const AddRiderBooking = () => {
 
     /**
      * Handles the submission of the rider booking after successful payment.
-     * @param {Object} e - Event object from form submission.
+     * @param {Object} response - Payment response object.
      */
-    const handleAddRiderBooking = async (e) => {
-        e.preventDefault();
+    const handlePaymentSuccess = async (response) => {
         setLoading(true);
         try {
+            // Optionally, you can attach the payment response to formData if needed
+            // setFormData((prevState) => ({
+            //     ...prevState,
+            //     payment_response: response,
+            // }));
+
             await addBookRider(formData);
             toast.success('Rider booking added successfully.');
-            navigate('/rider-bookings');
+            navigate('/rider-bookings'); // Redirect on success
         } catch (error) {
             toast.error('An error occurred while adding the rider booking.');
             console.error('Error adding rider booking:', error);
+            navigate('/rider-booking/add'); // Redirect on failure
         } finally {
             setLoading(false);
         }
     };
 
     /**
-     * Configures the Flutterwave payment settings.
+     * Handles the failure of the payment process.
+     * @param {Object} [response] - Optional payment response object.
      */
-    const paymentConfig = {
-        public_key: 'FLWPUBK_TEST-2c56ccd77ee3634eaff746b2e451cf2b-X', // Replace with your actual public key
-        tx_ref: `rider_booking_${Date.now()}`, // Unique transaction reference
-        amount: formData.booking_price || 0, // Amount to charge
-        currency: 'RWF', // Currency code
-        payment_options: 'card,mobilemoney,ussd', // Available payment methods
-        customer: {
-            email: customer.email || 'kajugadaniels@gmail.com', // Fetch from localStorage
-            phone_number: customer.phone_number || '0781862349', // Fetch from localStorage
-            name: customer.name || 'KAJUGA Daniels', // Fetch from localStorage
-        },
-        customizations: {
-            title: 'Rider Booking Payment',
-            description: 'Payment for your rider booking',
-            logo: 'http://localhost:5173/src/assets/img/logo/logo.svg', // Replace with your logo URL
-        },
-    };
-
-    /**
-     * Configures the Flutterwave button behavior.
-     */
-    const fwConfig = {
-        ...paymentConfig,
-        text: 'Pay with Flutterwave',
-        callback: (response) => {
-            console.log('Payment successful:', response);
-            // Close the payment modal
-            closePaymentModal();
-            // Submit the booking after successful payment
-            handleAddRiderBooking(new Event('submit'));
-        },
-        onClose: () => {
-            console.log('Payment modal closed');
-        },
+    const handlePaymentFailure = (response) => {
+        toast.error('Payment failed or was canceled. Please try again.');
+        navigate('/rider-booking/add'); // Redirect on failure or modal close
     };
 
     // Form validation: Check if all required fields are filled with valid data
@@ -344,7 +320,7 @@ const AddRiderBooking = () => {
                                     </div>
                                 </div>
                             </div>
-                            <form className="shop-checkout" onSubmit={handleAddRiderBooking}>
+                            <form className="shop-checkout" onSubmit={(e) => e.preventDefault()}>
                                 <div className="cols mb-5">
                                     {/* Pickup Address Field */}
                                     <fieldset className="tf-field relative">
@@ -413,9 +389,17 @@ const AddRiderBooking = () => {
                                 {/* Payment Button */}
                                 {isFormValid ? (
                                     <div className="profile-btn">
-                                        <button type="button" className="btn-update tf-button-default" disabled style={{ padding: '20px' }}>
-                                            <FlutterWaveButton {...fwConfig} />
-                                        </button>
+                                        <FlutterwavePayment
+                                            amount={Number(formData.booking_price)}
+                                            tx_ref={`rider_booking_${Date.now()}`}
+                                            customer={{
+                                                email: customer.email,
+                                                phone_number: customer.phone_number,
+                                                name: customer.name,
+                                            }}
+                                            onSuccess={handlePaymentSuccess}
+                                            onFailure={handlePaymentFailure}
+                                        />
                                     </div>
                                 ) : (
                                     <button type="button" className="tf-btn" disabled>
@@ -423,6 +407,8 @@ const AddRiderBooking = () => {
                                         <i className="icon-arrow-top-right"></i>
                                     </button>
                                 )}
+                                {/* Loading Indicator */}
+                                {loading && <p>Processing your booking...</p>}
                             </form>
                         </div>
                     </div>
