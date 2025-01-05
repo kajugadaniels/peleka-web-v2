@@ -260,7 +260,7 @@ const AddRiderBooking = () => {
     const handlePaymentSuccess = async (response) => {
         setLoading(true);
         try {
-            // Optionally, you can attach the payment response to formData if needed
+            // Optionally, attach the payment response to formData if needed
             // setFormData((prevState) => ({
             //     ...prevState,
             //     payment_response: response,

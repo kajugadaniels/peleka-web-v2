@@ -16,10 +16,10 @@ import PropTypes from 'prop-types';
 const FlutterwavePayment = ({ amount, tx_ref, customer, onSuccess, onFailure }) => {
     // Payment configuration using environment variables for security
     const paymentConfig = {
-        public_key: process.env.REACT_APP_FLUTTERWAVE_PUBLIC_KEY,
+        public_key: import.meta.env.VITE_FLUTTERWAVE_PUBLIC_KEY,
         tx_ref: tx_ref,
         amount: amount,
-        currency: process.env.REACT_APP_FLUTTERWAVE_CURRENCY,
+        currency: import.meta.env.VITE_FLUTTERWAVE_CURRENCY,
         payment_options: 'card,mobilemoney,ussd',
         customer: {
             email: customer.email,
@@ -29,7 +29,7 @@ const FlutterwavePayment = ({ amount, tx_ref, customer, onSuccess, onFailure }) 
         customizations: {
             title: 'Rider Booking Payment',
             description: 'Payment for your rider booking',
-            logo: process.env.REACT_APP_FLUTTERWAVE_LOGO_URL,
+            logo: import.meta.env.VITE_FLUTTERWAVE_LOGO_URL,
         },
     };
 
