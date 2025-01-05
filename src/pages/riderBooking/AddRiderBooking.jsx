@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { addBookRider } from '../../api';
 import { toast } from 'react-toastify';
 import loadGoogleMap from '../../utils/loadGoogleMaps';
-import { FlutterwavePayment } from '../../components';
+import { RiderBookingPayment } from '../../components';
 
 const AddRiderBooking = () => {
     // Initialize form data state
@@ -389,7 +389,7 @@ const AddRiderBooking = () => {
                                 {/* Payment Button */}
                                 {isFormValid ? (
                                     <div className="profile-btn">
-                                        <FlutterwavePayment
+                                        <RiderBookingPayment
                                             amount={Number(formData.booking_price)}
                                             tx_ref={`rider_booking_${Date.now()}`}
                                             customer={{
