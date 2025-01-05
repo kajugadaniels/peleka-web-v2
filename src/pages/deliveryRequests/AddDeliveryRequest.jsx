@@ -1,9 +1,11 @@
+// src/components/AddDeliveryRequest.jsx
+
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { addDeliveryRequest } from '../../api';
 import { toast } from 'react-toastify';
 import loadGoogleMap from '../../utils/loadGoogleMaps';
-import { CourierPayment } from '../../components';
+import CourierPayment from '../../components/CourierPayment'; // Corrected import statement
 
 const AddDeliveryRequest = () => {
     // Initialize form data state
